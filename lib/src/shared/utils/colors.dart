@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class CorDeFundo {
   static corFundoPadrao() {
-    List<Color> colors = [Colors.orange, Colors.red];
+    List<Color> colors = [Colors.blue, Colors.black];
     return colors;
   }
 
   static boxDecorationPadrao() => BoxDecoration(
         borderRadius: BorderRadius.circular(22),
         gradient: LinearGradient(
-          colors: [Colors.orange, Colors.red],
+          colors: [Colors.blue, Colors.black],
           begin: FractionalOffset.topCenter,
           end: FractionalOffset.bottomCenter,
         ),

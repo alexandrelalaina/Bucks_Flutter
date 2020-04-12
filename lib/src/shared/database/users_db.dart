@@ -111,13 +111,13 @@ class UserDb extends Disposable {
       print("***ERRO AO CRIAR TABELA $table_name_item_grupo !");
     }
 
-    try{
-      await db.execute(
-        'DROP TABLE $table_name_item');
-        print('Tabela DROPADA com sucesso! TABLE ($table_name_item)');
-    } catch (e) {
-      print("***ERRO AO DROPAR TABELA $table_name_item !");
-    }
+    // try{
+    //   await db.execute(
+    //     'DROP TABLE $table_name_item');
+    //     print('Tabela DROPADA com sucesso! TABLE ($table_name_item)');
+    // } catch (e) {
+    //   print("***ERRO AO DROPAR TABELA $table_name_item !");
+    // }
 
     try{
       await db.execute(
