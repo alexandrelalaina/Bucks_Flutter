@@ -1,7 +1,6 @@
-import 'package:bucks/src/classes/ItemGrupo.dart';
+import 'package:bucks/src/classes/Item_grupo.dart';
 import 'package:bucks/src/repository/bucks_db_repository.dart';
 import 'package:bucks/src/utils/constants.dart';
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 part 'item_grupo_list_controller.g.dart';

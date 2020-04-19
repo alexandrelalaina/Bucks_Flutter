@@ -1,4 +1,4 @@
-import 'package:bucks/src/classes/movtoEstoqueTipo.dart';
+import 'package:bucks/src/classes/movto_estoque_tipo.dart';
 import 'package:bucks/src/repository/bucks_db_repository.dart';
 import 'package:bucks/src/utils/constants.dart';
 import 'package:mobx/mobx.dart';

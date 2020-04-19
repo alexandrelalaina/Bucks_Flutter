@@ -26,21 +26,99 @@ mixin _$ProducaoController on _ProducaoControllerBase, Store {
     }, _$idAtom, name: '${_$idAtom.name}_set');
   }
 
-  final _$valueAtom = Atom(name: '_ProducaoControllerBase.value');
+  final _$descrAtom = Atom(name: '_ProducaoControllerBase.descr');
 
   @override
-  int get value {
-    _$valueAtom.context.enforceReadPolicy(_$valueAtom);
-    _$valueAtom.reportObserved();
-    return super.value;
+  TextEditingController get descr {
+    _$descrAtom.context.enforceReadPolicy(_$descrAtom);
+    _$descrAtom.reportObserved();
+    return super.descr;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.context.conditionallyRunInAction(() {
-      super.value = value;
-      _$valueAtom.reportChanged();
-    }, _$valueAtom, name: '${_$valueAtom.name}_set');
+  set descr(TextEditingController value) {
+    _$descrAtom.context.conditionallyRunInAction(() {
+      super.descr = value;
+      _$descrAtom.reportChanged();
+    }, _$descrAtom, name: '${_$descrAtom.name}_set');
+  }
+
+  final _$fkProducaoTipoIdAtom =
+      Atom(name: '_ProducaoControllerBase.fkProducaoTipoId');
+
+  @override
+  TextEditingController get fkProducaoTipoId {
+    _$fkProducaoTipoIdAtom.context.enforceReadPolicy(_$fkProducaoTipoIdAtom);
+    _$fkProducaoTipoIdAtom.reportObserved();
+    return super.fkProducaoTipoId;
+  }
+
+  @override
+  set fkProducaoTipoId(TextEditingController value) {
+    _$fkProducaoTipoIdAtom.context.conditionallyRunInAction(() {
+      super.fkProducaoTipoId = value;
+      _$fkProducaoTipoIdAtom.reportChanged();
+    }, _$fkProducaoTipoIdAtom, name: '${_$fkProducaoTipoIdAtom.name}_set');
+  }
+
+  final _$dtProducaoIniAtom =
+      Atom(name: '_ProducaoControllerBase.dtProducaoIni');
+
+  @override
+  TextEditingController get dtProducaoIni {
+    _$dtProducaoIniAtom.context.enforceReadPolicy(_$dtProducaoIniAtom);
+    _$dtProducaoIniAtom.reportObserved();
+    return super.dtProducaoIni;
+  }
+
+  @override
+  set dtProducaoIni(TextEditingController value) {
+    _$dtProducaoIniAtom.context.conditionallyRunInAction(() {
+      super.dtProducaoIni = value;
+      _$dtProducaoIniAtom.reportChanged();
+    }, _$dtProducaoIniAtom, name: '${_$dtProducaoIniAtom.name}_set');
+  }
+
+  final _$dtProducaoFimAtom =
+      Atom(name: '_ProducaoControllerBase.dtProducaoFim');
+
+  @override
+  TextEditingController get dtProducaoFim {
+    _$dtProducaoFimAtom.context.enforceReadPolicy(_$dtProducaoFimAtom);
+    _$dtProducaoFimAtom.reportObserved();
+    return super.dtProducaoFim;
+  }
+
+  @override
+  set dtProducaoFim(TextEditingController value) {
+    _$dtProducaoFimAtom.context.conditionallyRunInAction(() {
+      super.dtProducaoFim = value;
+      _$dtProducaoFimAtom.reportChanged();
+    }, _$dtProducaoFimAtom, name: '${_$dtProducaoFimAtom.name}_set');
+  }
+
+  final _$cdStatusAtom = Atom(name: '_ProducaoControllerBase.cdStatus');
+
+  @override
+  TextEditingController get cdStatus {
+    _$cdStatusAtom.context.enforceReadPolicy(_$cdStatusAtom);
+    _$cdStatusAtom.reportObserved();
+    return super.cdStatus;
+  }
+
+  @override
+  set cdStatus(TextEditingController value) {
+    _$cdStatusAtom.context.conditionallyRunInAction(() {
+      super.cdStatus = value;
+      _$cdStatusAtom.reportChanged();
+    }, _$cdStatusAtom, name: '${_$cdStatusAtom.name}_set');
+  }
+
+  final _$initAsyncAction = AsyncAction('init');
+
+  @override
+  Future init() {
+    return _$initAsyncAction.run(() => super.init());
   }
 
   final _$salvarAsyncAction = AsyncAction('salvar');
@@ -51,19 +129,5 @@ mixin _$ProducaoController on _ProducaoControllerBase, Store {
       @required ProducaoListController storeProducaoList}) {
     return _$salvarAsyncAction.run(
         () => super.salvar(store: store, storeProducaoList: storeProducaoList));
-  }
-
-  final _$_ProducaoControllerBaseActionController =
-      ActionController(name: '_ProducaoControllerBase');
-
-  @override
-  void increment() {
-    final _$actionInfo =
-        _$_ProducaoControllerBaseActionController.startAction();
-    try {
-      return super.increment();
-    } finally {
-      _$_ProducaoControllerBaseActionController.endAction(_$actionInfo);
-    }
   }
 }

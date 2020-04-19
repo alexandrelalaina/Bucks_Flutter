@@ -1,25 +1,17 @@
-import 'dart:ffi';
-import 'package:bucks/src/classes/producao.dart';
-import 'item.dart';
+class ProducaoItem {
+  int seq; //PK
+  int fkProducaoId; //PK
+  int fkItemId;
+  double qt;
+  double vlUnit;
+  String cdTipo; // E=Entrada S=Saida
+  String cdStatus;
 
-class ProducaoItem
-{
-  Producao fkProducaoId; //PK
-  int seq;               //PK
-  Item fkItemId;
-  Double qt;
-  Double vlUnit;
-  String cdTipo;    // E=Entrada S=Saida
-  String cdBaixado;
-  
-  ProducaoItem(this.fkProducaoId,
-               this.seq, 
-               this.fkItemId,
-               this.qt,
-               this.vlUnit,
-               this.cdTipo,
-               this.cdBaixado,
-     );
+  String descrItem;
+  String descrProducao;
+
+  ProducaoItem(this.seq, this.fkProducaoId, this.fkItemId, this.qt, this.vlUnit,
+      this.cdTipo, this.cdStatus, this.descrItem, this.descrProducao);
 
   ProducaoItem.fromJson(Map<String, dynamic> json) {
     fkProducaoId = json['fk_producao_id'];
@@ -28,7 +20,7 @@ class ProducaoItem
     qt = json['qt'];
     vlUnit = json['vl_unit'];
     cdTipo = json['cd_tipo'];
-    cdBaixado = json['cd_baixado'];
+    cdStatus = json['cd_baixado'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,8 +31,7 @@ class ProducaoItem
     data['qt'] = this.qt;
     data['vl_unit'] = this.vlUnit;
     data['cd_tipo'] = this.cdTipo;
-    data['cd_baixado'] = this.cdBaixado;
+    data['cd_status'] = this.cdStatus;
     return data;
   }
-
 }

@@ -1,86 +1,74 @@
-import 'package:bucks/src/classes/Item_tipo.dart';
 import 'package:bucks/src/classes/item.dart';
-import 'package:bucks/src/pages/item/item_controller.dart';
-import 'package:bucks/src/pages/item/item_list/item_list_controller.dart';
-import 'package:bucks/src/pages/item/widgets/buttons.dart';
-import 'package:bucks/src/pages/item/widgets/dropdown_find.dart';
+import 'package:bucks/src/pages/producao_item/producao_item_controller.dart';
+import 'package:bucks/src/pages/producao_item/producao_item_list/producao_item_list_controller.dart';
+import 'package:bucks/src/pages/producao_item/widgets/buttons.dart';
+import 'package:bucks/src/pages/producao_item/widgets/dropdown_find.dart';
 import 'package:bucks/src/shared/utils/colors.dart';
 import 'package:bucks/src/shared/widgets/card_custom.dart';
 import 'package:bucks/src/shared/widgets/text_field_app.dart';
 import 'package:bucks/src/shared/widgets/text_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:path/path.dart';
 
-class CardItem extends StatefulWidget {
-  final ItemController store;
-  final ItemListController storeItemList;
+class CardProducaoItem extends StatefulWidget {
+  final ProducaoItemController store;
+  final ProducaoItemListController storeProducaoItemList;
   BuildContext context;
 
-  CardItem(
+  CardProducaoItem(
       {Key key,
       @required this.store,
-      @required this.storeItemList,
+      @required this.storeProducaoItemList,
       BuildContext context})
       : super(key: key);
 
   @override
-  _CardItemState createState() => _CardItemState();
+  _CardProducaoItemState createState() => _CardProducaoItemState();
 }
 
-class _CardItemState extends State<CardItem> {
-  ItemController get store => widget.store;
-  ItemListController get storeItemList => widget.storeItemList;
+class _CardProducaoItemState extends State<CardProducaoItem> {
+  ProducaoItemController get store => widget.store;
+  ProducaoItemListController get storeProducaoItemList =>
+      widget.storeProducaoItemList;
   BuildContext context;
 
-String _validateSenha(String text) {
-    if (1 == 1) {
-      return "Informe a senha";
-    }
-
-    if (text.length <= 2) {
-      return "A senha não pode ser menor que 2 números";
-    }
-    return null;
-  }
-
-  CardCustom cadastroItem() {
+  CardCustom cadastroProducaoItem() {
     List<Widget> list = List();
     //list.add(CorDeFundo.ContainerDecorationPadrao(
     //    text: 'Descrição', fontSize: 20, fontWeight: FontWeight.bold));
+    list.add(CorDeFundo.ContainerDecorationPadrao(
+        text: 'ITEM', fontSize: 24, fontWeight: FontWeight.bold));
+    list.add(DropdownFindItem(store: storeProducaoItemList));
+
+    list.add(CorDeFundo.ContainerDecorationPadrao(
+        text: 'PRODUÇÃO', fontSize: 24, fontWeight: FontWeight.bold));
+    list.add(DropdownFindProducao(store: storeProducaoItemList));
+
     list.add(TextFieldApp(
-      controller: store.descricao, 
-      text: "Digite a descrição do Item",
+      controller: store.qt,
+      text: "Digite a quantidade",
     ));
 
     list.add(TextFieldApp(
-      controller: store.cdControlaEstoque,
-      text: "Digite o cd. estoque(N=SERVIÇO, S=ESTOQUE, L=LOTE)",
-      validator: _validateSenha,
+      controller: store.vlUnit,
+      text: "Digite o valor unitário",
     ));
 
-    list.add(SizedBox(height: 20));
-    list.add(CorDeFundo.ContainerDecorationPadrao(
-                  text: 'ITEM TIPO', fontSize: 24, fontWeight: FontWeight.bold));
-    list.add(DropdownFindItemTipo(
-        store: storeItemList
-      ));
-    list.add(SizedBox(height: 10));
+    list.add(TextFieldApp(
+      controller: store.cdTipoEntSai,
+      text: "Digite o cd. tipo (E = ENTRADA, S = SAÍDA)",
+    ));
 
-    list.add(CorDeFundo.ContainerDecorationPadrao(
-                  text: 'ITEM GRUPO', fontSize: 24, fontWeight: FontWeight.bold));
-    list.add(DropdownFindItemGrupo(
-        store: storeItemList
-      ));
-    list.add(SizedBox(height: 10));
+    list.add(TextFieldApp(
+      controller: store.cdStatus,
+      text: "Digite o status",
+    ));
 
-    list.add(CorDeFundo.ContainerDecorationPadrao(
-                  text: 'ITEM UN. MEDIDA', fontSize: 24, fontWeight: FontWeight.bold));
-    list.add(DropdownFindItemUnMed(
-        store: storeItemList
-      ));
-    list.add(SizedBox(height: 10));
-
-    list.add(Buttons(store: store, storeItemList: storeItemList,));
+    list.add(Buttons(
+      store: store,
+      storeProducaoItemList: storeProducaoItemList,
+    ));
     /*list.add(
       Container(
       decoration: BoxDecoration(
@@ -112,31 +100,30 @@ String _validateSenha(String text) {
 
   @override
   Widget build(BuildContext context) {
-    return cadastroItem();
+    return cadastroProducaoItem();
   }
-
 }
 
-class CardItemList extends StatefulWidget {
-  final ItemListController store;
-  final ItemTipo itemTipo;
+class CardProducaoItemList extends StatefulWidget {
+  final ProducaoItemListController store;
+  //final ItemTipo itemTipo;
 
-  const CardItemList({Key key, @required this.store, @required this.itemTipo}) : super(key: key);
+  const CardProducaoItemList({Key key, @required this.store}) : super(key: key);
 
   @override
-  _CardItemListState createState() => _CardItemListState();
+  _CardProducaoItemListState createState() => _CardProducaoItemListState();
 }
 
-class _CardItemListState extends State<CardItemList> {
-  ItemListController get store => widget.store;
-  ItemTipo itemTipo;
+class _CardProducaoItemListState extends State<CardProducaoItemList> {
+  ProducaoItemListController get store => widget.store;
+  //ItemTipo itemTipo;
 
   //dynamic get store => widget.store;
   bool sort = false;
 
   List<Item> itens;
 
- onSortColum(int columnIndex, bool ascending) {
+  onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 1) {
       if (ascending) {
         store.itens.sort((a, b) => a.descricao.compareTo(b.descricao));
@@ -146,16 +133,16 @@ class _CardItemListState extends State<CardItemList> {
     }
   }
 
-  CardCustom listaItem() {
+  CardCustom listaProducaoItem() {
     List<Widget> list = List();
     list.add(
       Observer(
         builder: (context) {
-          if (!store.hasResultsItens) {
+          if (!store.hasResultsProducaoItem) {
             return Container();
           }
 
-          if (store.itens.isEmpty) {
+          if (store.producaoItens.isEmpty) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -183,7 +170,7 @@ class _CardItemListState extends State<CardItemList> {
                     columns: [
                       DataColumn(
                         label: Text(
-                          "ID",
+                          "SEQ.",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16),
                         ),
@@ -191,7 +178,7 @@ class _CardItemListState extends State<CardItemList> {
                       ),
                       DataColumn(
                           label: Text(
-                            "DESCR",
+                            "PRODUÇÃO",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           ),
@@ -203,73 +190,84 @@ class _CardItemListState extends State<CardItemList> {
                             onSortColum(columnIndex, ascending);
                           }),
                       DataColumn(
-                          label: Text(
-                            "CD EST.",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                          ),
-                          numeric: false,
-                         ),
-                          DataColumn(
-                          label: Text(
-                            "ITEM TIPO",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                            ),
-                          ),
-                          DataColumn(
-                          label: Text(
-                            "ITEM GRUPO",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                            ),
-                          ),
-                          DataColumn(
-                          label: Text(
-                            "ITEM UN. MED.",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                            ),
-                          ),
+                        label: Text(
+                          "ITEM",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          "QT.",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          "VL. UNIT.",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          "CD. TIPO",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          "CD. STATUS.",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      ),
                     ],
-                    rows: store.itens.map((item) {
-                       
+                    rows: store.producaoItens.map((item) {
                       // var item = Item.fromJson(data);
 
                       return DataRow(cells: [
                         DataCell(
                           Text(
-                            "${item.id}",
+                            "${item.seq}",
                             style: TextStyle(fontSize: 16),
                           ),
                         ),
                         DataCell(
                           Text(
-                            "${item.descricao}",
+                            "${item.descrProducao}",
                             style: TextStyle(fontSize: 16),
                           ),
                         ),
                         DataCell(
                           Text(
-                            "${item.cdControlaEstoque}",
+                            "${item.descrItem}",
                             style: TextStyle(fontSize: 16),
                           ),
                         ),
                         DataCell(
                           Text(
-                            "${item.itemTipoDescr}",
+                            "${item.qt}",
                             style: TextStyle(fontSize: 16),
                           ),
                         ),
                         DataCell(
                           Text(
-                            "${item.itemGrupoDescr}",
+                            "${item.vlUnit}",
                             style: TextStyle(fontSize: 16),
                           ),
                         ),
                         DataCell(
                           Text(
-                            "${item.itemUnMedDescr}",
+                            "${item.cdTipo}",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                        DataCell(
+                          Text(
+                            "${item.cdStatus}",
                             style: TextStyle(fontSize: 16),
                           ),
                         ),
@@ -336,6 +334,6 @@ class _CardItemListState extends State<CardItemList> {
 
   @override
   Widget build(BuildContext context) {
-    return listaItem();
+    return listaProducaoItem();
   }
 }

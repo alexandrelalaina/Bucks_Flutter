@@ -1,7 +1,6 @@
-import 'package:bucks/src/classes/ItemGrupo.dart';
-import 'package:bucks/src/classes/ItemTipo.dart';
-import 'package:bucks/src/classes/ItemUnMed.dart';
-import 'package:bucks/src/pages/item/item_controller.dart';
+import 'package:bucks/src/classes/Item_grupo.dart';
+import 'package:bucks/src/classes/Item_tipo.dart';
+import 'package:bucks/src/classes/Item_unmed.dart';
 import 'package:bucks/src/pages/item/item_list/item_list_controller.dart';
 import 'package:bucks/src/shared/widgets/text_message.dart';
 import 'package:find_dropdown/find_dropdown.dart';

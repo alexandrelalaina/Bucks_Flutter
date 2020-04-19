@@ -1,4 +1,3 @@
-import 'package:bucks/src/classes/ItemTipo.dart';
 import 'package:bucks/src/pages/item/item_list/item_list_controller.dart';
 import 'package:bucks/src/pages/item/item_page.dart';
 import 'package:bucks/src/pages/item/widgets/card_item.dart';

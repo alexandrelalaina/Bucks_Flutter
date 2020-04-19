@@ -1,6 +1,4 @@
-import 'package:bucks/src/pages/item/item_controller.dart';
-import 'package:bucks/src/pages/item/item_list/item_list_controller.dart';
-import 'package:bucks/src/shared/widgets/flat_button_app.dart';
+import 'package:bucks/src/pages/producao_item/producao_item_list/producao_item_list_controller.dart';
 import 'package:bucks/src/shared/widgets/snackbar_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -9,12 +7,12 @@ import '../../../shared/widgets/button.dart';
 
 class Buttons extends StatefulWidget {
   final dynamic store;
-  final ItemListController storeItemList;
+  final ProducaoItemListController storeProducaoItemList;
 
   Buttons(
       {Key key,
       @required this.store,
-      @required this.storeItemList,
+      @required this.storeProducaoItemList,
       BuildContext context})
       : super(key: key);
 
@@ -24,40 +22,38 @@ class Buttons extends StatefulWidget {
 
 class _Buttons extends State<Buttons> {
   dynamic get store => widget.store;
-  ItemListController get storeItemList => widget.storeItemList;
+  ProducaoItemListController get storeProducaoItemList =>
+      widget.storeProducaoItemList;
 
   get onPressed => null;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: <Widget>[      
+      children: <Widget>[
         Expanded(
-        child:
-        Container(                 
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(22),
-          ),
-          margin: EdgeInsets.only(top: 20),
           child: Container(
-            width: 100,
-            child:           
-             AppButton(
-              "Salvar",
-              onPressedButtons,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(22),
+            ),
+            margin: EdgeInsets.only(top: 20),
+            child: Container(
+              width: 100,
+              child: AppButton(
+                "Salvar",
+                onPressedButtons,
+              ),
             ),
           ),
-        ),
         ),
       ],
     );
   }
 
-   onPressedButtons() async {
-    
-     String msgErroDropDowns = await storeItemList.validateDropDowns();
+  onPressedButtons() async {
+    String msgErroDropDowns = await storeProducaoItemList.validateDropDowns();
 
-     if (msgErroDropDowns == '' && store.descricao.text == '') {
+    /*if (msgErroDropDowns == '' && store.descricao.text == '') {
        snackbarError(context: context, msg: "Existem campos que não estão preenchidos !");
       return;
      }
@@ -72,10 +68,13 @@ class _Buttons extends State<Buttons> {
         )) {
       snackbarError(context: context, msg: "Código do estoque inválido !");
       return;
-    }
+    }*/
 
-    store.salvarItem(store: store, storeItemList: storeItemList);
-    snackbarSucces(context: context, msg: "Item inserido com sucesso !", title: "Item Inserido");
-
+    store.salvarProducaoItem(
+        store: store, storeProducaoItemList: storeProducaoItemList);
+    snackbarSucces(
+        context: context,
+        msg: "Produção Item inserido com sucesso !",
+        title: "Produção Item Inserido");
   }
 }

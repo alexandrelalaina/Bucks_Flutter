@@ -1,11 +1,9 @@
 import 'package:bucks/src/pages/producao/producao_list/producao_list_controller.dart';
-import 'package:bucks/src/pages/producao/widgets/buttonsProducao.dart';
-import 'package:bucks/src/pages/producao/widgets/card_producao_item.dart';
+import 'package:bucks/src/pages/producao/widgets/buttons.dart';
 import 'package:bucks/src/pages/producao/widgets/datatable_itens_producao.dart';
 import 'package:bucks/src/pages/producao/widgets/dropdown_find.dart';
 import 'package:bucks/src/pages/producao/widgets/producaoItemDt.dart';
 import 'package:bucks/src/shared/utils/colors.dart';
-import 'package:bucks/src/shared/widgets/button.dart';
 import 'package:bucks/src/shared/widgets/card_custom.dart';
 import 'package:bucks/src/shared/widgets/flat_button_app.dart';
 import 'package:bucks/src/shared/widgets/text_field_app.dart';
@@ -15,19 +13,19 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../producao_controller.dart';
 
-class CardProducao extends StatefulWidget {
+class CardProducaoItem extends StatefulWidget {
   final ProducaoController store;
   final ProducaoListController storeProducaoList;
 
-  const CardProducao(
+  const CardProducaoItem(
       {Key key, @required this.store, @required this.storeProducaoList})
       : super(key: key);
 
   @override
-  _CardProducaoState createState() => _CardProducaoState();
+  _CardProducaoItemState createState() => _CardProducaoItemState();
 }
 
-class _CardProducaoState extends State<CardProducao> {
+class _CardProducaoItemState extends State<CardProducaoItem> {
   ProducaoController get store => widget.store;
   ProducaoListController get storeProducaoList => widget.storeProducaoList;
 
@@ -35,59 +33,26 @@ class _CardProducaoState extends State<CardProducao> {
     List<Widget> list = List();
     List<Widget> list2 = List();
 
-    onPressedButtons() async {
-      store.salvar(
-        store: store,
-        storeProducaoList: storeProducaoList,
-      );
-    }
-
-    list.add(TextFieldApp(
-      controller: store.descr,
-      text: "Digite a descrição da Produção",
-    ));
+    list.add(CorDeFundo.ContainerDecorationPadrao(
+        text: 'Item Produção', fontSize: 24, fontWeight: FontWeight.bold));
     list.add(SizedBox(height: 10));
-
-    list.add(TextFieldApp(
-      controller: store.fkProducaoTipoId,
-      text: "Digite o Tipo da Produção",
-    ));
-    list.add(SizedBox(height: 10));
-
-    list.add(TextFieldApp(
-      controller: store.dtProducaoIni,
-      text: "Digite a Data da Produção",
-    ));
-    list.add(SizedBox(height: 10));
-
-    list.add(TextFieldApp(
-      controller: store.dtProducaoFim,
-      text: "Digite a Data do Fim da Produção",
+    list.add(DropdownFindItemEstoque(
+      store: storeProducaoList,
+      store2: store,
     ));
 
-    list.add(
-      // Container(
-      //   width: 250,
-      //   child: FlatButtonApp(
-      //     label: "Salvar Produção",
-      //     onPressed: () =>
-      //         store.salvar(store: store, storeProducaoList: storeProducaoList),
-      //   ),
-      // ),
+    //list.add(SizedBox(height: 25));
+
+    /*list.add(
       Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(22),
-        ),
-        margin: EdgeInsets.only(top: 20),
-        child: Container(
-          width: 250,
-          child: AppButton(
-            "Salvar Produção",
-            onPressedButtons,
-          ),
+        width: 250,
+        child: FlatButtonApp(
+          label: "Salvar Produção Item",
+          onPressed: () =>
+              store.salvar(store: store, storeProducaoList: storeProducaoList),
         ),
       ),
-    );
+    );*/
 
     list.add(SizedBox(height: 25));
 
@@ -219,20 +184,20 @@ class _CardProducaoListState extends State<CardProducaoList> {
   }
 }
 
-class CardButtonProducao extends StatefulWidget {
+class CardButton extends StatefulWidget {
   final dynamic store;
 
-  const CardButtonProducao({Key key, @required this.store}) : super(key: key);
+  const CardButton({Key key, @required this.store}) : super(key: key);
 
   @override
-  _CardButtonProducao createState() => _CardButtonProducao();
+  _CardButton createState() => _CardButton();
 }
 
-class _CardButtonProducao extends State<CardButtonProducao> {
+class _CardButton extends State<CardButton> {
   CardCustom buttons() {
     List<Widget> list = List();
 
-    list.add(ButtonsProducao(
+    list.add(Buttons(
       store: widget.store,
     ));
 

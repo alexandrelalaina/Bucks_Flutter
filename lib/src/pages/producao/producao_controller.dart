@@ -14,10 +14,15 @@ abstract class _ProducaoControllerBase with Store {
 
   @observable
   TextEditingController id = TextEditingController();
+  @observable
   TextEditingController descr = TextEditingController();
+  @observable
   TextEditingController fkProducaoTipoId = TextEditingController();
+  @observable
   TextEditingController dtProducaoIni = TextEditingController();
+  @observable
   TextEditingController dtProducaoFim = TextEditingController();
+  @observable
   TextEditingController cdStatus = TextEditingController();
 
   _ProducaoControllerBase() {
@@ -25,18 +30,13 @@ abstract class _ProducaoControllerBase with Store {
   }
 
   @action
-  salvar(
-      {@required ProducaoController store,
-       @required ProducaoListController storeProducaoList}) async {
-    await service.inserirProducao(store: store);
-    await storeProducaoList.listar();
-  }
-
-  @observable
-  int value = 0;
+  Future init() async {}
 
   @action
-  void increment() {
-    value++;
+  salvar(
+      {@required ProducaoController store,
+      @required ProducaoListController storeProducaoList}) async {
+    await service.inserirProducao(store: store);
+    await storeProducaoList.listar();
   }
 }

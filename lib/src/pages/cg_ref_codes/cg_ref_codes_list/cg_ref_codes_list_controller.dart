@@ -1,4 +1,4 @@
-import 'package:bucks/src/classes/cgRefCodes.dart';
+import 'package:bucks/src/classes/cg_ref_codes.dart';
 import 'package:bucks/src/repository/bucks_db_repository.dart';
 import 'package:bucks/src/utils/constants.dart';
 import 'package:mobx/mobx.dart';

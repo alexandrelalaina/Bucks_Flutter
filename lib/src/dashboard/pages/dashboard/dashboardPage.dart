@@ -2,11 +2,14 @@ import 'dart:io';
 import 'package:bucks/src/pages/cg_ref_codes/cg_ref_codes_list/cg_ref_codes_list_page.dart';
 import 'package:bucks/src/pages/gifs/ui/gifsHomePage.dart';
 import 'package:bucks/src/pages/item/item_list/item_list_page.dart';
+import 'package:bucks/src/pages/item_estoque/item_estoque_list_page.dart';
 import 'package:bucks/src/pages/item_grupo/item_grupo_list/item_grupo_list_page.dart';
 import 'package:bucks/src/pages/item_tipo/item_tipo_list/item_tipo_list_page.dart';
 import 'package:bucks/src/pages/item_unmed/item_unmed_list/item_unmed_list_page.dart';
+import 'package:bucks/src/pages/movto_estoque/movto_estoque_list_page.dart';
 import 'package:bucks/src/pages/movto_estoque/movto_estoque_tipo/movto_estoque_tipo_list/movto_estoque_tipo_list_page.dart';
 import 'package:bucks/src/pages/producao/producao_list/producao_list_page.dart';
+import 'package:bucks/src/pages/producao_item/producao_item_list/producao_item_list_page.dart';
 import 'package:bucks/src/pages/tarefa/tarefaPage.dart';
 import 'package:bucks/src/shared/utils/nav.dart';
 import 'package:bucks/src/widgets/dashboard_drawer_widget.dart';
@@ -77,8 +80,11 @@ class _DashboardMateriaisPageState extends State<DashboardMateriaisPage> {
       "Un. Medida",
       "CgRefCodes",
       "Movto Estoque Tipo",
+      "Produção Item",
       "Tarefas",
       "Gifs",
+      "Mov. Estoque",
+      "Item Estoque",
     ]);
 
     List<IconData> icons = [];
@@ -87,16 +93,19 @@ class _DashboardMateriaisPageState extends State<DashboardMateriaisPage> {
       FontAwesomeIcons.wineBottle,
       FontAwesomeIcons.prescriptionBottle,
       FontAwesomeIcons.tools,
-      FontAwesomeIcons.tools,
-      FontAwesomeIcons.tools,
+      FontAwesomeIcons.productHunt,
+      FontAwesomeIcons.clipboardList,
       // FontAwesomeIcons.wineBottle,
       // FontAwesomeIcons.prescriptionBottle,
       FontAwesomeIcons.tools,
       FontAwesomeIcons.tools,
+      FontAwesomeIcons.tools,
       FontAwesomeIcons.tasks,
       FontAwesomeIcons.gift,
+      FontAwesomeIcons.cartArrowDown,
+      FontAwesomeIcons.shopware,
       //  FontAwesomeIcons.cookieBite,
-  // FontAwesomeIcons.prescriptionBottle,
+      // FontAwesomeIcons.prescriptionBottle,
     ]);
 
     return GridView.builder(
@@ -105,8 +114,7 @@ class _DashboardMateriaisPageState extends State<DashboardMateriaisPage> {
                 screen ? 2 : orientation == Orientation.portrait ? 4 : 6),
         itemCount: applications.length,
         itemBuilder: (context, idx) {
-          return _listItem(
-              applicatiions: applications, idx: idx, icons: icons);
+          return _listItem(applicatiions: applications, idx: idx, icons: icons);
         });
     // }
   }
@@ -194,16 +202,24 @@ class _DashboardMateriaisPageState extends State<DashboardMateriaisPage> {
                   break;
                 case 5:
                   page = CgRefCodesListPage();
-                  break;                
+                  break;
                 case 6:
                   page = MovtoEstoqueTipoListPage();
                   break;
                 case 7:
-                  page = TarefaPage();
+                  page = ProducaoItemListPage();
                   break;
                 case 8:
-                  // page = GifsHomePage();
+                  page = TarefaPage();
+                  break;
+                case 9:
                   page = GifsHomePage();
+                  break;
+                case 10:
+                  page = MovtoEstoqueListPage();
+                  break;
+                case 11:
+                  page = ItemEstoqueListPage();
                   break;
                 default:
               }

@@ -1,4 +1,4 @@
-import 'package:bucks/src/classes/ItemUnMed.dart';
+import 'package:bucks/src/classes/Item_unmed.dart';
 import 'package:bucks/src/repository/bucks_db_repository.dart';
 import 'package:bucks/src/utils/constants.dart';
 import 'package:mobx/mobx.dart';

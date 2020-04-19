@@ -1,10 +1,9 @@
-import 'package:bucks/src/classes/ItemGrupo.dart';
-import 'package:bucks/src/classes/ItemTipo.dart';
-import 'package:bucks/src/classes/ItemUnMed.dart';
+import 'package:bucks/src/classes/Item_grupo.dart';
+import 'package:bucks/src/classes/Item_tipo.dart';
+import 'package:bucks/src/classes/Item_unmed.dart';
 import 'package:bucks/src/classes/item.dart';
 import 'package:bucks/src/repository/bucks_db_repository.dart';
 import 'package:bucks/src/utils/constants.dart';
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 part 'item_list_controller.g.dart';
@@ -41,10 +40,6 @@ abstract class _ItemListControllerBase with Store {
     await fetchItemTipo();
     await fetchItemGrupo();
     await fetchItemUnMed();
-  }
-
-  Future<String> retornaDescrItemTipo() async{
-    return itemTipo.descricao;
   }
 
   @action

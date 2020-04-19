@@ -1,7 +1,5 @@
-import 'package:bucks/src/classes/ItemTipo.dart';
 import 'package:bucks/src/pages/item/item_list/item_list_controller.dart';
 import 'package:bucks/src/repository/bucks_db_repository.dart';
-import 'package:bucks/src/shared/widgets/snackbar_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 

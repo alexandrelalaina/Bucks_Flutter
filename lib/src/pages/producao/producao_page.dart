@@ -1,15 +1,18 @@
 import 'package:bucks/src/pages/producao/producao_controller.dart';
 import 'package:bucks/src/pages/producao/producao_list/producao_list_controller.dart';
 import 'package:bucks/src/pages/producao/widgets/card_producao.dart';
+import 'package:bucks/src/pages/producao/widgets/card_producao_item.dart';
+import 'package:bucks/src/pages/producao/widgets/dropdown_find.dart';
+import 'package:bucks/src/pages/producao/widgets/producaoItemDt.dart';
+import 'package:bucks/src/shared/utils/colors.dart';
 import 'package:flutter/material.dart';
-
 
 class ProducaoPage extends StatefulWidget {
   final String title;
   final ProducaoListController storeProducaoList;
   const ProducaoPage(
       {Key key,
-      this.title = "Cadastro de Producao",
+      this.title = "Cadastro de Producao / Item",
       @required this.storeProducaoList})
       : super(key: key);
 
@@ -25,6 +28,7 @@ class _ProducaoPageState extends State<ProducaoPage> {
   void initState() {
     super.initState();
     store = ProducaoController();
+    storeProducaoList.producaoItensDt.clear();
   }
 
   @override
@@ -41,6 +45,24 @@ class _ProducaoPageState extends State<ProducaoPage> {
                 store: store,
                 storeProducaoList: storeProducaoList,
               ),
+              // CardProducaoItem(
+              //   store: store,
+              //   storeProducaoList: storeProducaoList,
+              // ),]
+
+              CorDeFundo.ContainerDecorationPadrao(
+                  text: 'Item Produção',
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+              SizedBox(height: 10),
+              DropdownFindItemEstoque(
+                store: storeProducaoList,
+                store2: store,
+              ),
+              ProducaoItensDt(
+                  store: store, storeProducaoListController: storeProducaoList),
+              CardButton(store: store),
+              //CardItemList(store: store, itemTipo: store.itemTipo,),
             ],
           ),
         ));
