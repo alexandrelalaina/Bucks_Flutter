@@ -103,7 +103,8 @@ abstract class _ProducaoListControllerBase with Store {
 
   @action
   Future<List<Producao>> listar() async {
-    var qtdLinhas = await serviceAlterar.listarQuantidadeLinhas(table_name_producao);
+    var qtdLinhas =
+        await serviceAlterar.listarQuantidadeLinhas(table_name_producao);
     print('qtdLinhas => $qtdLinhas');
     producoes = [];
     var future = serviceAlterar.listarProducao();

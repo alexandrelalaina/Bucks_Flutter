@@ -1,29 +1,28 @@
+import 'package:bucks/src/classes/producao_item.dart';
 import 'package:bucks/src/pages/producao/producao_controller.dart';
 import 'package:bucks/src/pages/producao/producao_list/producao_list_controller.dart';
-import 'package:bucks/src/pages/producao/widgets/card_producao_item.dart';
 import 'package:bucks/src/pages/producao/widgets/datatable_itens_producao.dart';
+import 'package:bucks/src/pages/producao/widgets/dropdown_find.dart';
 import 'package:bucks/src/shared/utils/colors.dart';
 import 'package:bucks/src/shared/widgets/card_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class ProducaoItensDt extends StatefulWidget {
-  final ProducaoController store;
-  final ProducaoListController storeProducaoListController;
+  final ProducaoListController store;
+  final ProducaoController store2;
 
-  const ProducaoItensDt({Key key, this.store, this.storeProducaoListController})
-      : super(key: key);
+  const ProducaoItensDt({Key key, this.store, this.store2}) : super(key: key);
   @override
   _ProducaoItensDtState createState() => _ProducaoItensDtState();
 }
 
 class _ProducaoItensDtState extends State<ProducaoItensDt> {
-  ProducaoController get store => widget.store;
-  ProducaoListController get storeProducaoListController =>
-      widget.storeProducaoListController;
+  ProducaoListController get store => widget.store;
+  ProducaoController get store2 => widget.store2;
   bool screen;
   Orientation orientation;
-  // List<Item> itemsList;
+  List<ProducaoItem> itemsList;
 
   // newList() => store.itemsList = Item.toJsonList(store.itemsDataTable);
 
@@ -32,25 +31,25 @@ class _ProducaoItensDtState extends State<ProducaoItensDt> {
       builder: (BuildContext context) {
         // newList();
 
-        if (!storeProducaoListController.hasResultsProducaoItemDt) {
+        if (!store.hasResultsProducaoItem) {
           return Container();
         }
 
-        if (storeProducaoListController.producaoItensDt.isEmpty) {
+        if (store.producaoItensDt.isEmpty) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text('Nenhum item inserido'),
+                child: const Text('Nenhumaaaaa item inserido nesta produção'),
               ),
             ],
           );
         }
 
         return DataTableItensProducao(
-          itensProducao: storeProducaoListController.producaoItensDt,
-          store: storeProducaoListController,
+          itensProducao: store.producaoItensDt, //store.itemsList,
+          store: store,
         );
       },
     );
@@ -58,6 +57,7 @@ class _ProducaoItensDtState extends State<ProducaoItensDt> {
 
   CardCustom listaItems() {
     List<Widget> list = List();
+
     list.add(items());
     return CardCustom(
       padding: 20,

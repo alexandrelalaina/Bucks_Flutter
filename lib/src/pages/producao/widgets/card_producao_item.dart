@@ -1,6 +1,5 @@
 import 'package:bucks/src/pages/producao/producao_list/producao_list_controller.dart';
 import 'package:bucks/src/pages/producao/widgets/buttons.dart';
-import 'package:bucks/src/pages/producao/widgets/datatable_itens_producao.dart';
 import 'package:bucks/src/pages/producao/widgets/dropdown_find.dart';
 import 'package:bucks/src/pages/producao/widgets/producaoItemDt.dart';
 import 'package:bucks/src/shared/utils/colors.dart';

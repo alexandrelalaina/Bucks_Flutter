@@ -1,3 +1,5 @@
+import 'package:bucks/src/classes/producao.dart';
+import 'package:bucks/src/pages/producao/producao_controller.dart';
 import 'package:bucks/src/pages/producao/widgets/card_producao.dart';
 import 'package:bucks/src/shared/utils/nav.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +10,9 @@ import 'producao_list_controller.dart';
 
 class ProducaoListPage extends StatefulWidget {
   final String title;
-  const ProducaoListPage({Key key, this.title = "Consulta de Producao"})
+  final Producao producao;
+  const ProducaoListPage(
+      {Key key, this.title = "Consulta de Producao", @required this.producao})
       : super(key: key);
 
   @override
@@ -17,6 +21,7 @@ class ProducaoListPage extends StatefulWidget {
 
 class _ProducaoListPageState extends State<ProducaoListPage> {
   ProducaoListController store;
+  Producao get producao => widget.producao;
 
   @override
   void initState() {
@@ -35,16 +40,20 @@ class _ProducaoListPageState extends State<ProducaoListPage> {
         scrollDirection: Axis.horizontal,
         child: Column(
           children: <Widget>[
-            CardProducaoList(store: store),
+            CardProducaoList(
+              store: store,
+            ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blueAccent,
         onPressed: () {
           push(
               context,
               ProducaoPage(
                 storeProducaoList: store,
+                producao: producao,
               ));
         },
         child: Icon(FontAwesomeIcons.plus),

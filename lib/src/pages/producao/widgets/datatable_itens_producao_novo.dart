@@ -4,20 +4,22 @@ import 'package:bucks/src/shared/widgets/card_custom.dart';
 import 'package:bucks/src/shared/widgets/snackbar_custom.dart';
 import 'package:flutter/material.dart';
 
-class DataTableItensProducao extends StatefulWidget {
+class DataTableItensProducaoNovo extends StatefulWidget {
   final List<ProducaoItem> itensProducao;
   final ProducaoListController store;
 
-  const DataTableItensProducao({
+  const DataTableItensProducaoNovo({
     Key key,
     this.itensProducao,
     this.store,
   }) : super(key: key);
   @override
-  _DataTableItensProducaoState createState() => _DataTableItensProducaoState();
+  _DataTableItensProducaoNovoState createState() =>
+      _DataTableItensProducaoNovoState();
 }
 
-class _DataTableItensProducaoState extends State<DataTableItensProducao> {
+class _DataTableItensProducaoNovoState
+    extends State<DataTableItensProducaoNovo> {
   List<ProducaoItem> get itens => widget.itensProducao;
   ProducaoListController get store => widget.store;
   //get tipoDataTable => widget.tipoDataTable;
@@ -163,67 +165,67 @@ class _DataTableItensProducaoState extends State<DataTableItensProducao> {
                         ),
                       ),
 
-                      // DataCell(
-                      //   TextField(
-                      //       keyboardType: TextInputType.text,
-                      //       textAlign: TextAlign.center,
-                      //       style: TextStyle(fontSize: 20),
-                      //       onSubmitted: (String value) async {
-                      //         //var resp = validaPorcentagem(value, data);
-                      //         setState(() {
-                      //           data.cdTipo = value;
-                      //         });
-                      //       }),
-                      // ),
-
-                      // DataCell(
-                      //   TextField(
-                      //       keyboardType: TextInputType.number,
-                      //       textAlign: TextAlign.center,
-                      //       style: TextStyle(fontSize: 20),
-                      //       onSubmitted: (String value) async {
-                      //         //var resp = validaPorcentagem(value, data);
-                      //         setState(() {
-                      //           data.qt = num.parse(value);
-                      //         });
-                      //       }),
-                      // ),
-
-                      // DataCell(
-                      //   TextField(
-                      //       keyboardType: TextInputType.number,
-                      //       textAlign: TextAlign.center,
-                      //       style: TextStyle(fontSize: 20),
-                      //       onSubmitted: (String value) async {
-                      //         //var resp = validaPorcentagem(value, data);
-                      //         setState(() {
-                      //           data.vlUnit = double.parse(value);
-                      //         });
-                      //       }),
-                      // ),
-
                       DataCell(
-                        Text(
-                          "${data.cdTipo}".toString() ?? "0",
-                          style: TextStyle(fontSize: screen ? 16 : 20),
-                        ),
+                        TextField(
+                            keyboardType: TextInputType.text,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 20),
+                            onSubmitted: (String value) async {
+                              //var resp = validaPorcentagem(value, data);
+                              setState(() {
+                                data.cdTipo = value;
+                              });
+                            }),
                       ),
 
                       DataCell(
-                        Text(
-                          //item.qtdTotal != null ? item.qtdTotal.toString() : "0",
-                          data.qt != null ? data.qt.toString() : "",
-                          //"${data.qt}".toString() ?? "0",
-                          style: TextStyle(fontSize: screen ? 16 : 20),
-                        ),
+                        TextField(
+                            keyboardType: TextInputType.number,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 20),
+                            onSubmitted: (String value) async {
+                              //var resp = validaPorcentagem(value, data);
+                              setState(() {
+                                data.qt = num.parse(value);
+                              });
+                            }),
                       ),
 
                       DataCell(
-                        Text(
-                          "${data.vlUnit}".toString() ?? "0",
-                          style: TextStyle(fontSize: screen ? 16 : 20),
-                        ),
+                        TextField(
+                            keyboardType: TextInputType.number,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 20),
+                            onSubmitted: (String value) async {
+                              //var resp = validaPorcentagem(value, data);
+                              setState(() {
+                                data.vlUnit = double.parse(value);
+                              });
+                            }),
                       ),
+
+                      // DataCell(
+                      //   Text(
+                      //     "${data.cdTipo}".toString() ?? "0",
+                      //     style: TextStyle(fontSize: screen ? 16 : 20),
+                      //   ),
+                      // ),
+
+                      // DataCell(
+                      //   Text(
+                      //     //item.qtdTotal != null ? item.qtdTotal.toString() : "0",
+                      //     data.qt != null ? data.qt.toString() : "",
+                      //     //"${data.qt}".toString() ?? "0",
+                      //     style: TextStyle(fontSize: screen ? 16 : 20),
+                      //   ),
+                      // ),
+
+                      // DataCell(
+                      //   Text(
+                      //     "${data.vlUnit}".toString() ?? "0",
+                      //     style: TextStyle(fontSize: screen ? 16 : 20),
+                      //   ),
+                      // ),
 
                       // mostrarCelula(data),
                       //mostrarCelula(item: data, valorIf: 1),

@@ -1,3 +1,4 @@
+import 'package:bucks/src/classes/producao.dart';
 import 'package:bucks/src/pages/producao/producao_list/producao_list_controller.dart';
 import 'package:bucks/src/repository/bucks_db_repository.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +11,7 @@ part 'producao_controller.g.dart';
 class ProducaoController = _ProducaoControllerBase with _$ProducaoController;
 
 abstract class _ProducaoControllerBase with Store {
+  Producao producao;
   BucksDBRepository service;
 
   @observable
@@ -30,7 +32,9 @@ abstract class _ProducaoControllerBase with Store {
   }
 
   @action
-  Future init() async {}
+  Future init() async {
+    //descr.text = "rla";
+  }
 
   @action
   salvar(

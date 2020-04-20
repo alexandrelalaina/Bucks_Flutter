@@ -163,23 +163,42 @@ class UserDb extends Disposable {
 
     try {
       await db.execute(
-          'CREATE TABLE $table_name_movto_estoque(id INTEGER PRIMARY KEY AUTOINCREMENT, '+
-                                                 'fk_item_estoque_item_id INTEGER, '+
-                                                 'fk_item_estoque_lote INTEGER, '+
-                                                 'fk_movto_estoque_tipo_id INTEGER, '+
-                                                 'dt TEXT, '+
-                                                 'qtd REAL, '+
-                                                 'vL_unit REAL, '+
-                                                 'qt_saldo_ant REAL, '+
-                                                 'qt_saldo_pos REAL, '+
-                                                 'vL_unit_ant REAL, '+
-                                                 'vL_unit_pos REAL, '+
-                                                 'fk_proditem_producao_id INTEGER, '+
-                                                 'fk_proditem_seq INTEGER '+
-                                                 ')');
+          'CREATE TABLE $table_name_movto_estoque(id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+              'fk_item_estoque_item_id INTEGER, ' +
+              'fk_item_estoque_lote INTEGER, ' +
+              'fk_movto_estoque_tipo_id INTEGER, ' +
+              'dt TEXT, ' +
+              'qtd REAL, ' +
+              'vL_unit REAL, ' +
+              'qt_saldo_ant REAL, ' +
+              'qt_saldo_pos REAL, ' +
+              'vL_unit_ant REAL, ' +
+              'vL_unit_pos REAL, ' +
+              'fk_proditem_producao_id INTEGER, ' +
+              'fk_proditem_seq INTEGER ' +
+              ')');
     } catch (e) {
       print("***ERRO AO CRIAR TABELA $table_name_movto_estoque !");
     }
+
+    // pause
+    final sql =
+        'insert or replace into $table_name_item(cd, descricao, cdControlaEstoque, fkItemTipoId, fkItemGrupoId, fkItemUnmedId) VALUES (?,?,?,?,?,?)';
+    print(sql);
+
+    var dbClient = await db;
+    var id = await dbClient.rawInsert(sql, ['1', "Item 1", "S", 1, 1, 1]);
+
+    final sql2 =
+        'insert or replace into $table_name_item_estoque(fk_item_id, lote, qt_saldo, vl_unit, qt_reservado) VALUES (?,?,?,?,?)';
+
+    var id2 = await dbClient.rawInsert(sql2, [
+      1,
+      1,
+      10,
+      1,
+      1,
+    ]);
 
     // await db.execute(
     //     'CREATE TABLE reports(numSeq INTEGER PRIMARY KEY, nome TEXT, objNome TEXT, dtCad TEXT, username TEXT, path TEXT)');

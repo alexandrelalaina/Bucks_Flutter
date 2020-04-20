@@ -1,10 +1,12 @@
+import 'package:bucks/src/classes/producao.dart';
 import 'package:bucks/src/pages/producao/producao_list/producao_list_controller.dart';
+import 'package:bucks/src/pages/producao/producao_page.dart';
 import 'package:bucks/src/pages/producao/widgets/buttonsProducao.dart';
 import 'package:bucks/src/pages/producao/widgets/card_producao_item.dart';
-import 'package:bucks/src/pages/producao/widgets/datatable_itens_producao.dart';
 import 'package:bucks/src/pages/producao/widgets/dropdown_find.dart';
 import 'package:bucks/src/pages/producao/widgets/producaoItemDt.dart';
 import 'package:bucks/src/shared/utils/colors.dart';
+import 'package:bucks/src/shared/utils/nav.dart';
 import 'package:bucks/src/shared/widgets/button.dart';
 import 'package:bucks/src/shared/widgets/card_custom.dart';
 import 'package:bucks/src/shared/widgets/flat_button_app.dart';
@@ -12,15 +14,21 @@ import 'package:bucks/src/shared/widgets/text_field_app.dart';
 import 'package:bucks/src/shared/widgets/text_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mobx/mobx.dart';
 
 import '../producao_controller.dart';
 
 class CardProducao extends StatefulWidget {
   final ProducaoController store;
   final ProducaoListController storeProducaoList;
+  final Producao producao;
 
   const CardProducao(
-      {Key key, @required this.store, @required this.storeProducaoList})
+      {Key key,
+      @required this.store,
+      @required this.storeProducaoList,
+      @required this.producao})
       : super(key: key);
 
   @override
@@ -30,10 +38,20 @@ class CardProducao extends StatefulWidget {
 class _CardProducaoState extends State<CardProducao> {
   ProducaoController get store => widget.store;
   ProducaoListController get storeProducaoList => widget.storeProducaoList;
+  Producao get producao => widget.producao;
 
   CardCustom cadastroProducao() {
     List<Widget> list = List();
     List<Widget> list2 = List();
+
+    if (producao != null) {
+      store.id.text = producao.id.toString();
+      store.descr.text = producao.descr;
+      store.fkProducaoTipoId.text = producao.fkProducaoTipoId.toString();
+      store.dtProducaoIni.text = producao.dtProducaoIni;
+      store.dtProducaoFim.text = producao.dtProducaoFim;
+      store.cdStatus.text = producao.cdStatus;
+    }
 
     onPressedButtons() async {
       store.salvar(
@@ -42,6 +60,7 @@ class _CardProducaoState extends State<CardProducao> {
       );
     }
 
+    //if(producao.descr == null){
     list.add(TextFieldApp(
       controller: store.descr,
       text: "Digite a descrição da Produção",
@@ -90,6 +109,7 @@ class _CardProducaoState extends State<CardProducao> {
     );
 
     list.add(SizedBox(height: 25));
+    // }
 
     return CardCustom(
       padding: 20,
@@ -140,6 +160,10 @@ class _CardProducaoListState extends State<CardProducaoList> {
         return DataTable(
           columns: [
             DataColumn(
+              label: Text(""),
+              numeric: false,
+            ),
+            DataColumn(
               label: Text("ID"),
               numeric: false,
             ),
@@ -168,6 +192,18 @@ class _CardProducaoListState extends State<CardProducaoList> {
               .map(
                 (producao) => DataRow(
                   cells: [
+                    DataCell(
+                      IconButton(
+                        icon: Icon(FontAwesomeIcons.pen),
+                        onPressed: () {
+                          push(
+                              context,
+                              ProducaoPage(
+                                  storeProducaoList: store,
+                                  producao: producao));
+                        },
+                      ),
+                    ),
                     DataCell(
                       Text(producao.id.toString()),
                     ),
