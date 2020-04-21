@@ -13,8 +13,11 @@ class ProducaoListController = _ProducaoListControllerBase
     with _$ProducaoListController;
 
 abstract class _ProducaoListControllerBase with Store {
-  ItemEstoqueDAO service;
+  // DAO
+  ItemEstoqueDAO itemEstoqueDAO;
   BucksDBRepository serviceAlterar;
+
+  // Controller
   ProducaoController storeProducaoController;
 
   @observable
@@ -39,7 +42,7 @@ abstract class _ProducaoListControllerBase with Store {
   Producao producao;
 
   _ProducaoListControllerBase() {
-    service = service ?? ItemEstoqueDAO();
+    itemEstoqueDAO = itemEstoqueDAO ?? ItemEstoqueDAO();
     serviceAlterar = serviceAlterar ?? BucksDBRepository();
   }
 
@@ -51,7 +54,7 @@ abstract class _ProducaoListControllerBase with Store {
   @action
   Future<List<ItemEstoque>> listarItemEstoque() async {
     itemsEstoque = [];
-    var future = service.listarItemEstoque();
+    var future = itemEstoqueDAO.listarItemEstoque();
     itemEstoqueList = ObservableFuture<List<ItemEstoque>>(future);
     itemsEstoque = await future;
     return itemsEstoque;
