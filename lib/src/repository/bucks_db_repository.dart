@@ -363,6 +363,7 @@ class BucksDBRepository extends Disposable {
   // CG_REF_CODES
   //---------------------------------------------------------//
 
+  // TODO alterar para objetos
   Future<int> inserirCgRefCodes({@required CgRefCodesController store}) async {
     var dbClient = await db;
 
@@ -381,6 +382,8 @@ class BucksDBRepository extends Disposable {
     return id;
   }
 
+  
+/*  
   Future<List<CgRefCodes>> listarCgRefCodes() async {
     final dbClient = await db;
     final result =
@@ -389,6 +392,7 @@ class BucksDBRepository extends Disposable {
         result.map<CgRefCodes>((json) => CgRefCodes.fromJson(json)).toList();
     return list;
   }
+*/
 
   //---------------------------------------------------------//
   // MOVTO_ESTOQUE_TIPO

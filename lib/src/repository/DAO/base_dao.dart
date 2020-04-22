@@ -9,10 +9,10 @@ abstract class BaseDAO<T extends EntityBase> {
   String get tableName;
 
   String get sqlComJoin;
-  
 
   T fromJson(Map<String, dynamic> map);
 
+  // TODO -- alterar para salvar
   Future<int> save (T entity) async {
     var dbClient = await db;
     var id = await dbClient.insert(tableName, entity.toJson(),
@@ -22,6 +22,7 @@ abstract class BaseDAO<T extends EntityBase> {
   }
 
   // passar a PK - se for composta tem que implementar as colunas
+  // TODO -- alterar para deletar
   Future<int> delete (int id) async {
     var dbClient = await db;
     return await dbClient.rawDelete("delete from $tableName "+
@@ -29,17 +30,20 @@ abstract class BaseDAO<T extends EntityBase> {
   }
 
   // passar a PK - se for composta tem que implementar as colunas
+  // TODO -- alterar para deletarTodos
   Future<int> deleteAll () async {
     var dbClient = await db;
     return await dbClient.rawDelete("delete from $tableName ");
   }
 
+  // TODO -- alterar para consultar
   Future<List<T>> query(String sql, [List<dynamic> arguments] ) async {
     final dbClient = await db;
     final list = await dbClient.rawQuery(sql, arguments);
     return list.map<T>((json) => fromJson(json)).toList();
   }
 
+  // TODO -- alterar para consultarTodos
   Future<List<T>> findAll() {
     return query('$sqlComJoin');
     // return query('select * from $tableName');
@@ -47,6 +51,7 @@ abstract class BaseDAO<T extends EntityBase> {
   }
 
   // passar a PK - se for composta tem que implementar as colunas
+  // TODO -- alterar para consultarPorPk
   Future<T> findPorPk(int id) async {
     List<T> list = await query('select * from $tableName where id = ? ', [id]);
     return list.length > 0 ? list.first : null;

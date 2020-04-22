@@ -1,4 +1,6 @@
-class CgRefCodes
+import 'package:bucks/src/classes/entity_base.dart';
+
+class CgRefCodes extends EntityBase
 {
   int id;
   String rvDommain;

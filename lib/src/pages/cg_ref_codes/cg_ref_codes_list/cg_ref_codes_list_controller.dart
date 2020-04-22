@@ -1,6 +1,5 @@
 import 'package:bucks/src/classes/cg_ref_codes.dart';
-import 'package:bucks/src/repository/bucks_db_repository.dart';
-import 'package:bucks/src/utils/constants.dart';
+import 'package:bucks/src/repository/DAO/cg_ref_codes_dao.dart';
 import 'package:mobx/mobx.dart';
 
 part 'cg_ref_codes_list_controller.g.dart';
@@ -9,12 +8,13 @@ class CgRefCodesListController = _CgRefCodesListControllerBase
     with _$CgRefCodesListController;
 
 abstract class _CgRefCodesListControllerBase with Store {
-  BucksDBRepository service;
+  CgRefCodesDAO cgRefCodesDAO;
+
   @observable
   List<CgRefCodes> regList = [];
 
   _CgRefCodesListControllerBase() {
-    service = service ?? BucksDBRepository();
+    cgRefCodesDAO = cgRefCodesDAO ?? CgRefCodesDAO();
   }
 
   void init() async {
@@ -23,10 +23,10 @@ abstract class _CgRefCodesListControllerBase with Store {
 
   @action
   Future<List<CgRefCodes>> listar() async {
-    var qtdLinhas = await service.listarQuantidadeLinhas(table_name_cg_ref_codes);
+    var qtdLinhas = await cgRefCodesDAO.count();
     print('qtdLinhas => $qtdLinhas');
     regList = [];
-    var future = service.listarCgRefCodes();
+    var future = cgRefCodesDAO.findAll();
     regListObs = ObservableFuture<List<CgRefCodes>>(future);
     return regList = await future;
   }
