@@ -1,5 +1,5 @@
 import 'package:bucks/src/classes/item_grupo.dart';
-import 'package:bucks/src/utils/constants.dart';
+import 'package:bucks/src/shared/utils/constants.dart';
 
 import 'base_dao.dart';
 

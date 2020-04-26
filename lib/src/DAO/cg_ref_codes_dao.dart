@@ -1,6 +1,6 @@
 import 'package:bucks/src/classes/cg_ref_codes.dart';
-import 'package:bucks/src/repository/DAO/base_dao.dart';
-import 'package:bucks/src/utils/constants.dart';
+import 'package:bucks/src/shared/utils/constants.dart';
+import 'base_dao.dart';
 
 class CgRefCodesDAO extends BaseDAO<CgRefCodes> {
   

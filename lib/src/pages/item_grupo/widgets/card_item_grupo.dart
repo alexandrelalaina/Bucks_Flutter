@@ -70,6 +70,7 @@ class _CardItemGrupoListState extends State<CardItemGrupoList> {
 
   CardCustom listaItemGrupo() {
     List<Widget> list = List();
+  
     list.add(
       Observer(builder: (context) {
         if (!store.hasResultsItensGrupo) {
@@ -87,44 +88,73 @@ class _CardItemGrupoListState extends State<CardItemGrupoList> {
             ],
           );
         }
-        return DataTable(
-          columns: [
-            DataColumn(
-              label: Text("ID"),
-              numeric: false,
-            ),
-            DataColumn(
-              label: Text("DESCRIÇÃO"),
-              numeric: false,
-            ),
-          ],
-          rows: store.itensGrupo
-              .map(
-                (itemGrupo) => DataRow(
-                  cells: [
-                    DataCell(
-                      Text(itemGrupo.id.toString()),
+
+        return Container(
+          child: Expanded(
+            child: ListView.builder(
+              itemCount: store.itensGrupo.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  color: index % 2 == 0 ? Colors.grey[100] : Colors.white, // if current item is selected show blue color
+                  child: Dismissible(
+                    background: Container(
+                      color: Colors.red[300],
+                      child: Align(
+                        alignment: Alignment(-0.9, 0.0),
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                      ),
+                      ),
+                    direction: DismissDirection.startToEnd,
+                    key: ObjectKey(store.itensGrupo[index]),
+                    child: Container(
+                      padding: EdgeInsets.all(20.0),
+                      child: Text(store.itensGrupo[index].descr),
                     ),
-                    DataCell(
-                      Text(itemGrupo.descr),
-                    ),
-                  ],
-                ),
-              )
-              .toList(),
+                    onDismissed: (direction){
+                      setState(() {
+                        _deletar(store.itensGrupo[index].id);
+                        store.itensGrupo.removeAt(index);
+                      });
+                      }
+                  ),
+                );
+              },
+            ),
+          ),
         );
+
+        // return DataTable(
+        //   columns: [
+        //     DataColumn(
+        //       label: Text("ID"),
+        //       numeric: false,
+        //     ),
+        //     DataColumn(
+        //       label: Text("DESCRIÇÃO"),
+        //       numeric: false,
+        //     ),
+        //   ],
+        //   rows: store.itensGrupo
+        //       .map(
+        //         (itemGrupo) => DataRow(
+        //           cells: [
+        //             DataCell(
+        //               Text(itemGrupo.id.toString()),
+        //             ),
+        //             DataCell(
+        //               Text(itemGrupo.descr),
+        //             ),
+        //           ],
+        //         ),
+        //       )
+        //       .toList(),
+
+        // );
       }),
     );
-    // list.add(SizedBox(height: 10));
-    // list.add(
-    //   Container(
-    //     width: 250,
-    //     child: FlatButtonApp(
-    //       label: "Salvar",
-    //       onPressed: () => store.salvarFarmacia(store: store),
-    //     ),
-    //   ),
-    // );
 
     return CardCustom(
       padding: 20,
@@ -139,4 +169,9 @@ class _CardItemGrupoListState extends State<CardItemGrupoList> {
   Widget build(BuildContext context) {
     return listaItemGrupo();
   }
+
+  Future<int> _deletar(int pId) async {
+    return await store.itemGrupoDAO.deletar(pId);
+  }
+
 }

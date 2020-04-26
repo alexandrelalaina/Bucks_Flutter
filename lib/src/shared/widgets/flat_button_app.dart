@@ -1,4 +1,4 @@
-import 'package:bucks/src/theme/light.theme.dart';
+import 'package:bucks/src/shared/theme/light.theme.dart';
 import 'package:flutter/material.dart';
 
 class FlatButtonApp extends StatelessWidget {

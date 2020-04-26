@@ -1,5 +1,5 @@
+import 'package:bucks/src/DAO/item_unmed_dao.dart';
 import 'package:bucks/src/classes/item_unmed.dart';
-import 'package:bucks/src/repository/DAO/item_unmed_dao.dart';
 import 'package:mobx/mobx.dart';
 
 part 'item_unmed_list_controller.g.dart';

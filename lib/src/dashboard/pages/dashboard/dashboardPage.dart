@@ -9,11 +9,10 @@ import 'package:bucks/src/pages/item_unmed/item_unmed_list/item_unmed_list_page.
 import 'package:bucks/src/pages/movto_estoque/movto_estoque_list_page.dart';
 import 'package:bucks/src/pages/movto_estoque/movto_estoque_tipo/movto_estoque_tipo_list/movto_estoque_tipo_list_page.dart';
 import 'package:bucks/src/pages/producao/producao_list/producao_list_page.dart';
-import 'package:bucks/src/pages/producao_item/producao_item_list/producao_item_list_page.dart';
 import 'package:bucks/src/pages/receita/receita_page.dart';
 import 'package:bucks/src/pages/tarefa/tarefaPage.dart';
 import 'package:bucks/src/shared/utils/nav.dart';
-import 'package:bucks/src/widgets/dashboard_drawer_widget.dart';
+import 'package:bucks/src/shared/widgets/dashboard_drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

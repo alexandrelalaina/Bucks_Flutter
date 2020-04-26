@@ -1,5 +1,5 @@
+import 'package:bucks/src/DAO/cg_ref_codes_dao.dart';
 import 'package:bucks/src/classes/cg_ref_codes.dart';
-import 'package:bucks/src/repository/DAO/cg_ref_codes_dao.dart';
 import 'package:mobx/mobx.dart';
 
 part 'cg_ref_codes_list_controller.g.dart';

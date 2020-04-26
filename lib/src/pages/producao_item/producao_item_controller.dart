@@ -1,5 +1,5 @@
+import 'package:bucks/src/DAO/producao_item_dao.dart';
 import 'package:bucks/src/pages/producao_item/producao_item_list/producao_item_list_controller.dart';
-import 'package:bucks/src/repository/DAO/producao_item_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 

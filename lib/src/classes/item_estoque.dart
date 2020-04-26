@@ -17,9 +17,6 @@ class ItemEstoque extends EntityBase
   String fkItemUnmedDescr;
   int fkItemTipoId;
   String fkItemTipoDescr;
-
-  // TODO ... deletar
-  String descrItem;
   
   ItemEstoque({this.fkItemId
     , this.lote
@@ -43,9 +40,6 @@ class ItemEstoque extends EntityBase
     fkItemUnmedDescr = json['fk_item_unmed_descr'];
     fkItemTipoId = json['fk_item_tipo_id'];
     fkItemTipoDescr = json['fk_item_tipo_descr'];
-
-    // TODO deletar
-    descrItem = fkItemDescr;
   }
 
   @override

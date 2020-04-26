@@ -1,8 +1,8 @@
-import 'package:bucks/src/repository/DAO/movto_estoque_tipo.dart';
+import 'package:bucks/src/DAO/movto_estoque_tipo.dart';
+import 'package:bucks/src/classes/movto_estoque_tipo.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../classes/movto_estoque_tipo.dart';
 import 'movto_estoque_tipo_list/movto_estoque_tipo_list_controller.dart';
 
 part 'movto_estoque_tipo_controller.g.dart';

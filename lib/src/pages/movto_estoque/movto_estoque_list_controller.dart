@@ -1,5 +1,5 @@
+import 'package:bucks/src/DAO/movto_estoque_dao.dart';
 import 'package:bucks/src/classes/movto_estoque.dart';
-import 'package:bucks/src/repository/DAO/movto_estoque_dao.dart';
 import 'package:mobx/mobx.dart';
 
 part 'movto_estoque_list_controller.g.dart';

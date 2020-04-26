@@ -1,10 +1,9 @@
+import 'package:bucks/src/DAO/item_dao.dart';
+import 'package:bucks/src/DAO/producao_dao.dart';
+import 'package:bucks/src/DAO/producao_item_dao.dart';
 import 'package:bucks/src/classes/item.dart';
 import 'package:bucks/src/classes/producao.dart';
 import 'package:bucks/src/classes/producao_item.dart';
-import 'package:bucks/src/repository/DAO/item_dao.dart';
-import 'package:bucks/src/repository/DAO/producao_dao.dart';
-import 'package:bucks/src/repository/DAO/producao_item_dao.dart';
-import 'package:bucks/src/utils/constants.dart';
 import 'package:mobx/mobx.dart';
 
 part 'producao_item_list_controller.g.dart';

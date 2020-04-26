@@ -1,9 +1,8 @@
+import 'package:bucks/src/DAO/item_dao.dart';
+import 'package:bucks/src/classes/item.dart';
 import 'package:bucks/src/pages/item/item_list/item_list_controller.dart';
-import 'package:bucks/src/repository/DAO/item_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-
-import '../../classes/item.dart';
 
 part 'item_controller.g.dart';
 

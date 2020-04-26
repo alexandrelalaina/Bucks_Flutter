@@ -1,14 +1,12 @@
 import 'dart:io';
-
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:bucks/src/classes/login_model.dart';
-import 'package:bucks/src/services/core_service.dart';
+import 'package:bucks/src/shared/services/core_service.dart';
 import 'package:bucks/src/shared/utils/finger_print.dart';
 import 'package:bucks/src/shared/utils/response.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'dart:convert' as convert;
-import 'package:http/http.dart' as http;
 
 class LoginRepository extends Disposable {
 

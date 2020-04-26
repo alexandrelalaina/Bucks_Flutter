@@ -1,5 +1,5 @@
+import 'package:bucks/src/DAO/item_grupo_dao.dart';
 import 'package:bucks/src/classes/item_grupo.dart';
-import 'package:bucks/src/repository/DAO/item_grupo_dao.dart';
 import 'package:mobx/mobx.dart';
 
 part 'item_grupo_list_controller.g.dart';

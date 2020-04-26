@@ -70,7 +70,7 @@ class _DropdownFindItemTipoState extends State<DropdownFindItemTipo> {
                     )
                   : ListTile(
                       title: Text(
-                        '${item.id.toString()} - ${item.descr}',
+                        '${item.id.toString()} - ${item.descr} pause1',
                         style: TextStyle(fontSize: 24),
                       ),
                       // subtitle: Text(item.empresaDescr),
@@ -92,7 +92,7 @@ class _DropdownFindItemTipoState extends State<DropdownFindItemTipo> {
                   ListTile(
                     selected: isSelected,
                     title: Text(
-                      '${item.id.toString()} - ${item.descr}',
+                      '${item.id.toString()} - ${item.descr} pause2',
                       style: TextStyle(fontSize: 24),
                     ),
                     // subtitle: Text(item.empresaDescr),
@@ -172,7 +172,7 @@ class _DropdownFindItemGrupoState extends State<DropdownFindItemGrupo> {
                     )
                   : ListTile(
                       title: Text(
-                        '${item.id.toString()} - ${item.descr}',
+                        '${item.id.toString()} - ${item.descr} pause3',
                         style: TextStyle(fontSize: 24),
                       ),
                       // subtitle: Text(item.empresaDescr),
@@ -194,7 +194,7 @@ class _DropdownFindItemGrupoState extends State<DropdownFindItemGrupo> {
                   ListTile(
                     selected: isSelected,
                     title: Text(
-                      '${item.id.toString()} - ${item.descr}',
+                      '${item.id.toString()} - ${item.descr} pause4',
                       style: TextStyle(fontSize: 24),
                     ),
                     // subtitle: Text(item.empresaDescr),
@@ -274,7 +274,7 @@ class _DropdownFindItemUnMedState extends State<DropdownFindItemUnMed> {
                     )
                   : ListTile(
                       title: Text(
-                        '${item.id.toString()} - ${item.descr}',
+                        '${item.id.toString()} - ${item.descr} pause5',
                         style: TextStyle(fontSize: 24),
                       ),
                       // subtitle: Text(item.empresaDescr),
@@ -296,7 +296,7 @@ class _DropdownFindItemUnMedState extends State<DropdownFindItemUnMed> {
                   ListTile(
                     selected: isSelected,
                     title: Text(
-                      '${item.id.toString()} - ${item.descr}',
+                      '${item.id.toString()} - ${item.descr} pause6',
                       style: TextStyle(fontSize: 24),
                     ),
                     // subtitle: Text(item.empresaDescr),

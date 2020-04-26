@@ -16,7 +16,7 @@ class ItemGrupoListPage extends StatefulWidget {
 
 class _ItemGrupoListPageState extends State<ItemGrupoListPage> {
   ItemGrupoListController store;
-
+  
   @override
   void initState() {
     super.initState();
@@ -30,14 +30,15 @@ class _ItemGrupoListPageState extends State<ItemGrupoListPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: <Widget>[
-            CardItemGrupoList(store: store),
-          ],
-        ),
-      ),
+      // body: SingleChildScrollView(
+      //   scrollDirection: Axis.vertical,
+      //   child: Column(
+      //     children: <Widget>[
+      //       CardItemGrupoList(store: store),
+      //     ],
+      //   ),
+      // ),
+      body: CardItemGrupoList(store: store),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           push(
@@ -50,4 +51,5 @@ class _ItemGrupoListPageState extends State<ItemGrupoListPage> {
       ),
     );
   }
+
 }

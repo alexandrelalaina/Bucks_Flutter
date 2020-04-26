@@ -1,10 +1,10 @@
+import 'package:bucks/src/DAO/item_estoque_dao.dart';
+import 'package:bucks/src/DAO/producao_dao.dart';
+import 'package:bucks/src/DAO/producao_item_dao.dart';
 import 'package:bucks/src/classes/item_estoque.dart';
 import 'package:bucks/src/classes/producao.dart';
 import 'package:bucks/src/classes/producao_item.dart';
 import 'package:bucks/src/pages/producao/producao_controller.dart';
-import 'package:bucks/src/repository/DAO/item_estoque_dao.dart';
-import 'package:bucks/src/repository/DAO/producao_dao.dart';
-import 'package:bucks/src/repository/DAO/producao_item_dao.dart';
 import 'package:mobx/mobx.dart';
 
 part 'producao_list_controller.g.dart';
@@ -56,7 +56,8 @@ abstract class _ProducaoListControllerBase with Store {
   @action
   Future<List<ItemEstoque>> listarItemEstoque() async {
     itemsEstoque = [];
-    var future = itemEstoqueDAO.listarItemEstoque();
+    var future = itemEstoqueDAO.listarTodos();
+    // var future = itemEstoqueDAO.listarItemEstoque();
     itemEstoqueList = ObservableFuture<List<ItemEstoque>>(future);
     itemsEstoque = await future;
     return itemsEstoque;
@@ -150,7 +151,7 @@ abstract class _ProducaoListControllerBase with Store {
     if (item != "") {
       itemsEstoque.forEach((v) {
         if (v.fkItemId.toString().toUpperCase().contains(item.toUpperCase()) ||
-            v.descrItem.toString().contains(item)) listAux.add(v);
+            v.fkItemDescr.toString().contains(item)) listAux.add(v);
       });
     }
     if (listAux.isEmpty)

@@ -1,5 +1,5 @@
+import 'package:bucks/src/DAO/item_tipo_dao.dart';
 import 'package:bucks/src/classes/item_tipo.dart';
-import 'package:bucks/src/repository/DAO/item_tipo_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 

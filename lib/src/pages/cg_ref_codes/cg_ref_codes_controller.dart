@@ -1,7 +1,7 @@
+import 'package:bucks/src/DAO/cg_ref_codes_dao.dart';
+import 'package:bucks/src/classes/cg_ref_codes.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import '../../classes/cg_ref_codes.dart';
-import '../../repository/DAO/cg_ref_codes_dao.dart';
 import 'cg_ref_codes_list/cg_ref_codes_list_controller.dart';
 
 part 'cg_ref_codes_controller.g.dart';

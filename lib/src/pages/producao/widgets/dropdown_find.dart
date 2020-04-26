@@ -46,6 +46,7 @@ class _DropdownFindProducaoState extends State<DropdownFindItemEstoque> {
             ],
           );
         }
+
         ItemEstoque itemSelect;
         if (store.itemEstoque != null) {
           itemSelect = store.itemEstoque;
@@ -58,7 +59,7 @@ class _DropdownFindProducaoState extends State<DropdownFindItemEstoque> {
           },
           onChanged: (ItemEstoque data) async {
             await store.setLixo();
-            bool jaPossuiItem = store.validaDataTablePossuiItem(data.descrItem);
+            bool jaPossuiItem = store.validaDataTablePossuiItem(data.fkItemDescr);
 
             if (jaPossuiItem) {
               snackbarInfoWithoutDuration(
@@ -70,7 +71,7 @@ class _DropdownFindProducaoState extends State<DropdownFindItemEstoque> {
               await store.setProducao(data, store2.descr.text);
             }
 
-            print(data.descrItem);
+            print(data.fkItemDescr);
           },
           dropdownBuilder: (BuildContext context, ItemEstoque item) {
             return Container(
@@ -88,7 +89,8 @@ class _DropdownFindProducaoState extends State<DropdownFindItemEstoque> {
                     )
                   : ListTile(
                       title: Text(
-                        '${item.fkItemId.toString()} - ${item.descrItem}',
+                        '${item.fkItemId.toString()} - ${item.fkItemDescr}',
+                        // '${item.fkItemId.toString()} - ${item.descrItem}',
                         style: TextStyle(fontSize: 24),
                       ),
                       // subtitle: Text(item.empresaDescr),
@@ -110,7 +112,7 @@ class _DropdownFindProducaoState extends State<DropdownFindItemEstoque> {
                   ListTile(
                     selected: isSelected,
                     title: Text(
-                      '${item.fkItemId.toString()} - ${item.descrItem}',
+                      '${item.fkItemId.toString()} - ${item.fkItemDescr}',
                       style: TextStyle(fontSize: 24),
                     ),
                     // subtitle: Text(item.empresaDescr),

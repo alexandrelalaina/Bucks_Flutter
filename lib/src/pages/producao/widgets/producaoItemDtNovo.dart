@@ -1,8 +1,6 @@
 import 'package:bucks/src/pages/producao/producao_controller.dart';
 import 'package:bucks/src/pages/producao/producao_list/producao_list_controller.dart';
-import 'package:bucks/src/pages/producao/widgets/card_producao_item.dart';
 import 'package:bucks/src/pages/producao/widgets/datatable_itens_producao_novo.dart';
-import 'package:bucks/src/shared/utils/colors.dart';
 import 'package:bucks/src/shared/widgets/card_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';

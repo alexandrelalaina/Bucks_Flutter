@@ -1,4 +1,5 @@
 import 'package:bucks/src/classes/producao.dart';
+import 'package:bucks/src/pages/producao/producao_controller.dart';
 import 'package:bucks/src/pages/producao/producao_list/producao_list_controller.dart';
 import 'package:bucks/src/pages/producao/producao_page.dart';
 import 'package:bucks/src/pages/producao/widgets/buttonsProducao.dart';
@@ -15,9 +16,6 @@ import 'package:bucks/src/shared/widgets/text_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mobx/mobx.dart';
-
-import '../producao_controller.dart';
 
 class CardProducao extends StatefulWidget {
   final ProducaoController store;
@@ -42,7 +40,6 @@ class _CardProducaoState extends State<CardProducao> {
 
   CardCustom cadastroProducao() {
     List<Widget> list = List();
-    List<Widget> list2 = List();
 
     if (producao != null) {
       store.id.text = producao.id.toString();

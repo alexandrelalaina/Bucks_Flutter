@@ -1,7 +1,6 @@
+import 'package:bucks/src/DAO/producao_dao.dart';
 import 'package:bucks/src/classes/producao.dart';
 import 'package:bucks/src/pages/producao/producao_list/producao_list_controller.dart';
-import 'package:bucks/src/repository/DAO/producao_dao.dart';
-import 'package:bucks/src/repository/bucks_db_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

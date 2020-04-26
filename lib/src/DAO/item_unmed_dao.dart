@@ -1,6 +1,7 @@
 import 'package:bucks/src/classes/item_unmed.dart';
-import 'package:bucks/src/repository/DAO/base_dao.dart';
-import 'package:bucks/src/utils/constants.dart';
+import 'package:bucks/src/shared/utils/constants.dart';
+
+import 'base_dao.dart';
 
 class ItemUnmedDAO extends BaseDAO<ItemUnmed> {
   @override

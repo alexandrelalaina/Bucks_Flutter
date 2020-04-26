@@ -1,6 +1,6 @@
+import 'package:bucks/src/DAO/item_grupo_dao.dart';
 import 'package:bucks/src/classes/item_grupo.dart';
 import 'package:bucks/src/pages/item_grupo/item_grupo_list/item_grupo_list_controller.dart';
-import 'package:bucks/src/repository/DAO/item_grupo_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 

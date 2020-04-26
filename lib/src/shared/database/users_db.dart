@@ -1,6 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:bucks/src/shared/models/user.dart';
-import 'package:bucks/src/utils/constants.dart';
+import 'package:bucks/src/classes/user.dart';
+import 'package:bucks/src/shared/utils/constants.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:io' as io;
