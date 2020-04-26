@@ -36,7 +36,7 @@ class _ItemGrupoPageState extends State<ItemGrupoPage> {
           scrollDirection: Axis.vertical,
           child: Column(
             children: <Widget>[
-              CardItem(
+              CardItemGrupo(
                 store: store,
                 storeItemGrupoList: storeItemGrupoList,
               ),

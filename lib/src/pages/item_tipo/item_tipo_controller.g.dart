@@ -9,21 +9,21 @@ part of 'item_tipo_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ItemTipoController on _ItemTipoControllerBase, Store {
-  final _$descricaoAtom = Atom(name: '_ItemTipoControllerBase.descricao');
+  final _$descrAtom = Atom(name: '_ItemTipoControllerBase.descr');
 
   @override
-  TextEditingController get descricao {
-    _$descricaoAtom.context.enforceReadPolicy(_$descricaoAtom);
-    _$descricaoAtom.reportObserved();
-    return super.descricao;
+  TextEditingController get descr {
+    _$descrAtom.context.enforceReadPolicy(_$descrAtom);
+    _$descrAtom.reportObserved();
+    return super.descr;
   }
 
   @override
-  set descricao(TextEditingController value) {
-    _$descricaoAtom.context.conditionallyRunInAction(() {
-      super.descricao = value;
-      _$descricaoAtom.reportChanged();
-    }, _$descricaoAtom, name: '${_$descricaoAtom.name}_set');
+  set descr(TextEditingController value) {
+    _$descrAtom.context.conditionallyRunInAction(() {
+      super.descr = value;
+      _$descrAtom.reportChanged();
+    }, _$descrAtom, name: '${_$descrAtom.name}_set');
   }
 
   final _$valueAtom = Atom(name: '_ItemTipoControllerBase.value');

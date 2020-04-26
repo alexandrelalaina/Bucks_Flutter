@@ -9,7 +9,7 @@ class CgRefCodes extends EntityBase
   String rvDescr;
   String rvAbrev;
 
-  CgRefCodes(this.id, this.rvDommain, this.rvHighValue, this.rvDescr, this.rvAbrev);
+  CgRefCodes({this.id, this.rvDommain, this.rvHighValue, this.rvDescr, this.rvAbrev});
 
   CgRefCodes.fromJson(Map<String, dynamic> json) {
     id = json['id'];

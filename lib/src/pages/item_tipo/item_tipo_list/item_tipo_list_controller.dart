@@ -1,6 +1,5 @@
-import 'package:bucks/src/classes/Item_tipo.dart';
-import 'package:bucks/src/repository/bucks_db_repository.dart';
-import 'package:bucks/src/utils/constants.dart';
+import 'package:bucks/src/classes/item_tipo.dart';
+import 'package:bucks/src/repository/DAO/item_tipo_dao.dart';
 import 'package:mobx/mobx.dart';
 
 part 'item_tipo_list_controller.g.dart';
@@ -9,12 +8,14 @@ class ItemTipoListController = _ItemTipoListControllerBase
     with _$ItemTipoListController;
 
 abstract class _ItemTipoListControllerBase with Store {
-  BucksDBRepository service;
+
+  ItemTipoDAO itemTipoDAO;
+
   @observable
   List<ItemTipo> itensTipo = [];
 
   _ItemTipoListControllerBase() {
-    service = service ?? BucksDBRepository();
+    itemTipoDAO = itemTipoDAO ?? ItemTipoDAO();
   }
 
   void init() async {
@@ -23,10 +24,10 @@ abstract class _ItemTipoListControllerBase with Store {
 
   @action
   Future<List<ItemTipo>> listarItensTipo() async {
-    var qtdLinhas = await service.listarQuantidadeLinhas(table_name_item_tipo);
+    var qtdLinhas = await itemTipoDAO.count();
     print('qtdLinhas => $qtdLinhas');
     itensTipo = [];
-    var future = service.listarItemTipo();
+    var future = itemTipoDAO.listarTodos();
     itensTipoList = ObservableFuture<List<ItemTipo>>(future);
     return itensTipo = await future;
   }

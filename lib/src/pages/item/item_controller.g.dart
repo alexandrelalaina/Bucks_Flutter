@@ -26,6 +26,41 @@ mixin _$ItemController on _ItemControllerBase, Store {
     }, _$idAtom, name: '${_$idAtom.name}_set');
   }
 
+  final _$descricaoAtom = Atom(name: '_ItemControllerBase.descricao');
+
+  @override
+  TextEditingController get descricao {
+    _$descricaoAtom.context.enforceReadPolicy(_$descricaoAtom);
+    _$descricaoAtom.reportObserved();
+    return super.descricao;
+  }
+
+  @override
+  set descricao(TextEditingController value) {
+    _$descricaoAtom.context.conditionallyRunInAction(() {
+      super.descricao = value;
+      _$descricaoAtom.reportChanged();
+    }, _$descricaoAtom, name: '${_$descricaoAtom.name}_set');
+  }
+
+  final _$cdControlaEstoqueAtom =
+      Atom(name: '_ItemControllerBase.cdControlaEstoque');
+
+  @override
+  TextEditingController get cdControlaEstoque {
+    _$cdControlaEstoqueAtom.context.enforceReadPolicy(_$cdControlaEstoqueAtom);
+    _$cdControlaEstoqueAtom.reportObserved();
+    return super.cdControlaEstoque;
+  }
+
+  @override
+  set cdControlaEstoque(TextEditingController value) {
+    _$cdControlaEstoqueAtom.context.conditionallyRunInAction(() {
+      super.cdControlaEstoque = value;
+      _$cdControlaEstoqueAtom.reportChanged();
+    }, _$cdControlaEstoqueAtom, name: '${_$cdControlaEstoqueAtom.name}_set');
+  }
+
   final _$valueAtom = Atom(name: '_ItemControllerBase.value');
 
   @override

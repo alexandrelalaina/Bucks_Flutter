@@ -1,7 +1,9 @@
 
 // import 'package:bucks/src/classes/producaoTipo.dart';
 
-class Producao
+import 'entity_base.dart';
+
+class Producao extends EntityBase
 {
   int id;
   // ProducaoTipo fkProducaoTispoId;
@@ -11,13 +13,13 @@ class Producao
   String dtProducaoFim;
   String cdStatus;
   
-  Producao(this.id,
+  Producao({this.id,
            this.fkProducaoTipoId, 
            this.descr,
            this.dtProducaoIni,
            this.dtProducaoFim,
            this.cdStatus
-     );
+  });
 
   Producao.fromJson(Map<String, dynamic> json) {
     id = json['id'];

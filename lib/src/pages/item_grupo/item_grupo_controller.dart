@@ -1,6 +1,6 @@
+import 'package:bucks/src/classes/item_grupo.dart';
 import 'package:bucks/src/pages/item_grupo/item_grupo_list/item_grupo_list_controller.dart';
-import 'package:bucks/src/repository/bucks_db_repository.dart';
-import 'package:bucks/src/utils/constants.dart';
+import 'package:bucks/src/repository/DAO/item_grupo_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -9,20 +9,24 @@ part 'item_grupo_controller.g.dart';
 class ItemGrupoController = _ItemGrupoControllerBase with _$ItemGrupoController;
 
 abstract class _ItemGrupoControllerBase with Store {
-  BucksDBRepository service;
+  ItemGrupoDAO itemGrupoDAO;
 
   @observable
-  TextEditingController descricao = TextEditingController();
+  TextEditingController descr = TextEditingController();
 
   _ItemGrupoControllerBase() {
-    service = service ?? BucksDBRepository();
+    itemGrupoDAO = itemGrupoDAO ?? ItemGrupoDAO();
   }
 
   @action
-  salvarFarmacia(
+  salvar(
       {@required ItemGrupoController store,
       @required ItemGrupoListController storeItemGrupoList}) async {
-    await service.inserirItemGrupo(store: store);
+
+    ItemGrupo itemGrupo = ItemGrupo();
+    itemGrupo.descr = store.descr.text;
+
+    await itemGrupoDAO.salvar(itemGrupo);
     await storeItemGrupoList.listarItensGrupo();
   }
 

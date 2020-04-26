@@ -8,8 +8,8 @@ part of 'item_unmed_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$ItemUnMedController on _ItemUnMedControllerBase, Store {
-  final _$idAtom = Atom(name: '_ItemUnMedControllerBase.id');
+mixin _$ItemUnmedController on _ItemUnmedControllerBase, Store {
+  final _$idAtom = Atom(name: '_ItemUnmedControllerBase.id');
 
   @override
   TextEditingController get id {
@@ -26,7 +26,7 @@ mixin _$ItemUnMedController on _ItemUnMedControllerBase, Store {
     }, _$idAtom, name: '${_$idAtom.name}_set');
   }
 
-  final _$valueAtom = Atom(name: '_ItemUnMedControllerBase.value');
+  final _$valueAtom = Atom(name: '_ItemUnmedControllerBase.value');
 
   @override
   int get value {
@@ -47,23 +47,23 @@ mixin _$ItemUnMedController on _ItemUnMedControllerBase, Store {
 
   @override
   Future salvar(
-      {@required ItemUnMedController store,
-      @required ItemUnMedListController storeItemUnMedList}) {
+      {@required ItemUnmedController store,
+      @required ItemUnmedListController storeItemUnmedList}) {
     return _$salvarAsyncAction.run(() =>
-        super.salvar(store: store, storeItemUnMedList: storeItemUnMedList));
+        super.salvar(store: store, storeItemUnmedList: storeItemUnmedList));
   }
 
-  final _$_ItemUnMedControllerBaseActionController =
-      ActionController(name: '_ItemUnMedControllerBase');
+  final _$_ItemUnmedControllerBaseActionController =
+      ActionController(name: '_ItemUnmedControllerBase');
 
   @override
   void increment() {
     final _$actionInfo =
-        _$_ItemUnMedControllerBaseActionController.startAction();
+        _$_ItemUnmedControllerBaseActionController.startAction();
     try {
       return super.increment();
     } finally {
-      _$_ItemUnMedControllerBaseActionController.endAction(_$actionInfo);
+      _$_ItemUnmedControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 }

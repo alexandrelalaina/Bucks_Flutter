@@ -1,5 +1,4 @@
 import 'package:bucks/src/classes/producao.dart';
-import 'package:bucks/src/pages/producao/producao_controller.dart';
 import 'package:bucks/src/pages/producao/widgets/card_producao.dart';
 import 'package:bucks/src/shared/utils/nav.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,7 @@ class ProducaoListPage extends StatefulWidget {
   final String title;
   final Producao producao;
   const ProducaoListPage(
-      {Key key, this.title = "Consulta de Producao", @required this.producao})
+      {Key key, this.title = "Consulta de Producao", this.producao})
       : super(key: key);
 
   @override

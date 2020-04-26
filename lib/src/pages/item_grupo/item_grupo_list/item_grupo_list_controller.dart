@@ -1,6 +1,5 @@
-import 'package:bucks/src/classes/Item_grupo.dart';
-import 'package:bucks/src/repository/bucks_db_repository.dart';
-import 'package:bucks/src/utils/constants.dart';
+import 'package:bucks/src/classes/item_grupo.dart';
+import 'package:bucks/src/repository/DAO/item_grupo_dao.dart';
 import 'package:mobx/mobx.dart';
 
 part 'item_grupo_list_controller.g.dart';
@@ -9,12 +8,14 @@ class ItemGrupoListController = _ItemGrupoListControllerBase
     with _$ItemGrupoListController;
 
 abstract class _ItemGrupoListControllerBase with Store {
-  BucksDBRepository service;
+
+  ItemGrupoDAO itemGrupoDAO;
+
   @observable
   List<ItemGrupo> itensGrupo = [];
 
   _ItemGrupoListControllerBase() {
-    service = service ?? BucksDBRepository();
+    itemGrupoDAO = itemGrupoDAO ?? ItemGrupoDAO();
   }
 
   void init() async {
@@ -23,10 +24,10 @@ abstract class _ItemGrupoListControllerBase with Store {
 
   @action
   Future<List<ItemGrupo>> listarItensGrupo() async {
-    var qtdLinhas = await service.listarQuantidadeLinhas(table_name_item_grupo);
+    var qtdLinhas = await itemGrupoDAO.count();
     print('qtdLinhas => $qtdLinhas');
     itensGrupo = [];
-    var future = service.listarItemGrupo();
+    var future = itemGrupoDAO.listarTodos();
     itensGrupoList = ObservableFuture<List<ItemGrupo>>(future);
     return itensGrupo = await future;
   }

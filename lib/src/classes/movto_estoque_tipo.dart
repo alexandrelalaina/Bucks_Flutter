@@ -1,10 +1,12 @@
-class MovtoEstoqueTipo {
+import 'entity_base.dart';
+
+class MovtoEstoqueTipo extends EntityBase {
 
   int id;
   String descr;
   String cdTipoMovto;
 
-  MovtoEstoqueTipo(this.id, this.descr, this.cdTipoMovto);
+  MovtoEstoqueTipo({this.id, this.descr, this.cdTipoMovto});
 
   MovtoEstoqueTipo.fromJson(Map<String, dynamic> json){
     id = json['id'];

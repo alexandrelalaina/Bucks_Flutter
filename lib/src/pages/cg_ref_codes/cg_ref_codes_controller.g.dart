@@ -26,6 +26,91 @@ mixin _$CgRefCodesController on _CgRefCodesControllerBase, Store {
     }, _$idAtom, name: '${_$idAtom.name}_set');
   }
 
+  final _$rvDomainAtom = Atom(name: '_CgRefCodesControllerBase.rvDomain');
+
+  @override
+  TextEditingController get rvDomain {
+    _$rvDomainAtom.context.enforceReadPolicy(_$rvDomainAtom);
+    _$rvDomainAtom.reportObserved();
+    return super.rvDomain;
+  }
+
+  @override
+  set rvDomain(TextEditingController value) {
+    _$rvDomainAtom.context.conditionallyRunInAction(() {
+      super.rvDomain = value;
+      _$rvDomainAtom.reportChanged();
+    }, _$rvDomainAtom, name: '${_$rvDomainAtom.name}_set');
+  }
+
+  final _$rvLowValueAtom = Atom(name: '_CgRefCodesControllerBase.rvLowValue');
+
+  @override
+  TextEditingController get rvLowValue {
+    _$rvLowValueAtom.context.enforceReadPolicy(_$rvLowValueAtom);
+    _$rvLowValueAtom.reportObserved();
+    return super.rvLowValue;
+  }
+
+  @override
+  set rvLowValue(TextEditingController value) {
+    _$rvLowValueAtom.context.conditionallyRunInAction(() {
+      super.rvLowValue = value;
+      _$rvLowValueAtom.reportChanged();
+    }, _$rvLowValueAtom, name: '${_$rvLowValueAtom.name}_set');
+  }
+
+  final _$rvHighValueAtom = Atom(name: '_CgRefCodesControllerBase.rvHighValue');
+
+  @override
+  TextEditingController get rvHighValue {
+    _$rvHighValueAtom.context.enforceReadPolicy(_$rvHighValueAtom);
+    _$rvHighValueAtom.reportObserved();
+    return super.rvHighValue;
+  }
+
+  @override
+  set rvHighValue(TextEditingController value) {
+    _$rvHighValueAtom.context.conditionallyRunInAction(() {
+      super.rvHighValue = value;
+      _$rvHighValueAtom.reportChanged();
+    }, _$rvHighValueAtom, name: '${_$rvHighValueAtom.name}_set');
+  }
+
+  final _$rvDescrAtom = Atom(name: '_CgRefCodesControllerBase.rvDescr');
+
+  @override
+  TextEditingController get rvDescr {
+    _$rvDescrAtom.context.enforceReadPolicy(_$rvDescrAtom);
+    _$rvDescrAtom.reportObserved();
+    return super.rvDescr;
+  }
+
+  @override
+  set rvDescr(TextEditingController value) {
+    _$rvDescrAtom.context.conditionallyRunInAction(() {
+      super.rvDescr = value;
+      _$rvDescrAtom.reportChanged();
+    }, _$rvDescrAtom, name: '${_$rvDescrAtom.name}_set');
+  }
+
+  final _$rvAbrevAtom = Atom(name: '_CgRefCodesControllerBase.rvAbrev');
+
+  @override
+  TextEditingController get rvAbrev {
+    _$rvAbrevAtom.context.enforceReadPolicy(_$rvAbrevAtom);
+    _$rvAbrevAtom.reportObserved();
+    return super.rvAbrev;
+  }
+
+  @override
+  set rvAbrev(TextEditingController value) {
+    _$rvAbrevAtom.context.conditionallyRunInAction(() {
+      super.rvAbrev = value;
+      _$rvAbrevAtom.reportChanged();
+    }, _$rvAbrevAtom, name: '${_$rvAbrevAtom.name}_set');
+  }
+
   final _$valueAtom = Atom(name: '_CgRefCodesControllerBase.value');
 
   @override

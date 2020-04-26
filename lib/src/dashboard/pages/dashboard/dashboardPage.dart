@@ -10,6 +10,7 @@ import 'package:bucks/src/pages/movto_estoque/movto_estoque_list_page.dart';
 import 'package:bucks/src/pages/movto_estoque/movto_estoque_tipo/movto_estoque_tipo_list/movto_estoque_tipo_list_page.dart';
 import 'package:bucks/src/pages/producao/producao_list/producao_list_page.dart';
 import 'package:bucks/src/pages/producao_item/producao_item_list/producao_item_list_page.dart';
+import 'package:bucks/src/pages/receita/receita_page.dart';
 import 'package:bucks/src/pages/tarefa/tarefaPage.dart';
 import 'package:bucks/src/shared/utils/nav.dart';
 import 'package:bucks/src/widgets/dashboard_drawer_widget.dart';
@@ -59,7 +60,8 @@ class _DashboardMateriaisPageState extends State<DashboardMateriaisPage> {
           // BgImage(),
           Container(
             child: Container(
-              padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+              padding: EdgeInsets.all(5),
+              // padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
               child: _listView(context),
             ),
           ),
@@ -80,11 +82,11 @@ class _DashboardMateriaisPageState extends State<DashboardMateriaisPage> {
       "Un. Medida",
       "CgRefCodes",
       "Movto Estoque Tipo",
-      "Produção Item",
       "Tarefas",
       "Gifs",
       "Mov. Estoque",
       "Item Estoque",
+      "Receita",
     ]);
 
     List<IconData> icons = [];
@@ -99,11 +101,11 @@ class _DashboardMateriaisPageState extends State<DashboardMateriaisPage> {
       // FontAwesomeIcons.prescriptionBottle,
       FontAwesomeIcons.tools,
       FontAwesomeIcons.tools,
-      FontAwesomeIcons.tools,
       FontAwesomeIcons.tasks,
       FontAwesomeIcons.gift,
       FontAwesomeIcons.cartArrowDown,
       FontAwesomeIcons.shopware,
+      FontAwesomeIcons.receipt,
       //  FontAwesomeIcons.cookieBite,
       // FontAwesomeIcons.prescriptionBottle,
     ]);
@@ -198,7 +200,7 @@ class _DashboardMateriaisPageState extends State<DashboardMateriaisPage> {
                   page = ItemTipoListPage();
                   break;
                 case 4:
-                  page = ItemUnMedListPage();
+                  page = ItemUnmedListPage();
                   break;
                 case 5:
                   page = CgRefCodesListPage();
@@ -207,19 +209,19 @@ class _DashboardMateriaisPageState extends State<DashboardMateriaisPage> {
                   page = MovtoEstoqueTipoListPage();
                   break;
                 case 7:
-                  page = ProducaoItemListPage();
-                  break;
-                case 8:
                   page = TarefaPage();
                   break;
-                case 9:
+                case 8:
                   page = GifsHomePage();
                   break;
-                case 10:
+                case 9:
                   page = MovtoEstoqueListPage();
                   break;
-                case 11:
+                case 10:
                   page = ItemEstoqueListPage();
+                  break;
+                case 11:
+                  page = ReceitaPage();
                   break;
                 default:
               }

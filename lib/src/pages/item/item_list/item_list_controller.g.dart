@@ -102,21 +102,21 @@ mixin _$ItemListController on _ItemListControllerBase, Store {
     }, _$itemGrupoAtom, name: '${_$itemGrupoAtom.name}_set');
   }
 
-  final _$itemUnMedAtom = Atom(name: '_ItemListControllerBase.itemUnMed');
+  final _$itemUnmedAtom = Atom(name: '_ItemListControllerBase.itemUnmed');
 
   @override
-  ItemUnMed get itemUnMed {
-    _$itemUnMedAtom.context.enforceReadPolicy(_$itemUnMedAtom);
-    _$itemUnMedAtom.reportObserved();
-    return super.itemUnMed;
+  ItemUnmed get itemUnmed {
+    _$itemUnmedAtom.context.enforceReadPolicy(_$itemUnmedAtom);
+    _$itemUnmedAtom.reportObserved();
+    return super.itemUnmed;
   }
 
   @override
-  set itemUnMed(ItemUnMed value) {
-    _$itemUnMedAtom.context.conditionallyRunInAction(() {
-      super.itemUnMed = value;
-      _$itemUnMedAtom.reportChanged();
-    }, _$itemUnMedAtom, name: '${_$itemUnMedAtom.name}_set');
+  set itemUnmed(ItemUnmed value) {
+    _$itemUnmedAtom.context.conditionallyRunInAction(() {
+      super.itemUnmed = value;
+      _$itemUnmedAtom.reportChanged();
+    }, _$itemUnmedAtom, name: '${_$itemUnmedAtom.name}_set');
   }
 
   final _$itensListAtom = Atom(name: '_ItemListControllerBase.itensList');
@@ -175,14 +175,14 @@ mixin _$ItemListController on _ItemListControllerBase, Store {
       Atom(name: '_ItemListControllerBase.itemUnMedList');
 
   @override
-  ObservableFuture<List<ItemUnMed>> get itemUnMedList {
+  ObservableFuture<List<ItemUnmed>> get itemUnMedList {
     _$itemUnMedListAtom.context.enforceReadPolicy(_$itemUnMedListAtom);
     _$itemUnMedListAtom.reportObserved();
     return super.itemUnMedList;
   }
 
   @override
-  set itemUnMedList(ObservableFuture<List<ItemUnMed>> value) {
+  set itemUnMedList(ObservableFuture<List<ItemUnmed>> value) {
     _$itemUnMedListAtom.context.conditionallyRunInAction(() {
       super.itemUnMedList = value;
       _$itemUnMedListAtom.reportChanged();
@@ -206,7 +206,7 @@ mixin _$ItemListController on _ItemListControllerBase, Store {
   final _$fetchItemUnMedAsyncAction = AsyncAction('fetchItemUnMed');
 
   @override
-  Future<List<ItemUnMed>> fetchItemUnMed() {
+  Future<List<ItemUnmed>> fetchItemUnMed() {
     return _$fetchItemUnMedAsyncAction.run(() => super.fetchItemUnMed());
   }
 
@@ -249,7 +249,7 @@ mixin _$ItemListController on _ItemListControllerBase, Store {
   final _$setItemUnMedAsyncAction = AsyncAction('setItemUnMed');
 
   @override
-  Future setItemUnMed(ItemUnMed model) {
+  Future setItemUnMed(ItemUnmed model) {
     return _$setItemUnMedAsyncAction.run(() => super.setItemUnMed(model));
   }
 }

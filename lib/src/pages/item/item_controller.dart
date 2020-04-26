@@ -1,28 +1,31 @@
 import 'package:bucks/src/pages/item/item_list/item_list_controller.dart';
-import 'package:bucks/src/repository/bucks_db_repository.dart';
+import 'package:bucks/src/repository/DAO/item_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../classes/item.dart';
 
 part 'item_controller.g.dart';
 
 class ItemController = _ItemControllerBase with _$ItemController;
 
 abstract class _ItemControllerBase with Store {
-  BucksDBRepository service;
-  BucksDBRepository db;
+  ItemDAO itemDAO;
 
   //@observable
   //List<ItemTipo> itensTipo = [];
 
   @observable
-  @observable
   TextEditingController id = TextEditingController();
+
+  @observable
   TextEditingController descricao = TextEditingController();
+
+  @observable
   TextEditingController cdControlaEstoque = TextEditingController();
 
   _ItemControllerBase() {
-    service = service ?? BucksDBRepository();
-    db = BucksDBRepository.getInstance();
+    itemDAO = itemDAO ?? ItemDAO();
   }
 
   Future init() async {
@@ -33,7 +36,17 @@ abstract class _ItemControllerBase with Store {
   salvarItem(
       {@required ItemController store,
       @required ItemListController storeItemList}) async {
-    await service.inserirItem( store, storeItemList.itemTipo,storeItemList.itemGrupo ,storeItemList.itemUnMed);
+
+
+    Item item = Item();
+    item.descr = store.descricao.text;
+    item.cdControlaEstoque = store.cdControlaEstoque.text.toUpperCase();
+    item.fkItemTipoId = storeItemList.itemTipo.id;
+    item.fkItemGrupoId = storeItemList.itemGrupo.id;
+    item.fkItemUnmedId = storeItemList.itemUnmed.id;
+
+    await itemDAO.salvar(item);
+
     await storeItemList.listarItens();
   }
 

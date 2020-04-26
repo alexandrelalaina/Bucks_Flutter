@@ -6,22 +6,22 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../item_unmed_page.dart';
 import 'item_unmed_list_controller.dart';
 
-class ItemUnMedListPage extends StatefulWidget {
+class ItemUnmedListPage extends StatefulWidget {
   final String title;
-  const ItemUnMedListPage({Key key, this.title = "Consulta Unidade de Medida"})
+  const ItemUnmedListPage({Key key, this.title = "Consulta Unidade de Medida"})
       : super(key: key);
 
   @override
-  _ItemUnMedListPageState createState() => _ItemUnMedListPageState();
+  _ItemUnmedListPageState createState() => _ItemUnmedListPageState();
 }
 
-class _ItemUnMedListPageState extends State<ItemUnMedListPage> {
-  ItemUnMedListController store;
+class _ItemUnmedListPageState extends State<ItemUnmedListPage> {
+  ItemUnmedListController store;
 
   @override
   void initState() {
     super.initState();
-    store = ItemUnMedListController();
+    store = ItemUnmedListController();
     store.init();
   }
 
@@ -35,7 +35,7 @@ class _ItemUnMedListPageState extends State<ItemUnMedListPage> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: <Widget>[
-            CardItemUnMedList(store: store),
+            CardItemUnmedList(store: store),
           ],
         ),
       ),
@@ -43,8 +43,8 @@ class _ItemUnMedListPageState extends State<ItemUnMedListPage> {
         onPressed: () {
           push(
               context,
-              ItemUnMedPage(
-                storeItemUnMedList: store,
+              ItemUnmedPage(
+                storeItemUnmedList: store,
               ));
         },
         child: Icon(FontAwesomeIcons.plus),

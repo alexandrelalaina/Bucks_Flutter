@@ -1,7 +1,8 @@
-import 'package:bucks/src/repository/bucks_db_repository.dart';
+import 'package:bucks/src/repository/DAO/movto_estoque_tipo.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../classes/movto_estoque_tipo.dart';
 import 'movto_estoque_tipo_list/movto_estoque_tipo_list_controller.dart';
 
 part 'movto_estoque_tipo_controller.g.dart';
@@ -9,7 +10,7 @@ part 'movto_estoque_tipo_controller.g.dart';
 class MovtoEstoqueTipoController = _MovtoEstoqueTipoControllerBase with _$MovtoEstoqueTipoController;
 
 abstract class _MovtoEstoqueTipoControllerBase with Store {
-  BucksDBRepository service;
+  MovtoEstoqueTipoDAO movtoEstoqueTipoDAO;
 
   @observable
   TextEditingController tecId = TextEditingController();
@@ -17,14 +18,20 @@ abstract class _MovtoEstoqueTipoControllerBase with Store {
   TextEditingController tecCdTipoMovto = TextEditingController();
 
   _MovtoEstoqueTipoControllerBase() {
-    service = service ?? BucksDBRepository();
+    movtoEstoqueTipoDAO = movtoEstoqueTipoDAO ?? MovtoEstoqueTipoDAO();
   }
 
   @action
   salvar(
       {@required MovtoEstoqueTipoController store,
        @required MovtoEstoqueTipoListController storeMovtoEstoqueTipoList}) async {
-    await service.inserirMovtoEstoqueTipo(store: store);
+
+    MovtoEstoqueTipo movtoEstoqueTipo = MovtoEstoqueTipo();
+    movtoEstoqueTipo.descr = store.tecDescr.text;
+    movtoEstoqueTipo.cdTipoMovto = store.tecCdTipoMovto.text; 
+
+    await movtoEstoqueTipoDAO.salvar(movtoEstoqueTipo);
+
     await storeMovtoEstoqueTipoList.listar();
   }
 

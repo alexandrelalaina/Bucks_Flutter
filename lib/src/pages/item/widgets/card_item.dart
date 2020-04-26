@@ -1,10 +1,11 @@
-import 'package:bucks/src/classes/Item_tipo.dart';
+import 'package:bucks/src/classes/item_tipo.dart';
 import 'package:bucks/src/classes/item.dart';
 import 'package:bucks/src/pages/item/item_controller.dart';
 import 'package:bucks/src/pages/item/item_list/item_list_controller.dart';
 import 'package:bucks/src/pages/item/widgets/buttons.dart';
 import 'package:bucks/src/pages/item/widgets/dropdown_find.dart';
 import 'package:bucks/src/shared/utils/colors.dart';
+import 'package:bucks/src/shared/utils/formatar_id_descr.dart';
 import 'package:bucks/src/shared/widgets/card_custom.dart';
 import 'package:bucks/src/shared/widgets/text_field_app.dart';
 import 'package:bucks/src/shared/widgets/text_message.dart';
@@ -139,9 +140,9 @@ class _CardItemListState extends State<CardItemList> {
  onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 1) {
       if (ascending) {
-        store.itens.sort((a, b) => a.descricao.compareTo(b.descricao));
+        store.itens.sort((a, b) => a.descr.compareTo(b.descr));
       } else {
-        store.itens.sort((a, b) => b.descricao.compareTo(a.descricao));
+        store.itens.sort((a, b) => b.descr.compareTo(a.descr));
       }
     }
   }
@@ -245,7 +246,7 @@ class _CardItemListState extends State<CardItemList> {
                         ),
                         DataCell(
                           Text(
-                            "${item.descricao}",
+                            "${item.descr}",
                             style: TextStyle(fontSize: 16),
                           ),
                         ),
@@ -257,19 +258,18 @@ class _CardItemListState extends State<CardItemList> {
                         ),
                         DataCell(
                           Text(
-                            "${item.itemTipoDescr}",
+                            formatarIdDescr(item.fkItemTipoId.toString(), item.itemTipoDescr),
+                            // "${item.itemTipoDescr}",
                             style: TextStyle(fontSize: 16),
                           ),
                         ),
                         DataCell(
-                          Text(
-                            "${item.itemGrupoDescr}",
+                          Text(formatarIdDescr(item.fkItemGrupoId.toString(), item.itemGrupoDescr),
                             style: TextStyle(fontSize: 16),
                           ),
                         ),
                         DataCell(
-                          Text(
-                            "${item.itemUnMedDescr}",
+                          Text(formatarIdDescr(item.fkItemUnmedId, item.itemUnMedDescr),
                             style: TextStyle(fontSize: 16),
                           ),
                         ),

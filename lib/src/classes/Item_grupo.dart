@@ -1,19 +1,21 @@
-class ItemGrupo
+import 'entity_base.dart';
+
+class ItemGrupo extends EntityBase
 {
   int id;
-  String descricao;
+  String descr;
   
-  ItemGrupo(this.id, this.descricao);
+  ItemGrupo({this.id, this.descr});
 
   ItemGrupo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    descricao = json['descricao'];
+    descr = json['descr'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data =  Map<String, dynamic>();
     data['id'] = this.id;
-    data['descricao'] = this.descricao;
+    data['descr'] = this.descr;
     return data;
   }
 

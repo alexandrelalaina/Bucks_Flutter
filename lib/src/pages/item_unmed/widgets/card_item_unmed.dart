@@ -8,23 +8,23 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../item_unmed_controller.dart';
 
-class CardItemUnMed extends StatefulWidget {
-  final ItemUnMedController store;
-  final ItemUnMedListController storeItemUnMedList;
+class CardItemUnmed extends StatefulWidget {
+  final ItemUnmedController store;
+  final ItemUnmedListController storeItemUnmedList;
 
-  const CardItemUnMed(
-      {Key key, @required this.store, @required this.storeItemUnMedList})
+  const CardItemUnmed(
+      {Key key, @required this.store, @required this.storeItemUnmedList})
       : super(key: key);
 
   @override
-  _CardItemUnMedState createState() => _CardItemUnMedState();
+  _CardItemUnmedState createState() => _CardItemUnmedState();
 }
 
-class _CardItemUnMedState extends State<CardItemUnMed> {
-  ItemUnMedController get store => widget.store;
-  ItemUnMedListController get storeItemUnMedList => widget.storeItemUnMedList;
+class _CardItemUnmedState extends State<CardItemUnmed> {
+  ItemUnmedController get store => widget.store;
+  ItemUnmedListController get storeItemUnmedList => widget.storeItemUnmedList;
 
-  CardCustom cadastroItemUnMed() {
+  CardCustom cadastroItemUnmed() {
     List<Widget> list = List();
     list.add(TextFieldApp(
       controller: store.id,
@@ -42,7 +42,7 @@ class _CardItemUnMedState extends State<CardItemUnMed> {
         child: FlatButtonApp(
           label: "Salvar",
           onPressed: () => store.salvar(store: store, 
-                                        storeItemUnMedList: storeItemUnMedList),
+                                        storeItemUnmedList: storeItemUnmedList),
         ),
       ),
     );
@@ -58,30 +58,30 @@ class _CardItemUnMedState extends State<CardItemUnMed> {
 
   @override
   Widget build(BuildContext context) {
-    return cadastroItemUnMed();
+    return cadastroItemUnmed();
   }
 }
 
-class CardItemUnMedList extends StatefulWidget {
-  final ItemUnMedListController store;
+class CardItemUnmedList extends StatefulWidget {
+  final ItemUnmedListController store;
 
-  const CardItemUnMedList({Key key, @required this.store}) : super(key: key);
+  const CardItemUnmedList({Key key, @required this.store}) : super(key: key);
 
   @override
-  _CardItemUnMedListState createState() => _CardItemUnMedListState();
+  _CardItemUnmedListState createState() => _CardItemUnmedListState();
 }
 
-class _CardItemUnMedListState extends State<CardItemUnMedList> {
-  ItemUnMedListController get store => widget.store;
+class _CardItemUnmedListState extends State<CardItemUnmedList> {
+  ItemUnmedListController get store => widget.store;
 
-  CardCustom listaItemUnMed() {
+  CardCustom listaItemUnmed() {
     List<Widget> list = List();
     list.add(
       Observer(builder: (context) {
-        if (!store.hasResultsItensUnMed) {
+        if (!store.hasResultsItensUnmed) {
           return Container();
         }
-        if (store.itensUnMed.isEmpty) {
+        if (store.itensUnmed.isEmpty) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -104,7 +104,7 @@ class _CardItemUnMedListState extends State<CardItemUnMedList> {
               numeric: false,
             ),
           ],
-          rows: store.itensUnMed
+          rows: store.itensUnmed
               .map(
                 (itemTipo) => DataRow(
                   cells: [
@@ -143,6 +143,6 @@ class _CardItemUnMedListState extends State<CardItemUnMedList> {
 
   @override
   Widget build(BuildContext context) {
-    return listaItemUnMed();
+    return listaItemUnmed();
   }
 }

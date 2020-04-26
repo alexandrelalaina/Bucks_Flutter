@@ -1,6 +1,6 @@
-import 'package:bucks/src/classes/Item_grupo.dart';
-import 'package:bucks/src/classes/Item_tipo.dart';
-import 'package:bucks/src/classes/Item_unmed.dart';
+import 'package:bucks/src/classes/item_grupo.dart';
+import 'package:bucks/src/classes/item_tipo.dart';
+import 'package:bucks/src/classes/item_unmed.dart';
 import 'package:bucks/src/pages/item/item_list/item_list_controller.dart';
 import 'package:bucks/src/shared/widgets/text_message.dart';
 import 'package:find_dropdown/find_dropdown.dart';
@@ -52,7 +52,7 @@ class _DropdownFindItemTipoState extends State<DropdownFindItemTipo> {
           },
           onChanged: (ItemTipo data) async {
             await store.setItemTipo(data);
-            print(data.descricao);
+            print(data.descr);
           },
           dropdownBuilder: (BuildContext context, ItemTipo item) {
             return Container(
@@ -70,7 +70,7 @@ class _DropdownFindItemTipoState extends State<DropdownFindItemTipo> {
                     )
                   : ListTile(
                       title: Text(
-                        '${item.id.toString()} - ${item.descricao}',
+                        '${item.id.toString()} - ${item.descr}',
                         style: TextStyle(fontSize: 24),
                       ),
                       // subtitle: Text(item.empresaDescr),
@@ -92,7 +92,7 @@ class _DropdownFindItemTipoState extends State<DropdownFindItemTipo> {
                   ListTile(
                     selected: isSelected,
                     title: Text(
-                      '${item.id.toString()} - ${item.descricao}',
+                      '${item.id.toString()} - ${item.descr}',
                       style: TextStyle(fontSize: 24),
                     ),
                     // subtitle: Text(item.empresaDescr),
@@ -154,7 +154,7 @@ class _DropdownFindItemGrupoState extends State<DropdownFindItemGrupo> {
           },
           onChanged: (ItemGrupo data) async {
             await store.setItemGrupo(data);
-            print(data.descricao);
+            print(data.descr);
           },
           dropdownBuilder: (BuildContext context, ItemGrupo item) {
             return Container(
@@ -172,7 +172,7 @@ class _DropdownFindItemGrupoState extends State<DropdownFindItemGrupo> {
                     )
                   : ListTile(
                       title: Text(
-                        '${item.id.toString()} - ${item.descricao}',
+                        '${item.id.toString()} - ${item.descr}',
                         style: TextStyle(fontSize: 24),
                       ),
                       // subtitle: Text(item.empresaDescr),
@@ -194,7 +194,7 @@ class _DropdownFindItemGrupoState extends State<DropdownFindItemGrupo> {
                   ListTile(
                     selected: isSelected,
                     title: Text(
-                      '${item.id.toString()} - ${item.descricao}',
+                      '${item.id.toString()} - ${item.descr}',
                       style: TextStyle(fontSize: 24),
                     ),
                     // subtitle: Text(item.empresaDescr),
@@ -244,21 +244,21 @@ class _DropdownFindItemUnMedState extends State<DropdownFindItemUnMed> {
             ],
           );
         }
-        ItemUnMed itemSelect;
+        ItemUnmed itemSelect;
         if (store.itemGrupo != null) {
-          itemSelect = store.itemUnMed;
+          itemSelect = store.itemUnmed;
         }
-        return FindDropdown<ItemUnMed>(
+        return FindDropdown<ItemUnmed>(
           selectedItem:
               itemSelect, //store.items.isNotEmpty ? store.items.first : null,
           onFind: (String filter) async {
             return await store.filteredListItensUnMed(filter);
           },
-          onChanged: (ItemUnMed data) async {
+          onChanged: (ItemUnmed data) async {
             await store.setItemUnMed(data);
             print(data.descr);
           },
-          dropdownBuilder: (BuildContext context, ItemUnMed item) {
+          dropdownBuilder: (BuildContext context, ItemUnmed item) {
             return Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Theme.of(context).dividerColor),
@@ -282,7 +282,7 @@ class _DropdownFindItemUnMedState extends State<DropdownFindItemUnMed> {
             );
           },
           dropdownItemBuilder:
-              (BuildContext context, ItemUnMed item, bool isSelected) {
+              (BuildContext context, ItemUnmed item, bool isSelected) {
             return Container(
               decoration: !isSelected
                   ? null

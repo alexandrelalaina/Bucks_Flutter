@@ -26,7 +26,7 @@ abstract class _CgRefCodesListControllerBase with Store {
     var qtdLinhas = await cgRefCodesDAO.count();
     print('qtdLinhas => $qtdLinhas');
     regList = [];
-    var future = cgRefCodesDAO.findAll();
+    var future = cgRefCodesDAO.listarTodos();
     regListObs = ObservableFuture<List<CgRefCodes>>(future);
     return regList = await future;
   }

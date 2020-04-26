@@ -7,26 +7,26 @@ import 'package:bucks/src/shared/widgets/text_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-class CardItem extends StatefulWidget {
+class CardItemGrupo extends StatefulWidget {
   final ItemGrupoController store;
   final ItemGrupoListController storeItemGrupoList;
 
-  const CardItem(
+  const CardItemGrupo(
       {Key key, @required this.store, @required this.storeItemGrupoList})
       : super(key: key);
 
   @override
-  _CardItemState createState() => _CardItemState();
+  _CardItemGrupoState createState() => _CardItemGrupoState();
 }
 
-class _CardItemState extends State<CardItem> {
+class _CardItemGrupoState extends State<CardItemGrupo> {
   ItemGrupoController get store => widget.store;
   ItemGrupoListController get storeItemGrupoList => widget.storeItemGrupoList;
 
   CardCustom cadastroItemGrupo() {
     List<Widget> list = List();
     list.add(TextFieldApp(
-      controller: store.descricao,
+      controller: store.descr,
       text: "Digite a descrição do Grupo do Item",
     ));
     list.add(SizedBox(height: 10));
@@ -35,7 +35,7 @@ class _CardItemState extends State<CardItem> {
         width: 250,
         child: FlatButtonApp(
           label: "Salvar",
-          onPressed: () => store.salvarFarmacia(
+          onPressed: () => store.salvar(
               store: store, storeItemGrupoList: storeItemGrupoList),
         ),
       ),
@@ -106,7 +106,7 @@ class _CardItemGrupoListState extends State<CardItemGrupoList> {
                       Text(itemGrupo.id.toString()),
                     ),
                     DataCell(
-                      Text(itemGrupo.descricao),
+                      Text(itemGrupo.descr),
                     ),
                   ],
                 ),

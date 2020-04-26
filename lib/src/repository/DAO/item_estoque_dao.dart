@@ -14,13 +14,13 @@ class ItemEstoqueDAO extends BaseDAO<ItemEstoque> {
 
   @override
   String get sqlComJoin => 'select ie.* '+
-                               ' , i.descricao  as fk_item_descr '+
+                               ' , i.descr  as fk_item_descr '+
                                ' , gr.id        as fk_item_grupo_id '+
-                               ' , gr.descricao as fk_item_grupo_descr '+
+                               ' , gr.descr as fk_item_grupo_descr '+
                                ' , un.id        as fk_item_unmed_id '+
                                ' , un.descr     as fk_item_unmed_descr '+
                                ' , tp.id        as fk_item_tipo_id '+
-                               ' , tp.descricao as fk_item_tipo_descr '+
+                               ' , tp.descr as fk_item_tipo_descr '+
                            'from $table_name_item_estoque ie '+
                              ' , $table_name_item i '+
                              ' , $table_name_item_grupo gr '+
@@ -47,7 +47,7 @@ class ItemEstoqueDAO extends BaseDAO<ItemEstoque> {
     final dbClient = await db;
     final result = await dbClient.rawQuery(
         //await dbClient.rawQuery('select  * from $table_name_item_estoque');
-        'select ie.fk_item_id, ie.lote, ie.qt_saldo, ie.vl_unit, ie.qt_reservado, it.descricao as descrItem from $table_name_item_estoque ie INNER JOIN $table_name_item it ON it.id = ie.fk_item_id');
+        'select ie.fk_item_id, ie.lote, ie.qt_saldo, ie.vl_unit, ie.qt_reservado, it.descr as descrItem from $table_name_item_estoque ie INNER JOIN $table_name_item it ON it.id = ie.fk_item_id');
     var list =
         result.map<ItemEstoque>((json) => ItemEstoque.fromJson(json)).toList();
     return list;

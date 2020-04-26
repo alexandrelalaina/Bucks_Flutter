@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:bucks/src/classes/entity_base.dart';
 
 class ItemEstoque extends EntityBase

@@ -67,7 +67,7 @@ class _DropdownFindUnidadeState extends State<DropdownFindUnidade> {
                     )
                   : ListTile(
                       title: Text(
-                        '${item.id.toString()} - ${item.descricao}',
+                        '${item.id.toString()} - ${item.descr}',
                         style: TextStyle(fontSize: 24),
                       ),
                       // subtitle: Text(item.empresaDescr),
@@ -89,7 +89,7 @@ class _DropdownFindUnidadeState extends State<DropdownFindUnidade> {
                   ListTile(
                     selected: isSelected,
                     title: Text(
-                      '${item.id.toString()} - ${item.descricao}',
+                      '${item.id.toString()} - ${item.descr}',
                       style: TextStyle(fontSize: 24),
                     ),
                     // subtitle: Text(item.empresaDescr),

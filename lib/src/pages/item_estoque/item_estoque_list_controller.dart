@@ -8,15 +8,14 @@ class ItemEstoqueListController = _ItemEstoqueListControllerBase
     with _$ItemEstoqueListController;
 
 abstract class _ItemEstoqueListControllerBase with Store {
-  ItemEstoqueDAO service;
-  // BucksDBRepository service;
+
+  ItemEstoqueDAO itemEstoqueDAO;
 
   @observable
   List<ItemEstoque> itemsEstoque = [];
 
   _ItemEstoqueListControllerBase() {
-    service = service ?? ItemEstoqueDAO();
-    // service = service ?? BucksDBRepository();
+    itemEstoqueDAO = itemEstoqueDAO ?? ItemEstoqueDAO();
   }
 
   void init() async {
@@ -25,25 +24,25 @@ abstract class _ItemEstoqueListControllerBase with Store {
 
   @action
   Future<List<ItemEstoque>> findAll() async {
-    var qtdLinhas = await service.count();
+    var qtdLinhas = await itemEstoqueDAO.count();
     print('qtdLinhas => $qtdLinhas');
 
     // pause
     //  if (qtdLinhas == 0){
       print(" --- carga manual ITEM_ESTOQUE");
       ItemEstoque insItemEstoque = ItemEstoque();
-      insItemEstoque.fkItemId = 3;
+      insItemEstoque.fkItemId = 1;
       insItemEstoque.lote = 1;
       insItemEstoque.qtSaldo = 300.00;
       insItemEstoque.vlUnit = 30.00;
       insItemEstoque.qtReservado = 0.00;
 
-      var id = service.save(insItemEstoque);
+      var id = itemEstoqueDAO.salvar(insItemEstoque);
       print('id: $id');
     //  }
 
     itemsEstoque = [];
-    var future = service.findAll();
+    var future = itemEstoqueDAO.listarTodos();
     itemsEstoqueList = ObservableFuture<List<ItemEstoque>>(future);
     return itemsEstoque = await future;
   }

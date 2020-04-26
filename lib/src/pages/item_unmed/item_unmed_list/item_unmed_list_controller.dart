@@ -1,20 +1,21 @@
-import 'package:bucks/src/classes/Item_unmed.dart';
-import 'package:bucks/src/repository/bucks_db_repository.dart';
-import 'package:bucks/src/utils/constants.dart';
+import 'package:bucks/src/classes/item_unmed.dart';
+import 'package:bucks/src/repository/DAO/item_unmed_dao.dart';
 import 'package:mobx/mobx.dart';
 
 part 'item_unmed_list_controller.g.dart';
 
-class ItemUnMedListController = _ItemUnMedListControllerBase
-    with _$ItemUnMedListController;
+class ItemUnmedListController = _ItemUnmedListControllerBase
+    with _$ItemUnmedListController;
 
-abstract class _ItemUnMedListControllerBase with Store {
-  BucksDBRepository service;
+abstract class _ItemUnmedListControllerBase with Store {
+
+  ItemUnmedDAO itemUnmedDAO;
+
   @observable
-  List<ItemUnMed> itensUnMed = [];
+  List<ItemUnmed> itensUnmed = [];
 
-  _ItemUnMedListControllerBase() {
-    service = service ?? BucksDBRepository();
+  _ItemUnmedListControllerBase() {
+    itemUnmedDAO = itemUnmedDAO ?? ItemUnmedDAO();
   }
 
   void init() async {
@@ -22,23 +23,25 @@ abstract class _ItemUnMedListControllerBase with Store {
   }
 
   @action
-  Future<List<ItemUnMed>> listar() async {
-    var qtdLinhas = await service.listarQuantidadeLinhas(table_name_item_unmed);
+  Future<List<ItemUnmed>> listar() async {
+    var qtdLinhas = await itemUnmedDAO.count();
     print('qtdLinhas => $qtdLinhas');
-    itensUnMed = [];
-    var future = service.listarItemUnMed();
-    itensUnMedList = ObservableFuture<List<ItemUnMed>>(future);
-    return itensUnMed = await future;
+    itensUnmed = [];
+    // var future = itemUnmedDAO.listarItemUnMed();
+    // var future = itemUnmedDAO.consultar('select * from item_unmed');
+    var future = itemUnmedDAO.listarTodos();
+    itensUnmedList = ObservableFuture<List<ItemUnmed>>(future);
+    return itensUnmed = await future;
   }
 
   @computed
-  bool get hasResultsItensUnMed =>
-      itensUnMedList != emptyResponseItensUnMed &&
-      itensUnMedList.status == FutureStatus.fulfilled;
+  bool get hasResultsItensUnmed =>
+      itensUnmedList != emptyResponseItensUnmed &&
+      itensUnmedList.status == FutureStatus.fulfilled;
 
-  static ObservableFuture<List<ItemUnMed>> emptyResponseItensUnMed =
+  static ObservableFuture<List<ItemUnmed>> emptyResponseItensUnmed =
       ObservableFuture.value([]);
 
   @observable
-  ObservableFuture<List<ItemUnMed>> itensUnMedList = emptyResponseItensUnMed;
+  ObservableFuture<List<ItemUnmed>> itensUnmedList = emptyResponseItensUnmed;
 }

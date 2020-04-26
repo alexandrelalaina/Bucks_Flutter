@@ -1,7 +1,9 @@
 import 'package:bucks/src/classes/item.dart';
 import 'package:bucks/src/classes/producao.dart';
 import 'package:bucks/src/classes/producao_item.dart';
-import 'package:bucks/src/repository/bucks_db_repository.dart';
+import 'package:bucks/src/repository/DAO/item_dao.dart';
+import 'package:bucks/src/repository/DAO/producao_dao.dart';
+import 'package:bucks/src/repository/DAO/producao_item_dao.dart';
 import 'package:bucks/src/utils/constants.dart';
 import 'package:mobx/mobx.dart';
 
@@ -11,7 +13,11 @@ class ProducaoItemListController = _ProducaoItemListControllerBase
     with _$ProducaoItemListController;
 
 abstract class _ProducaoItemListControllerBase with Store {
-  BucksDBRepository service;
+
+  ItemDAO itemDAO;
+  ProducaoDAO producaoDAO;
+  ProducaoItemDAO producaoItemDAO;
+  
   @observable
   List<ProducaoItem> producaoItens = [];
 
@@ -28,7 +34,9 @@ abstract class _ProducaoItemListControllerBase with Store {
   Producao producao;
 
   _ProducaoItemListControllerBase() {
-    service = service ?? BucksDBRepository();
+    itemDAO = itemDAO ?? ItemDAO();
+    producaoDAO = producaoDAO ?? ProducaoDAO();
+    producaoItemDAO = producaoItemDAO ?? ProducaoItemDAO();
   }
 
   void init() async {
@@ -40,7 +48,7 @@ abstract class _ProducaoItemListControllerBase with Store {
   @action
   Future<List<Item>> fetchItem() async {
     itens = [];
-    var future = service.listarItem();
+    var future = itemDAO.listarTodos();
     itensList = ObservableFuture<List<Item>>(future);
     return itens = await future;
   }
@@ -48,17 +56,17 @@ abstract class _ProducaoItemListControllerBase with Store {
   @action
   Future<List<Producao>> fetchProducao() async {
     producoes = [];
-    var future = service.listarProducao();
+    var future = producaoDAO.listarTodos();
     producaoList = ObservableFuture<List<Producao>>(future);
     return producoes = await future;
   }
 
   @action
   Future<List<ProducaoItem>> listarProducaoItens() async {
-    var qtdLinhas = await service.listarQuantidadeLinhas(table_name_item);
+    var qtdLinhas = await producaoItemDAO.count();
     print('qtdLinhas => $qtdLinhas');
     producaoItens = [];
-    var future = service.listarProducaoItem2();
+    var future = producaoItemDAO.listarProducaoItem2();
     producaoItemList = ObservableFuture<List<ProducaoItem>>(future);
     return producaoItens = await future;
   }
@@ -122,7 +130,7 @@ abstract class _ProducaoItemListControllerBase with Store {
     if (item != "") {
       itens.forEach((v) {
         if (v.id.toString().toUpperCase().contains(item.toUpperCase()) ||
-            v.descricao.toString().contains(item)) listAux.add(v);
+            v.descr.toString().contains(item)) listAux.add(v);
       });
     }
     if (listAux.isEmpty)

@@ -1,6 +1,6 @@
-import 'dart:ffi';
+import 'entity_base.dart';
 
-class MovtoEstoque{
+class MovtoEstoque extends EntityBase{
 
   int id;
   int fkItemEstoqueItemId;

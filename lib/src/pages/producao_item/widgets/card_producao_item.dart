@@ -9,7 +9,6 @@ import 'package:bucks/src/shared/widgets/text_field_app.dart';
 import 'package:bucks/src/shared/widgets/text_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:path/path.dart';
 
 class CardProducaoItem extends StatefulWidget {
   final ProducaoItemController store;
@@ -126,9 +125,9 @@ class _CardProducaoItemListState extends State<CardProducaoItemList> {
   onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 1) {
       if (ascending) {
-        store.itens.sort((a, b) => a.descricao.compareTo(b.descricao));
+        store.itens.sort((a, b) => a.descr.compareTo(b.descr));
       } else {
-        store.itens.sort((a, b) => b.descricao.compareTo(a.descricao));
+        store.itens.sort((a, b) => b.descr.compareTo(a.descr));
       }
     }
   }

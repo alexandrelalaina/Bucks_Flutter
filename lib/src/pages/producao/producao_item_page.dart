@@ -1,13 +1,10 @@
 import 'package:bucks/src/pages/producao/producao_controller.dart';
 import 'package:bucks/src/pages/producao/producao_list/producao_list_controller.dart';
-import 'package:bucks/src/pages/producao/widgets/card_producao.dart';
 import 'package:bucks/src/pages/producao/widgets/card_producao_item.dart';
 import 'package:bucks/src/pages/producao/widgets/dropdown_find.dart';
-import 'package:bucks/src/pages/producao/widgets/producaoItemDt.dart';
 import 'package:bucks/src/pages/producao/widgets/producaoItemDtNovo.dart';
 import 'package:bucks/src/shared/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProducaoItemPage extends StatefulWidget {
   final String title;

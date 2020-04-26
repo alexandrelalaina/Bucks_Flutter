@@ -1,9 +1,11 @@
-import 'package:bucks/src/classes/Item_grupo.dart';
-import 'package:bucks/src/classes/Item_tipo.dart';
-import 'package:bucks/src/classes/Item_unmed.dart';
 import 'package:bucks/src/classes/item.dart';
-import 'package:bucks/src/repository/bucks_db_repository.dart';
-import 'package:bucks/src/utils/constants.dart';
+import 'package:bucks/src/classes/item_grupo.dart';
+import 'package:bucks/src/classes/item_tipo.dart';
+import 'package:bucks/src/classes/item_unmed.dart';
+import 'package:bucks/src/repository/DAO/item_dao.dart';
+import 'package:bucks/src/repository/DAO/item_grupo_dao.dart';
+import 'package:bucks/src/repository/DAO/item_tipo_dao.dart';
+import 'package:bucks/src/repository/DAO/item_unmed_dao.dart';
 import 'package:mobx/mobx.dart';
 
 part 'item_list_controller.g.dart';
@@ -11,13 +13,18 @@ part 'item_list_controller.g.dart';
 class ItemListController = _ItemListControllerBase with _$ItemListController;
 
 abstract class _ItemListControllerBase with Store {
-  BucksDBRepository service;
+
+  ItemTipoDAO itemTipoDAO;
+  ItemGrupoDAO itemGrupoDAO;
+  ItemUnmedDAO itemUnmedDAO;
+  ItemDAO itemDAO;
+  
   @observable
   List<Item> itens = [];
 
   List<ItemTipo> itensTipo = [];
   List<ItemGrupo> itensGrupo = [];
-  List<ItemUnMed> itensUnMed = []; 
+  List<ItemUnmed> itensUnMed = []; 
 
   @observable
   Item item;
@@ -29,10 +36,13 @@ abstract class _ItemListControllerBase with Store {
   ItemGrupo itemGrupo;
 
   @observable
-  ItemUnMed itemUnMed;
+  ItemUnmed itemUnmed;
 
   _ItemListControllerBase() {
-    service = service ?? BucksDBRepository();
+    itemTipoDAO = itemTipoDAO ?? ItemTipoDAO();
+    itemGrupoDAO = itemGrupoDAO ?? ItemGrupoDAO();
+    itemUnmedDAO = itemUnmedDAO ?? ItemUnmedDAO();
+    itemDAO = itemDAO ?? ItemDAO();
   }
 
   void init() async {
@@ -45,7 +55,7 @@ abstract class _ItemListControllerBase with Store {
   @action
   Future<List<ItemTipo>> fetchItemTipo() async {
     itensTipo = [];
-    var future = service.listarItemTipo();
+    var future = itemTipoDAO.listarTodos();
     itemTipoList = ObservableFuture<List<ItemTipo>>(future);
     return itensTipo = await future;
   }
@@ -53,25 +63,25 @@ abstract class _ItemListControllerBase with Store {
   @action
   Future<List<ItemGrupo>> fetchItemGrupo() async {
     itensGrupo = [];
-    var future = service.listarItemGrupo();
+    var future = itemGrupoDAO.listarTodos();
     itemGrupoList = ObservableFuture<List<ItemGrupo>>(future);
     return itensGrupo = await future;
   }
 
   @action
-  Future<List<ItemUnMed>> fetchItemUnMed() async {
+  Future<List<ItemUnmed>> fetchItemUnMed() async {
     itensUnMed = [];
-    var future = service.listarItemUnMed();
-    itemUnMedList = ObservableFuture<List<ItemUnMed>>(future);
+    var future = itemUnmedDAO.listarTodos();
+    itemUnMedList = ObservableFuture<List<ItemUnmed>>(future);
     return itensUnMed = await future;
   }
 
   @action
   Future<List<Item>> listarItens() async {
-    var qtdLinhas = await service.listarQuantidadeLinhas(table_name_item);
+    var qtdLinhas = await itemDAO.count();
     print('qtdLinhas => $qtdLinhas');
     itens = [];
-    var future = service.listarItem();
+    var future = itemDAO.listarTodos();
     itensList = ObservableFuture<List<Item>>(future);
     return itens = await future;
   }
@@ -79,13 +89,13 @@ abstract class _ItemListControllerBase with Store {
    @action
   Future<String> listarDescrItemTipo() async {
     itens = [];
-    final result = service.listarDescrItemTipo();
+    final result = itemTipoDAO.listarDescrItemTipo();
     return result;
   }
 
   @action
   Future<String> validateDropDowns() async {
-    if(itemTipo == null || itemGrupo == null || itemUnMed == null) {
+    if(itemTipo == null || itemGrupo == null || itemUnmed == null) {
       return "Existem campos que faltam ser preenchidos !";
     }
 
@@ -98,7 +108,7 @@ abstract class _ItemListControllerBase with Store {
     if (item != "") {
       itens.forEach((v) {
         if (v.id.toString().toUpperCase().contains(item.toUpperCase()) ||
-            v.descricao.toString().contains(item)) listAux.add(v);
+            v.descr.toString().contains(item)) listAux.add(v);
       });
     }
     if (listAux.isEmpty)
@@ -118,8 +128,8 @@ abstract class _ItemListControllerBase with Store {
   }
 
   @action
-  Future setItemUnMed(ItemUnMed model) async {
-    itemUnMed = model;
+  Future setItemUnMed(ItemUnmed model) async {
+    itemUnmed = model;
   }
 
   Future<List<ItemTipo>> filteredListItensTipos(String item) async {
@@ -128,7 +138,7 @@ abstract class _ItemListControllerBase with Store {
     if (item != "") {
       itensTipo.forEach((v) {
         if (v.id.toString().toUpperCase().contains(item.toUpperCase()) ||
-            v.descricao.toString().contains(item)) listAux.add(v);
+            v.descr.toString().contains(item)) listAux.add(v);
       });
     }
     if (listAux.isEmpty)
@@ -143,7 +153,7 @@ abstract class _ItemListControllerBase with Store {
     if (item != "") {
       itensGrupo.forEach((v) {
         if (v.id.toString().toUpperCase().contains(item.toUpperCase()) ||
-            v.descricao.toString().contains(item)) listAux.add(v);
+            v.descr.toString().contains(item)) listAux.add(v);
       });
     }
     if (listAux.isEmpty)
@@ -152,8 +162,8 @@ abstract class _ItemListControllerBase with Store {
       return listAux;
   }
 
-  Future<List<ItemUnMed>> filteredListItensUnMed(String item) async {
-    List<ItemUnMed> listAux = [];
+  Future<List<ItemUnmed>> filteredListItensUnMed(String item) async {
+    List<ItemUnmed> listAux = [];
 
     if (item != "") {
       itensUnMed.forEach((v) {
@@ -205,9 +215,9 @@ abstract class _ItemListControllerBase with Store {
       itemUnMedList != emptyResponseItemUnMed &&
       itemUnMedList.status == FutureStatus.fulfilled;
 
-  static ObservableFuture<List<ItemUnMed>> emptyResponseItemUnMed =
+  static ObservableFuture<List<ItemUnmed>> emptyResponseItemUnMed =
       ObservableFuture.value([]);
 
   @observable
-  ObservableFuture<List<ItemUnMed>> itemUnMedList = emptyResponseItemUnMed;
+  ObservableFuture<List<ItemUnmed>> itemUnMedList = emptyResponseItemUnMed;
 }

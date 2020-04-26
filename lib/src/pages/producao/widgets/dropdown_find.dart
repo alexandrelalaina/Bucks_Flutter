@@ -172,7 +172,7 @@ class _DropdownFindItemState extends State<DropdownFindItem> {
           },
           onChanged: (Item data) async {
             await store.setItem(data);
-            print(data.descricao);
+            print(data.descr);
           },
           dropdownBuilder: (BuildContext context, Item item) {
             return Container(
@@ -190,7 +190,7 @@ class _DropdownFindItemState extends State<DropdownFindItem> {
                     )
                   : ListTile(
                       title: Text(
-                        '${item.id.toString()} - ${item.descricao}',
+                        '${item.id.toString()} - ${item.descr}',
                         style: TextStyle(fontSize: 24),
                       ),
                       // subtitle: Text(item.empresaDescr),
@@ -212,7 +212,7 @@ class _DropdownFindItemState extends State<DropdownFindItem> {
                   ListTile(
                     selected: isSelected,
                     title: Text(
-                      '${item.id.toString()} - ${item.descricao}',
+                      '${item.id.toString()} - ${item.descr}',
                       style: TextStyle(fontSize: 24),
                     ),
                     // subtitle: Text(item.empresaDescr),

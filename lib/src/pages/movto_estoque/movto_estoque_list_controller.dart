@@ -1,6 +1,5 @@
 import 'package:bucks/src/classes/movto_estoque.dart';
-import 'package:bucks/src/repository/bucks_db_repository.dart';
-import 'package:bucks/src/utils/constants.dart';
+import 'package:bucks/src/repository/DAO/movto_estoque_dao.dart';
 import 'package:mobx/mobx.dart';
 
 part 'movto_estoque_list_controller.g.dart';
@@ -9,12 +8,14 @@ class MovtoEstoqueListController = _MovtoEstoqueListControllerBase
     with _$MovtoEstoqueListController;
 
 abstract class _MovtoEstoqueListControllerBase with Store {
-  BucksDBRepository service;
+  
+  MovtoEstoqueDAO movtoEstoqueDAO;
+
   @observable
   List<MovtoEstoque> movtosEstoque = [];
 
   _MovtoEstoqueListControllerBase() {
-    service = service ?? BucksDBRepository();
+    movtoEstoqueDAO = movtoEstoqueDAO ?? MovtoEstoqueDAO();
   }
 
   void init() async {
@@ -23,7 +24,7 @@ abstract class _MovtoEstoqueListControllerBase with Store {
 
   @action
   Future<List<MovtoEstoque>> listar() async {
-    var qtdLinhas = await service.listarQuantidadeLinhas(table_name_movto_estoque);
+    var qtdLinhas = await movtoEstoqueDAO.count();
     print('qtdLinhas => $qtdLinhas');
 
     // pause
@@ -43,13 +44,13 @@ abstract class _MovtoEstoqueListControllerBase with Store {
       insMovtoEstoque.fkProditemProducaoId = 1;
       insMovtoEstoque.fkProditemSeq = 1;
 
-      var id = service.inserirMovtoEstoque(insMovtoEstoque);
+      var id = movtoEstoqueDAO.salvar(insMovtoEstoque);
       print('id: $id');
 
     // }
 
     movtosEstoque = [];
-    var future = service.listarMovtoEstoque();
+    var future = movtoEstoqueDAO.listarTodos();
     movtosEstoqueList = ObservableFuture<List<MovtoEstoque>>(future);
     return movtosEstoque = await future;
   }

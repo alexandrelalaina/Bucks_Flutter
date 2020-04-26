@@ -1,7 +1,10 @@
 import 'package:bucks/src/classes/movto_estoque_tipo.dart';
+import 'package:bucks/src/repository/DAO/movto_estoque_tipo.dart';
 import 'package:bucks/src/repository/bucks_db_repository.dart';
 import 'package:bucks/src/utils/constants.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../../../classes/movto_estoque_tipo.dart';
 
 part 'movto_estoque_tipo_list_controller.g.dart';
 
@@ -9,12 +12,14 @@ class MovtoEstoqueTipoListController = _MovtoEstoqueTipoListControllerBase
     with _$MovtoEstoqueTipoListController;
 
 abstract class _MovtoEstoqueTipoListControllerBase with Store {
-  BucksDBRepository service;
+
+  MovtoEstoqueTipoDAO movtoEstoqueTipoDAO;
+
   @observable
   List<MovtoEstoqueTipo> movtosEstoqueTipo = [];
 
   _MovtoEstoqueTipoListControllerBase() {
-    service = service ?? BucksDBRepository();
+    movtoEstoqueTipoDAO = movtoEstoqueTipoDAO ?? MovtoEstoqueTipoDAO();
   }
 
   void init() async {
@@ -23,10 +28,10 @@ abstract class _MovtoEstoqueTipoListControllerBase with Store {
 
   @action
   Future<List<MovtoEstoqueTipo>> listar() async {
-    var qtdLinhas = await service.listarQuantidadeLinhas(table_name_movto_estoque_tipo);
+    var qtdLinhas = await movtoEstoqueTipoDAO.count();
     print('qtdLinhas => $qtdLinhas');
     movtosEstoqueTipo = [];
-    var future = service.listarMovtoEstoqueTipo();
+    var future = movtoEstoqueTipoDAO.listarTodos();
     movtosEstoqueTipoList = ObservableFuture<List<MovtoEstoqueTipo>>(future);
     return movtosEstoqueTipo = await future;
   }

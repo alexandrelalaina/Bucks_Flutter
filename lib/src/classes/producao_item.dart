@@ -1,4 +1,6 @@
-class ProducaoItem {
+import 'entity_base.dart';
+
+class ProducaoItem extends EntityBase{
   int seq; //PK
   int fkProducaoId; //PK
   int fkItemId;
@@ -10,8 +12,15 @@ class ProducaoItem {
   String descrItem;
   String descrProducao;
 
-  ProducaoItem(this.seq, this.fkProducaoId, this.fkItemId, this.qt, this.vlUnit,
-      this.cdTipo, this.cdStatus, this.descrItem, this.descrProducao);
+  ProducaoItem({this.seq, 
+                this.fkProducaoId, 
+                this.fkItemId, 
+                this.qt, 
+                this.vlUnit,
+                this.cdTipo, 
+                this.cdStatus, 
+                this.descrItem, 
+                this.descrProducao});
 
   ProducaoItem.fromJson(Map<String, dynamic> json) {
     fkProducaoId = json['fk_producao_id'];

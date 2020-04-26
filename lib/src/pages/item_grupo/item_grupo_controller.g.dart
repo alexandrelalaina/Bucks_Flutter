@@ -9,21 +9,21 @@ part of 'item_grupo_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ItemGrupoController on _ItemGrupoControllerBase, Store {
-  final _$descricaoAtom = Atom(name: '_ItemGrupoControllerBase.descricao');
+  final _$descrAtom = Atom(name: '_ItemGrupoControllerBase.descr');
 
   @override
-  TextEditingController get descricao {
-    _$descricaoAtom.context.enforceReadPolicy(_$descricaoAtom);
-    _$descricaoAtom.reportObserved();
-    return super.descricao;
+  TextEditingController get descr {
+    _$descrAtom.context.enforceReadPolicy(_$descrAtom);
+    _$descrAtom.reportObserved();
+    return super.descr;
   }
 
   @override
-  set descricao(TextEditingController value) {
-    _$descricaoAtom.context.conditionallyRunInAction(() {
-      super.descricao = value;
-      _$descricaoAtom.reportChanged();
-    }, _$descricaoAtom, name: '${_$descricaoAtom.name}_set');
+  set descr(TextEditingController value) {
+    _$descrAtom.context.conditionallyRunInAction(() {
+      super.descr = value;
+      _$descrAtom.reportChanged();
+    }, _$descrAtom, name: '${_$descrAtom.name}_set');
   }
 
   final _$valueAtom = Atom(name: '_ItemGrupoControllerBase.value');
@@ -43,14 +43,14 @@ mixin _$ItemGrupoController on _ItemGrupoControllerBase, Store {
     }, _$valueAtom, name: '${_$valueAtom.name}_set');
   }
 
-  final _$salvarFarmaciaAsyncAction = AsyncAction('salvarFarmacia');
+  final _$salvarAsyncAction = AsyncAction('salvar');
 
   @override
-  Future salvarFarmacia(
+  Future salvar(
       {@required ItemGrupoController store,
       @required ItemGrupoListController storeItemGrupoList}) {
-    return _$salvarFarmaciaAsyncAction.run(() => super
-        .salvarFarmacia(store: store, storeItemGrupoList: storeItemGrupoList));
+    return _$salvarAsyncAction.run(() =>
+        super.salvar(store: store, storeItemGrupoList: storeItemGrupoList));
   }
 
   final _$_ItemGrupoControllerBaseActionController =

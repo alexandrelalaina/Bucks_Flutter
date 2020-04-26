@@ -22,6 +22,9 @@ class UserDb extends Disposable {
       return _db;
     }
 
+    // TODO chamar para recriar as tabelas sem excluir o app
+    _onCreate(_db, 0);
+
     _db = await initDb();
 
     //criar tabelas
@@ -56,18 +59,68 @@ class UserDb extends Disposable {
     }
   }
 
+  void _dropTable(Database db, int newVersion, String pTableName) async {
+    try{
+      await db.execute('DROP TABLE $pTableName');
+      print('TABELA $pTableName DROPADA COM SUCESSO!');
+    } catch (e) {
+      print("***ERRO AO DROPAR TABELA $pTableName ! => " + e.toString());
+    }
+  }
+
   void _onCreate(Database db, int newVersion) async {
-    // try{
-    //   await db.execute('DROP TABLE $table_name_producao');
-    // } catch (e) {
-    //   print("***ERRO AO DROPAR TABELA $table_name_producao !");
-    // }
+
+    // _dropTable(db, newVersion, table_name_cg_ref_codes);
+
+    try {
+      await db.execute(
+          'CREATE TABLE $table_name_cg_ref_codes(id INTEGER PRIMARY KEY AUTOINCREMENT, rv_dommain TEXT, rv_low_value TEXT, rv_high_value TEXT, rv_descr TEXT, rv_abrev TEXT)');
+    } catch (e) {
+      print("***ERRO AO CRIAR TABELA $table_name_cg_ref_codes ! => " + e.toString());
+    }
+
+    try {
+      await db.execute(
+          'CREATE TABLE $table_name_item_tipo(id INTEGER PRIMARY KEY AUTOINCREMENT, descr TEXT)');
+    } catch (e) {
+      print("***ERRO AO CRIAR TABELA $table_name_item_tipo ! => " + e.toString());
+    }
+
+    // _dropTable(db, newVersion, table_name_item_grupo);
+
+    try {
+      await db.execute(
+          'CREATE TABLE $table_name_item_grupo(id INTEGER PRIMARY KEY AUTOINCREMENT, descr TEXT)');
+    } catch (e) {
+      print("***ERRO AO CRIAR TABELA $table_name_item_grupo ! => " + e.toString());
+    }
+
+   try {
+      await db.execute(
+          'CREATE TABLE $table_name_item_unmed(id TEXT PRIMARY KEY, descr TEXT)');
+    } catch (e) {
+      print("***ERRO AO CRIAR TABELA $table_name_item_unmed ! => " + e.toString());
+    }
+
+    try {
+      await db.execute(
+          'CREATE TABLE $table_name_item(id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+              'descr TEXT, ' +
+              'cd TEXT, ' +
+              'cdControlaEstoque TEXT, ' +
+              'fkItemTipoId REFERENCES $table_name_item_tipo(id), ' +
+              'fkItemGrupoId REFERENCES $table_name_item_grupo(id), ' +
+              'fkItemUnmedId REFERENCES $table_name_item_unmed(id))');
+      print('Tabela criada com sucesso! TABLE ($table_name_item)');
+    } catch (e) {
+      print("***ERRO AO CRIAR TABELA $table_name_item ! => " + e.toString());
+    }    
 
     try {
       await db.execute(
           'CREATE TABLE $table_name_producao(id INTEGER PRIMARY KEY AUTOINCREMENT, fk_producao_tipo_id INTEGER, descr TEXT, dt_producao_ini TEXT, dt_producao_fim TEXT, cd_status TEXT )');
     } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_producao !");
+      print("***ERRO AO CRIAR TABELA $table_name_producao ! => " + e.toString());
     }
 
     // TODO
@@ -82,52 +135,9 @@ class UserDb extends Disposable {
               'cd_tipo TEXT, ' +
               'cd_status TEXT )');
     } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_producao_item !");
+      print("***ERRO AO CRIAR TABELA $table_name_producao_item ! => " + e.toString());
     }
-
-    try {
-      await db.execute(
-          'CREATE TABLE $table_name_item_unmed(id TEXT PRIMARY KEY, descr TEXT)');
-    } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_item_unmed !");
-    }
-
-    try {
-      await db.execute(
-          'CREATE TABLE $table_name_item_tipo(id INTEGER PRIMARY KEY AUTOINCREMENT, descricao TEXT)');
-    } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_item_tipo !");
-    }
-
-    try {
-      await db.execute(
-          'CREATE TABLE $table_name_item_grupo(id INTEGER PRIMARY KEY AUTOINCREMENT, descricao TEXT)');
-    } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_item_grupo !");
-    }
-
-    // try{
-    //   await db.execute(
-    //     'DROP TABLE $table_name_item');
-    //     print('Tabela DROPADA com sucesso! TABLE ($table_name_item)');
-    // } catch (e) {
-    //   print("***ERRO AO DROPAR TABELA $table_name_item !");
-    // }
-
-    try {
-      await db.execute(
-          'CREATE TABLE $table_name_item(id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-              'descricao TEXT, ' +
-              'cd TEXT, ' +
-              'cdControlaEstoque TEXT, ' +
-              'fkItemTipoId REFERENCES $table_name_item_tipo(id), ' +
-              'fkItemGrupoId REFERENCES $table_name_item_grupo(id), ' +
-              'fkItemUnmedId REFERENCES $table_name_item_unmed(id))');
-      print('Tabela criada com sucesso! TABLE ($table_name_item)');
-    } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_item !");
-    }
-
+   
     try {
       await db
           .execute('CREATE TABLE $table_name_item_estoque(fk_item_id INTEGER' +
@@ -137,28 +147,14 @@ class UserDb extends Disposable {
               ', qt_reservado REAL)');
       print('Tabela criada com sucesso! TABLE ($table_name_item_estoque)');
     } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_item_estoque !");
-    }
-
-    // try{
-    //   await db.execute(
-    //     'DROP TABLE $table_name_cg_ref_codes');
-    // } catch (e) {
-    //   print("***ERRO AO DROPAR TABELA $table_name_cg_ref_codes !");
-    // }
-
-    try {
-      await db.execute(
-          'CREATE TABLE $table_name_cg_ref_codes(id INTEGER PRIMARY KEY AUTOINCREMENT, rv_dommain TEXT, rv_low_value TEXT, rv_high_value TEXT, rv_descr TEXT, rv_abrev TEXT)');
-    } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_cg_ref_codes !");
+      print("***ERRO AO CRIAR TABELA $table_name_item_estoque ! => " + e.toString());
     }
 
     try {
       await db.execute(
           'CREATE TABLE $table_name_movto_estoque_tipo(id INTEGER PRIMARY KEY AUTOINCREMENT, descr TEXT, cd_tipo_movto TEXT)');
     } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_movto_estoque_tipo !");
+      print("***ERRO AO CRIAR TABELA $table_name_movto_estoque_tipo ! => " + e.toString());
     }
 
     try {
@@ -178,27 +174,15 @@ class UserDb extends Disposable {
                                                  'fk_proditem_seq INTEGER '+
                                                  ')');
     } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_movto_estoque !");
+      print("***ERRO AO CRIAR TABELA $table_name_movto_estoque ! => " + e.toString());
     }
-
-    // await db.execute(
-    //     'CREATE TABLE reports(numSeq INTEGER PRIMARY KEY, nome TEXT, objNome TEXT, dtCad TEXT, username TEXT, path TEXT)');
-
-    // await db.execute(
-    //     'CREATE TABLE mapas(numRegiaoAgricola INTEGER, txtRegiaoAgricola TEXT, numFazenda INTEGER,  txtFazendaNome TEXT, proprietario TEXT, responsavel TEXT,    cdRegiao INTEGER, numSeqMapa INTEGER PRIMARY KEY, txtTemMapa TEXT, mapas TEXT, data TEXT,  path TEXT, username TEXT)');
-
-    // await db.execute(
-    //     'CREATE TABLE talhoes(numSeq INTEGER  PRIMARY KEY autoincrement, regiao INTEGER ,codigoPropr INTEGER ,propriedade TEXT ,numeroPropriedade INTEGER ,proprietario TEXT ,nomeTalhao TEXT ,variedade TEXT ,anoPlantio INTEGER ,qtPlantas INTEGER , falha INTEGER, replanta INTEGER, espacamento TEXT,  num INTEGER ,itemNum INTEGER ,codigoCenso INTEGER, area INTEGER, covas INTEGER)');
-
-    // await db.execute(
-    //     'CREATE TABLE regiao(regiaoCd INTEGER PRIMARY KEY, descr TEXT, responsavel TEXT, username TEXT, qtMapas INTEGER)');
 
     // await updateVersion2(db);
   }
 
   updateVersion2(Database db) async {
     List<String> updateVersion2 = [
-      'CREATE TABLE ITEM(id INTEGER PRIMARY KEY, descricao TEXT)',
+      'CREATE TABLE ITEM(id INTEGER PRIMARY KEY, descr TEXT)',
       // 'CREATE TABLE $table_name_almoxarifado(instNum INTEGER PRIMARY KEY, instNome TEXT, upfjPfjNum REFERENCES $table_name_unidade(upfjPfjNum), upfjNum REFERENCES $table_name_unidade(upfjNum))',
       // 'CREATE TABLE $table_name_receituario_item(receituarioNum INTEGER, receituarioDescr TEXT, itemNum INTEGER, itemNome TEXT, itemCd TEXT, itemUnidmedCd TEXT, itemDtVcto TEXT, itemLote TEXT, itemQtEstoque REAL, itemQtReceituario REAL, PRIMARY KEY (receituarioNum, itemNum))',
       // 'CREATE TABLE $table_name_item(itemNum INTEGER PRIMARY KEY, itemNome TEXT, itemCd TEXT, itemUnidmedCd TEXT, itemDtVcto TEXT, itemLote TEXT, itemQtEstoque REAL, itemQtReceituario REAL)'

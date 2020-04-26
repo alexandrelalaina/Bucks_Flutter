@@ -4,27 +4,27 @@ import 'item_unmed_controller.dart';
 import 'item_unmed_list/item_unmed_list_controller.dart';
 import 'widgets/card_item_unmed.dart';
 
-class ItemUnMedPage extends StatefulWidget {
+class ItemUnmedPage extends StatefulWidget {
   final String title;
-  final ItemUnMedListController storeItemUnMedList;
-  const ItemUnMedPage(
+  final ItemUnmedListController storeItemUnmedList;
+  const ItemUnmedPage(
       {Key key,
       this.title = "Cadastro de Unidade de Medida",
-      @required this.storeItemUnMedList})
+      @required this.storeItemUnmedList})
       : super(key: key);
 
   @override
-  _ItemUnMedPageState createState() => _ItemUnMedPageState();
+  _ItemUnmedPageState createState() => _ItemUnmedPageState();
 }
 
-class _ItemUnMedPageState extends State<ItemUnMedPage> {
-  ItemUnMedController store;
-  ItemUnMedListController get storeItemUnMedList => widget.storeItemUnMedList;
+class _ItemUnmedPageState extends State<ItemUnmedPage> {
+  ItemUnmedController store;
+  ItemUnmedListController get storeItemUnmedList => widget.storeItemUnmedList;
 
   @override
   void initState() {
     super.initState();
-    store = ItemUnMedController();
+    store = ItemUnmedController();
   }
 
   @override
@@ -37,9 +37,9 @@ class _ItemUnMedPageState extends State<ItemUnMedPage> {
           scrollDirection: Axis.vertical,
           child: Column(
             children: <Widget>[
-              CardItemUnMed(
+              CardItemUnmed(
                 store: store,
-                storeItemUnMedList: storeItemUnMedList,
+                storeItemUnmedList: storeItemUnmedList,
               ),
             ],
           ),

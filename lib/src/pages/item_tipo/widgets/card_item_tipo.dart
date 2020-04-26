@@ -27,7 +27,7 @@ class _CardItemState extends State<CardItemTipo> {
   CardCustom cadastroItemTipo() {
     List<Widget> list = List();
     list.add(TextFieldApp(
-      controller: store.descricao,
+      controller: store.descr,
       text: "Digite a descrição do Tipo do Item",
     ));
     list.add(SizedBox(height: 10));
@@ -107,7 +107,7 @@ class _CardItemTipoListState extends State<CardItemTipoList> {
                       Text(itemTipo.id.toString()),
                     ),
                     DataCell(
-                      Text(itemTipo.descricao),
+                      Text(itemTipo.descr),
                     ),
                   ],
                 ),

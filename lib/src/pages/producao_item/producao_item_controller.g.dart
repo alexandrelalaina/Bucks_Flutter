@@ -78,23 +78,6 @@ mixin _$ProducaoItemController on _ProducaoItemControllerBase, Store {
     }, _$cdStatusAtom, name: '${_$cdStatusAtom.name}_set');
   }
 
-  final _$valueAtom = Atom(name: '_ProducaoItemControllerBase.value');
-
-  @override
-  int get value {
-    _$valueAtom.context.enforceReadPolicy(_$valueAtom);
-    _$valueAtom.reportObserved();
-    return super.value;
-  }
-
-  @override
-  set value(int value) {
-    _$valueAtom.context.conditionallyRunInAction(() {
-      super.value = value;
-      _$valueAtom.reportChanged();
-    }, _$valueAtom, name: '${_$valueAtom.name}_set');
-  }
-
   final _$salvarProducaoItemAsyncAction = AsyncAction('salvarProducaoItem');
 
   @override
@@ -103,19 +86,5 @@ mixin _$ProducaoItemController on _ProducaoItemControllerBase, Store {
       @required ProducaoItemListController storeProducaoItemList}) {
     return _$salvarProducaoItemAsyncAction.run(() => super.salvarProducaoItem(
         store: store, storeProducaoItemList: storeProducaoItemList));
-  }
-
-  final _$_ProducaoItemControllerBaseActionController =
-      ActionController(name: '_ProducaoItemControllerBase');
-
-  @override
-  void increment() {
-    final _$actionInfo =
-        _$_ProducaoItemControllerBaseActionController.startAction();
-    try {
-      return super.increment();
-    } finally {
-      _$_ProducaoItemControllerBaseActionController.endAction(_$actionInfo);
-    }
   }
 }

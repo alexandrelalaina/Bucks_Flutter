@@ -3,8 +3,8 @@ import 'package:bucks/src/classes/producao.dart';
 import 'package:bucks/src/classes/producao_item.dart';
 import 'package:bucks/src/pages/producao/producao_controller.dart';
 import 'package:bucks/src/repository/DAO/item_estoque_dao.dart';
-import 'package:bucks/src/repository/bucks_db_repository.dart';
-import 'package:bucks/src/utils/constants.dart';
+import 'package:bucks/src/repository/DAO/producao_dao.dart';
+import 'package:bucks/src/repository/DAO/producao_item_dao.dart';
 import 'package:mobx/mobx.dart';
 
 part 'producao_list_controller.g.dart';
@@ -15,7 +15,8 @@ class ProducaoListController = _ProducaoListControllerBase
 abstract class _ProducaoListControllerBase with Store {
   // DAO
   ItemEstoqueDAO itemEstoqueDAO;
-  BucksDBRepository serviceAlterar;
+  ProducaoItemDAO producaoItemDAO;
+  ProducaoDAO producaoDAO;
 
   // Controller
   ProducaoController storeProducaoController;
@@ -43,7 +44,8 @@ abstract class _ProducaoListControllerBase with Store {
 
   _ProducaoListControllerBase() {
     itemEstoqueDAO = itemEstoqueDAO ?? ItemEstoqueDAO();
-    serviceAlterar = serviceAlterar ?? BucksDBRepository();
+    producaoItemDAO = producaoItemDAO ?? ProducaoItemDAO();
+    producaoDAO = producaoDAO ?? ProducaoDAO();
   }
 
   void init() async {
@@ -63,7 +65,7 @@ abstract class _ProducaoListControllerBase with Store {
   @action
   Future<List<Producao>> listarProducaoByDescr(String descr) async {
     ultProdInserida = [];
-    var future = serviceAlterar.listarProducaoByDescr(descr: descr);
+    var future = producaoDAO.listarProducaoByDescr(descr: descr);
     //itemEstoqueList = ObservableFuture<List<Producao>>(future);
     ultProdInserida = await future;
     return ultProdInserida;
@@ -97,8 +99,13 @@ abstract class _ProducaoListControllerBase with Store {
       seqProdItem = 1;
     }
 
-    ProducaoItem pi = new ProducaoItem(seqProdItem, idProd, model.fkItemId, 100,
-        null, null, null, model.descrItem, nomeProd);
+    ProducaoItem pi = new ProducaoItem();
+      pi.fkProducaoId = idProd; 
+      pi.seq = seqProdItem; 
+      pi.fkItemId = model.fkItemId; 
+      pi.qt = 100;
+      // pi. = model.descrItem; 
+      // pi. = nomeProd;
 
     producaoItensDt = producaoItensDt;
     producaoItensDt.add(pi);
@@ -107,10 +114,10 @@ abstract class _ProducaoListControllerBase with Store {
   @action
   Future<List<Producao>> listar() async {
     var qtdLinhas =
-        await serviceAlterar.listarQuantidadeLinhas(table_name_producao);
+        await producaoDAO.count();
     print('qtdLinhas => $qtdLinhas');
     producoes = [];
-    var future = serviceAlterar.listarProducao();
+    var future = producaoDAO.listarTodos();
     producoesList = ObservableFuture<List<Producao>>(future);
     return producoes = await future;
   }

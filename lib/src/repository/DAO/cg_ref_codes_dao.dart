@@ -2,7 +2,7 @@ import 'package:bucks/src/classes/cg_ref_codes.dart';
 import 'package:bucks/src/repository/DAO/base_dao.dart';
 import 'package:bucks/src/utils/constants.dart';
 
-class CgRefCodesDAO extends BaseDAO {
+class CgRefCodesDAO extends BaseDAO<CgRefCodes> {
   
   @override
   CgRefCodes fromJson(Map<String, dynamic> map) {
