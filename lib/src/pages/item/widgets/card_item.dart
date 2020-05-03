@@ -33,7 +33,7 @@ class _CardItemState extends State<CardItem> {
   ItemListController get storeItemList => widget.storeItemList;
   BuildContext context;
 
-String _validateSenha(String text) {
+  String _validateSenha(String text) {
     if (1 == 1) {
       return "Informe a senha";
     }
@@ -49,7 +49,7 @@ String _validateSenha(String text) {
     //list.add(CorDeFundo.ContainerDecorationPadrao(
     //    text: 'Descrição', fontSize: 20, fontWeight: FontWeight.bold));
     list.add(TextFieldApp(
-      controller: store.descricao, 
+      controller: store.descricao,
       text: "Digite a descrição do Item",
     ));
 
@@ -61,27 +61,24 @@ String _validateSenha(String text) {
 
     list.add(SizedBox(height: 20));
     list.add(CorDeFundo.ContainerDecorationPadrao(
-                  text: 'ITEM TIPO', fontSize: 24, fontWeight: FontWeight.bold));
-    list.add(DropdownFindItemTipo(
-        store: storeItemList
-      ));
+        text: 'ITEM TIPO', fontSize: 24, fontWeight: FontWeight.bold));
+    list.add(DropdownFindItemTipo(store: storeItemList));
     list.add(SizedBox(height: 10));
 
     list.add(CorDeFundo.ContainerDecorationPadrao(
-                  text: 'ITEM GRUPO', fontSize: 24, fontWeight: FontWeight.bold));
-    list.add(DropdownFindItemGrupo(
-        store: storeItemList
-      ));
+        text: 'ITEM GRUPO', fontSize: 24, fontWeight: FontWeight.bold));
+    list.add(DropdownFindItemGrupo(store: storeItemList));
     list.add(SizedBox(height: 10));
 
     list.add(CorDeFundo.ContainerDecorationPadrao(
-                  text: 'ITEM UN. MEDIDA', fontSize: 24, fontWeight: FontWeight.bold));
-    list.add(DropdownFindItemUnMed(
-        store: storeItemList
-      ));
+        text: 'ITEM UN. MEDIDA', fontSize: 24, fontWeight: FontWeight.bold));
+    list.add(DropdownFindItemUnMed(store: storeItemList));
     list.add(SizedBox(height: 10));
 
-    list.add(Buttons(store: store, storeItemList: storeItemList,));
+    list.add(Buttons(
+      store: store,
+      storeItemList: storeItemList,
+    ));
     /*list.add(
       Container(
       decoration: BoxDecoration(
@@ -115,14 +112,14 @@ String _validateSenha(String text) {
   Widget build(BuildContext context) {
     return cadastroItem();
   }
-
 }
 
 class CardItemList extends StatefulWidget {
   final ItemListController store;
   final ItemTipo itemTipo;
 
-  const CardItemList({Key key, @required this.store, @required this.itemTipo}) : super(key: key);
+  const CardItemList({Key key, @required this.store, @required this.itemTipo})
+      : super(key: key);
 
   @override
   _CardItemListState createState() => _CardItemListState();
@@ -137,7 +134,7 @@ class _CardItemListState extends State<CardItemList> {
 
   List<Item> itens;
 
- onSortColum(int columnIndex, bool ascending) {
+  onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 1) {
       if (ascending) {
         store.itens.sort((a, b) => a.descr.compareTo(b.descr));
@@ -204,37 +201,36 @@ class _CardItemListState extends State<CardItemList> {
                             onSortColum(columnIndex, ascending);
                           }),
                       DataColumn(
-                          label: Text(
-                            "CD EST.",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                          ),
-                          numeric: false,
-                         ),
-                          DataColumn(
-                          label: Text(
-                            "ITEM TIPO",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                            ),
-                          ),
-                          DataColumn(
-                          label: Text(
-                            "ITEM GRUPO",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                            ),
-                          ),
-                          DataColumn(
-                          label: Text(
-                            "ITEM UN. MED.",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                            ),
-                          ),
+                        label: Text(
+                          "CD EST.",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        numeric: false,
+                      ),
+                      DataColumn(
+                        label: Text(
+                          "ITEM TIPO",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          "ITEM GRUPO",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Text(
+                          "ITEM UN. MED.",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      ),
                     ],
                     rows: store.itens.map((item) {
-                       
                       // var item = Item.fromJson(data);
 
                       return DataRow(cells: [
@@ -258,18 +254,23 @@ class _CardItemListState extends State<CardItemList> {
                         ),
                         DataCell(
                           Text(
-                            formatarIdDescr(item.fkItemTipoId.toString(), item.itemTipoDescr),
+                            formatarIdDescr(item.fkItemTipoId.toString(),
+                                item.itemTipoDescr),
                             // "${item.itemTipoDescr}",
                             style: TextStyle(fontSize: 16),
                           ),
                         ),
                         DataCell(
-                          Text(formatarIdDescr(item.fkItemGrupoId.toString(), item.itemGrupoDescr),
+                          Text(
+                            formatarIdDescr(item.fkItemGrupoId.toString(),
+                                item.itemGrupoDescr),
                             style: TextStyle(fontSize: 16),
                           ),
                         ),
                         DataCell(
-                          Text(formatarIdDescr(item.fkItemUnmedId, item.itemUnMedDescr),
+                          Text(
+                            formatarIdDescr(
+                                item.fkItemUnmedId, item.itemUnMedDescr),
                             style: TextStyle(fontSize: 16),
                           ),
                         ),

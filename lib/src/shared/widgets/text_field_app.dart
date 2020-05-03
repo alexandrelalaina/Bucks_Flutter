@@ -10,19 +10,21 @@ class TextFieldApp extends StatelessWidget {
   final Function onChange;
   final String text;
   final String initialValue;
+  final bool pEnabled;
 
-  TextFieldApp({
-    Key key,
-    this.controller,
-    this.icone,
-    this.password = false,
-    this.keyBoardType = TextInputType.text,
-    this.textAlign = TextAlign.start,
-    this.validator,
-    this.text,
-    this.onChange,
-    this.initialValue,
-  }) : super(key: key);
+  TextFieldApp(
+      {Key key,
+      this.controller,
+      this.icone,
+      this.password = false,
+      this.keyBoardType = TextInputType.text,
+      this.textAlign = TextAlign.start,
+      this.validator,
+      this.text,
+      this.onChange,
+      this.initialValue,
+      this.pEnabled = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,7 @@ class TextFieldApp extends StatelessWidget {
           color: Colors.black,
         ),
         decoration: _inputDecoration(),
+        enabled: pEnabled,
       ),
     );
   }

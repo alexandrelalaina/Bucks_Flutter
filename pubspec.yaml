@@ -59,6 +59,7 @@ dependencies:
   fl_chart: ^0.4.3
   modern_charts: ^0.1.19
   find_dropdown: ^0.1.7+1
+  flutter_masked_text: 0.8.0
   flutter:
     sdk: flutter
 

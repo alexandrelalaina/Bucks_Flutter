@@ -15,4 +15,6 @@ class ItemGrupoDAO extends BaseDAO<ItemGrupo> {
   @override
   String get tableName => table_name_item_grupo;
 
+  @override
+  String get orderByCols => null;
 }

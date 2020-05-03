@@ -1,7 +1,6 @@
 import 'entity_base.dart';
 
-class MovtoEstoque extends EntityBase{
-
+class MovtoEstoque extends EntityBase {
   int id;
   int fkItemEstoqueItemId;
   int fkItemEstoqueLote;
@@ -15,6 +14,10 @@ class MovtoEstoque extends EntityBase{
   double vlUnitPos;
   int fkProditemProducaoId;
   int fkProditemSeq;
+
+  // colunas de outras tabelas
+  String fkMovtoEstoqueTipoDescr;
+  String fkItemEstoqueItemDescr;
 
   MovtoEstoque(
       {this.id,
@@ -38,13 +41,16 @@ class MovtoEstoque extends EntityBase{
     fkMovtoEstoqueTipoId = json['fk_movto_estoque_tipo_id'];
     dt = json['dt'];
     qtd = json['qtd'];
-    vlUnit = json['vl_unit'];
+    vlUnit = json[('vl_unit').toLowerCase()];
     qtSaldoAnt = json['qt_saldo_ant'];
     qtSaldoPos = json['qt_saldo_pos'];
     vlUnitAnt = json['vl_unit_ant'];
     vlUnitPos = json['vl_unit_pos'];
     fkProditemProducaoId = json['fk_proditem_producao_id'];
     fkProditemSeq = json['fk_proditem_seq'];
+    // colunas de outras tabelas
+    fkMovtoEstoqueTipoDescr = json['fk_movto_estoque_tipo_descr'];
+    fkItemEstoqueItemDescr = json['fk_item_estoque_item_descr'];
   }
 
   Map<String, dynamic> toJson() {

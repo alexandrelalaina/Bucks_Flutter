@@ -4,7 +4,6 @@ import 'package:bucks/src/shared/utils/constants.dart';
 import 'base_dao.dart';
 
 class ItemEstoqueDAO extends BaseDAO<ItemEstoque> {
-
   @override
   String get tableName => table_name_item_estoque;
 
@@ -14,34 +13,38 @@ class ItemEstoqueDAO extends BaseDAO<ItemEstoque> {
   }
 
   @override
-  String get sqlComJoin => 'select i.id      as fk_item_id '+
-                               ' , i.descr   as fk_item_descr '+
-                               ' , gr.id     as fk_item_grupo_id '+
-                               ' , gr.descr  as fk_item_grupo_descr '+
-                               ' , un.id     as fk_item_unmed_id '+
-                               ' , un.descr  as fk_item_unmed_descr '+
-                               ' , tp.id     as fk_item_tipo_id '+
-                               ' , tp.descr  as fk_item_tipo_descr '+
-                              //  ' , ie.* '+
-                           'from $table_name_item i '+
-                             ' , $table_name_item_grupo gr '+
-                             ' , $table_name_item_unmed un '+
-                             ' , $table_name_item_tipo  tp '+
-                          // retirar o item estoque para ir testando  
-                          //  ' , $table_name_item_estoque ie '+
-                           'where i.fkItemGrupoId = gr.id '+
-                           '  and i.fkItemUnmedId = un.id '+
-                           '  and i.fkItemTipoId  = tp.id '
-                          //  '  and ie.fk_item_id   = i.id '
-                           ;
+  String get sqlComJoin =>
+      'select i.id      as fk_item_id ' +
+      ' , i.descr   as fk_item_descr ' +
+      ' , gr.id     as fk_item_grupo_id ' +
+      ' , gr.descr  as fk_item_grupo_descr ' +
+      ' , un.id     as fk_item_unmed_id ' +
+      ' , un.descr  as fk_item_unmed_descr ' +
+      ' , tp.id     as fk_item_tipo_id ' +
+      ' , tp.descr  as fk_item_tipo_descr ' +
+      ' , ie.* ' +
+      'from $table_name_item i ' +
+      ' , $table_name_item_grupo gr ' +
+      ' , $table_name_item_unmed un ' +
+      ' , $table_name_item_tipo  tp ' +
+      ' , $table_name_item_estoque ie ' +
+      'where i.fkItemGrupoId = gr.id ' +
+      '  and i.fkItemUnmedId = un.id ' +
+      '  and i.fkItemTipoId  = tp.id '
+          '  and ie.fk_item_id   = i.id ';
+
+  @override
+  String get orderByCols => ' ie.qt_saldo desc ';
 
   // passar a PK - se for composta tem que implementar as colunas
-  Future<ItemEstoque> findPorPkk(int fkItemId, int lote) async {
+  Future<ItemEstoque> findItemLote(int fkItemId, int lote) async {
     final dbClient = await db;
-    final list = await dbClient.rawQuery("select * from $tableName "+
-                                         "where fk_item_id = ? "+
-                                         "  and lote = ? ", [fkItemId, lote]);
-    if (list.length > 0){
+    final list = await dbClient.rawQuery(
+        "select * from $tableName " +
+            "where fk_item_id = ? " +
+            "  and lote = ? ",
+        [fkItemId, lote]);
+    if (list.length > 0) {
       return fromJson(list.first);
     }
     return null;
@@ -62,6 +65,5 @@ class ItemEstoqueDAO extends BaseDAO<ItemEstoque> {
   //   final list = await dbClient.rawQuery("select * from $tableName where id = ? ", [id]);
   //   return list.map<T>((json) => fromJson(json)).toList();
   // }
-
 
 }

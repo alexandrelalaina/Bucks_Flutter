@@ -3,6 +3,7 @@ import 'package:bucks/src/classes/item_estoque.dart';
 import 'package:bucks/src/pages/producao/producao_controller.dart';
 import 'package:bucks/src/pages/producao/producao_list/producao_list_controller.dart';
 import 'package:bucks/src/pages/producao_item/producao_item_list/producao_item_list_controller.dart';
+import 'package:bucks/src/shared/utils/formatar_id_descr.dart';
 import 'package:bucks/src/shared/widgets/snackbar_custom.dart';
 import 'package:bucks/src/shared/widgets/text_message.dart';
 import 'package:find_dropdown/find_dropdown.dart';
@@ -59,7 +60,8 @@ class _DropdownFindProducaoState extends State<DropdownFindItemEstoque> {
           },
           onChanged: (ItemEstoque data) async {
             await store.setLixo();
-            bool jaPossuiItem = store.validaDataTablePossuiItem(data.fkItemDescr);
+            bool jaPossuiItem =
+                store.validaDataTablePossuiItem(data.fkItemDescr);
 
             if (jaPossuiItem) {
               snackbarInfoWithoutDuration(
@@ -89,7 +91,8 @@ class _DropdownFindProducaoState extends State<DropdownFindItemEstoque> {
                     )
                   : ListTile(
                       title: Text(
-                        '${item.fkItemId.toString()} - ${item.fkItemDescr}',
+                        formatarIdDescr(
+                            item.fkItemId.toString(), item.fkItemDescr),
                         // '${item.fkItemId.toString()} - ${item.descrItem}',
                         style: TextStyle(fontSize: 24),
                       ),
@@ -192,7 +195,7 @@ class _DropdownFindItemState extends State<DropdownFindItem> {
                     )
                   : ListTile(
                       title: Text(
-                        '${item.id.toString()} - ${item.descr}',
+                        formatarIdDescr(item.id.toString(), item.descr),
                         style: TextStyle(fontSize: 24),
                       ),
                       // subtitle: Text(item.empresaDescr),

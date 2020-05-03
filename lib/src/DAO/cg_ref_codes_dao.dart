@@ -3,7 +3,6 @@ import 'package:bucks/src/shared/utils/constants.dart';
 import 'base_dao.dart';
 
 class CgRefCodesDAO extends BaseDAO<CgRefCodes> {
-  
   @override
   CgRefCodes fromJson(Map<String, dynamic> map) {
     return CgRefCodes.fromJson(map);
@@ -13,8 +12,8 @@ class CgRefCodesDAO extends BaseDAO<CgRefCodes> {
   String get sqlComJoin => null;
 
   @override
-  // TODO: implement tableName
   String get tableName => table_name_cg_ref_codes;
-   
 
+  @override
+  String get orderByCols => null;
 }

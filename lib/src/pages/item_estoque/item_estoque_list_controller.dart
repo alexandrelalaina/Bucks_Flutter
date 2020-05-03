@@ -8,7 +8,6 @@ class ItemEstoqueListController = _ItemEstoqueListControllerBase
     with _$ItemEstoqueListController;
 
 abstract class _ItemEstoqueListControllerBase with Store {
-
   ItemEstoqueDAO itemEstoqueDAO;
 
   @observable
@@ -28,18 +27,18 @@ abstract class _ItemEstoqueListControllerBase with Store {
     print('qtdLinhas => $qtdLinhas');
 
     // pause
-    //  if (qtdLinhas == 0){
-      print(" --- carga manual ITEM_ESTOQUE");
-      ItemEstoque insItemEstoque = ItemEstoque();
-      insItemEstoque.fkItemId = 1;
-      insItemEstoque.lote = 1;
-      insItemEstoque.qtSaldo = 300.00;
-      insItemEstoque.vlUnit = 30.00;
-      insItemEstoque.qtReservado = 0.00;
+    // if (qtdLinhas == 0) {
+    //   print(" --- carga manual ITEM_ESTOQUE");
+    //   ItemEstoque insItemEstoque = ItemEstoque();
+    //   insItemEstoque.fkItemId = 1;
+    //   insItemEstoque.lote = 1;
+    //   insItemEstoque.qtSaldo = 300.00;
+    //   insItemEstoque.vlUnit = 30.00;
+    //   insItemEstoque.qtReservado = 0.00;
 
-      var id = itemEstoqueDAO.salvar(insItemEstoque);
-      print('id: $id');
-    //  }
+    //   var id = itemEstoqueDAO.salvar(insItemEstoque);
+    //   print('id: $id');
+    // }
 
     itemsEstoque = [];
     var future = itemEstoqueDAO.listarTodos();
@@ -56,5 +55,6 @@ abstract class _ItemEstoqueListControllerBase with Store {
       ObservableFuture.value([]);
 
   @observable
-  ObservableFuture<List<ItemEstoque>> itemsEstoqueList = emptyResponseItemEstoque;
+  ObservableFuture<List<ItemEstoque>> itemsEstoqueList =
+      emptyResponseItemEstoque;
 }

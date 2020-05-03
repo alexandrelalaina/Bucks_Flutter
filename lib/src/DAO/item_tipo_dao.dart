@@ -15,6 +15,9 @@ class ItemTipoDAO extends BaseDAO<ItemTipo> {
   @override
   String get tableName => table_name_item_tipo;
 
+  @override
+  String get orderByCols => null;
+
   Future<String> listarDescrItemTipo() async {
     final dbClient = await db;
 
@@ -26,5 +29,4 @@ class ItemTipoDAO extends BaseDAO<ItemTipo> {
 
     return result.toString();
   }
-
 }

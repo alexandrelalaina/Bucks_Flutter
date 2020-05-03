@@ -1,9 +1,126 @@
+import 'package:bucks/src/pages/movto_estoque/movto_estoque_controller.dart';
+import 'package:bucks/src/pages/movto_estoque/movto_estoque_list_controller.dart';
+import 'package:bucks/src/pages/movto_estoque/widgets/buttons.dart';
+import 'package:bucks/src/pages/movto_estoque/widgets/dropdown_find.dart';
+import 'package:bucks/src/shared/utils/colors.dart';
+import 'package:bucks/src/shared/utils/constants.dart';
+import 'package:bucks/src/shared/utils/formatar_id_descr.dart';
 import 'package:bucks/src/shared/widgets/card_custom.dart';
+import 'package:bucks/src/shared/widgets/text_field_app.dart';
 import 'package:bucks/src/shared/widgets/text_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../movto_estoque_list_controller.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
+
+class CardMovtoEstoque extends StatefulWidget {
+  final MovtoEstoqueController store;
+  final MovtoEstoqueListController storeMovtoEstoqueList;
+  BuildContext context;
+
+  CardMovtoEstoque(
+      {Key key,
+      @required this.store,
+      @required this.storeMovtoEstoqueList,
+      BuildContext context})
+      : super(key: key);
+
+  @override
+  _CardMovtoEstoqueState createState() => _CardMovtoEstoqueState();
+}
+
+class _CardMovtoEstoqueState extends State<CardMovtoEstoque> {
+  MovtoEstoqueController get store => widget.store;
+  MovtoEstoqueListController get storeMovtoEstoqueList =>
+      widget.storeMovtoEstoqueList;
+  BuildContext context;
+
+  CardCustom cadastroMovtoEstoque() {
+    List<Widget> list = List();
+
+    list.add(CorDeFundo.ContainerDecorationPadrao(
+      text: 'ITEM',
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+    ));
+    list.add(DropdownFindItem(store: storeMovtoEstoqueList));
+
+    list.add(TextFieldApp(
+      controller: store.lote,
+      text: "Digite o Lote",
+    ));
+
+    list.add(CorDeFundo.ContainerDecorationPadrao(
+      text: 'TIPO MOVTO ESTOQUE',
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+    ));
+    list.add(DropdownFindMovtoTipo(store: storeMovtoEstoqueList));
+
+    store.qtd = MaskedTextController(mask: maskValor);
+    store.qtd.text = '1';
+    list.add(TextFieldApp(
+      controller: store.qtd,
+      text: "Digite a quantidade",
+    ));
+
+    list.add(TextFieldApp(
+      controller: store.dt,
+      text: "Digite a data do Movto",
+    ));
+
+    // list.add(TextFieldApp(
+    //   controller: store.vlTotal,
+    //   text: "Digite o valor total",
+    //   // onChange: store.calcular,
+    // ));
+
+    list.add(TextFieldApp(
+      controller: store.vlUnit,
+      text: "Digite o valor unitário",
+      // onChange: store.calcular,
+      // pEnabled: false,
+    ));
+
+    list.add(Buttons(
+      store: store,
+      storeMovtoEstoqueList: storeMovtoEstoqueList,
+    ));
+
+    /*list.add(
+      Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(22),
+      ),
+      margin: EdgeInsets.only(top: 20),
+      child: Container(
+                width: 550,
+                child:  AppButton(
+                "Salvarrr",
+                validaItem(data: store, storeItemList: storeItemList),
+              ),
+                /*FlatButtonApp(
+                  label: "Salvar",
+                  onPressed: () => validaItem(data: store, storeItemList: storeItemList),
+                ),*/
+              ),
+      ),
+    );*/
+
+    return CardCustom(
+      padding: 20,
+      borderRadius: 15.0,
+      widget: Column(
+        children: list,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return cadastroMovtoEstoque();
+  }
+}
 
 class CardMovtoEstoqueList extends StatefulWidget {
   final MovtoEstoqueListController store;
@@ -38,37 +155,43 @@ class _CardMovtoEstoqueListState extends State<CardMovtoEstoqueList> {
         }
         return DataTable(
           columns: [
-            DataColumn(label: Text("ID"),numeric: false,),
-            DataColumn(label: Text("ITEM"),numeric: false,),
-            DataColumn(label: Text("LOTE"),numeric: false,),
-            DataColumn(label: Text("TIPO"),numeric: false,),
-            DataColumn(label: Text("DATA"),numeric: false,),
-            DataColumn(label: Text("QTD"),numeric: false,),
-            DataColumn(label: Text("VL_UNIT"),numeric: false,),
-            DataColumn(label: Text("QT_SALDO_ANT"),numeric: false,),
-            DataColumn(label: Text("QT_SALDO_POS"),numeric: false,),
-            DataColumn(label: Text("VL_UNIT_ANT"),numeric: false,),
-            DataColumn(label: Text("VL_UNIT_POS"),numeric: false,),
-            DataColumn(label: Text("PRODUCAO ID"),numeric: false,),
-            DataColumn(label: Text("PRODUCAO SEQ"),numeric: false,),
+            DataColumn(label: Text("ID"), numeric: false),
+            DataColumn(label: Text("ITEM"), numeric: false),
+            DataColumn(label: Text("LOTE"), numeric: false),
+            DataColumn(label: Text("TIPO"), numeric: false),
+            DataColumn(label: Text("DATA"), numeric: false),
+            DataColumn(label: Text("QTD"), numeric: false),
+            DataColumn(label: Text("VL_UNIT"), numeric: false),
+            DataColumn(label: Text("Vl. Total"), numeric: false),
+            DataColumn(label: Text("QT_SALDO_ANT"), numeric: false),
+            DataColumn(label: Text("QT_SALDO_POS"), numeric: false),
+            DataColumn(label: Text("VL_UNIT_ANT"), numeric: false),
+            DataColumn(label: Text("VL_UNIT_POS"), numeric: false),
+            DataColumn(label: Text("PRODUCAO ID"), numeric: false),
+            DataColumn(label: Text("PRODUCAO SEQ"), numeric: false),
           ],
           rows: store.movtosEstoque
               .map(
                 (item) => DataRow(
                   cells: [
-                    DataCell(Text(item.id.toString()),),
-                    DataCell(Text(item.fkItemEstoqueItemId.toString()),),
-                    DataCell(Text(item.fkItemEstoqueLote.toString()),),
-                    DataCell(Text(item.fkMovtoEstoqueTipoId.toString()),),
-                    DataCell(Text(item.dt.toString()),),
-                    DataCell(Text(item.qtd.toString()),),
-                    DataCell(Text(item.vlUnit.toString()),),
-                    DataCell(Text(item.qtSaldoAnt.toString()),),
-                    DataCell(Text(item.qtSaldoPos.toString()),),
-                    DataCell(Text(item.vlUnitAnt.toString()),),
-                    DataCell(Text(item.vlUnitPos.toString()),),
-                    DataCell(Text(item.fkProditemProducaoId.toString()),),
-                    DataCell(Text(item.fkProditemSeq.toString()),),
+                    DataCell(Text(item.id.toString())),
+                    DataCell(Text(formatarIdDescr(
+                        item.fkItemEstoqueItemId.toString(),
+                        item.fkItemEstoqueItemDescr))),
+                    DataCell(Text(item.fkItemEstoqueLote.toString())),
+                    DataCell(Text(formatarIdDescr(
+                        item.fkMovtoEstoqueTipoId.toString(),
+                        item.fkMovtoEstoqueTipoDescr))),
+                    DataCell(Text(item.dt.toString())),
+                    DataCell(Text(item.qtd.toString())),
+                    DataCell(Text(item.vlUnit.toString())),
+                    DataCell(Text((item.qtd * item.vlUnit).toString())),
+                    DataCell(Text(item.qtSaldoAnt.toString())),
+                    DataCell(Text(item.qtSaldoPos.toString())),
+                    DataCell(Text(item.vlUnitAnt.toString())),
+                    DataCell(Text(item.vlUnitPos.toString())),
+                    DataCell(Text(item.fkProditemProducaoId.toString())),
+                    DataCell(Text(item.fkProditemSeq.toString())),
                   ],
                 ),
               )
@@ -76,13 +199,14 @@ class _CardMovtoEstoqueListState extends State<CardMovtoEstoqueList> {
         );
       }),
     );
+
     // list.add(SizedBox(height: 10));
     // list.add(
     //   Container(
     //     width: 250,
     //     child: FlatButtonApp(
     //       label: "Salvar",
-    //       onPressed: () => store.salvarFarmacia(store: store),
+    //       onPressed: () => store.sa(store: store),
     //     ),
     //   ),
     // );

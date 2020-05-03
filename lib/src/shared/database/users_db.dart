@@ -1,4 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:bucks/src/DAO/item_estoque_dao.dart';
+import 'package:bucks/src/DAO/movto_estoque_dao.dart';
 import 'package:bucks/src/classes/user.dart';
 import 'package:bucks/src/shared/utils/constants.dart';
 import 'package:sqflite/sqflite.dart';
@@ -24,6 +26,8 @@ class UserDb extends Disposable {
 
     // TODO chamar para recriar as tabelas sem excluir o app
     _onCreate(_db, 0);
+
+    // deletarTabelasManualmente();
 
     _db = await initDb();
 
@@ -60,7 +64,7 @@ class UserDb extends Disposable {
   }
 
   void _dropTable(Database db, int newVersion, String pTableName) async {
-    try{
+    try {
       await db.execute('DROP TABLE $pTableName');
       print('TABELA $pTableName DROPADA COM SUCESSO!');
     } catch (e) {
@@ -68,22 +72,31 @@ class UserDb extends Disposable {
     }
   }
 
-  void _onCreate(Database db, int newVersion) async {
+  void deletarTabelasManualmente() async {
+    MovtoEstoqueDAO movtoEstoqueDAO = MovtoEstoqueDAO();
+    movtoEstoqueDAO.deletarTodos();
 
-    // _dropTable(db, newVersion, table_name_cg_ref_codes);
+    ItemEstoqueDAO itemEstoqueDAO = ItemEstoqueDAO();
+    itemEstoqueDAO.deletarTodos();
+  }
+
+  void _onCreate(Database db, int newVersion) async {
+    _dropTable(db, newVersion, table_name_movto_estoque);
 
     try {
       await db.execute(
           'CREATE TABLE $table_name_cg_ref_codes(id INTEGER PRIMARY KEY AUTOINCREMENT, rv_dommain TEXT, rv_low_value TEXT, rv_high_value TEXT, rv_descr TEXT, rv_abrev TEXT)');
     } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_cg_ref_codes ! => " + e.toString());
+      print("***ERRO AO CRIAR TABELA $table_name_cg_ref_codes ! => " +
+          e.toString());
     }
 
     try {
       await db.execute(
           'CREATE TABLE $table_name_item_tipo(id INTEGER PRIMARY KEY AUTOINCREMENT, descr TEXT)');
     } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_item_tipo ! => " + e.toString());
+      print(
+          "***ERRO AO CRIAR TABELA $table_name_item_tipo ! => " + e.toString());
     }
 
     // _dropTable(db, newVersion, table_name_item_grupo);
@@ -92,14 +105,16 @@ class UserDb extends Disposable {
       await db.execute(
           'CREATE TABLE $table_name_item_grupo(id INTEGER PRIMARY KEY AUTOINCREMENT, descr TEXT)');
     } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_item_grupo ! => " + e.toString());
+      print("***ERRO AO CRIAR TABELA $table_name_item_grupo ! => " +
+          e.toString());
     }
 
-   try {
+    try {
       await db.execute(
           'CREATE TABLE $table_name_item_unmed(id TEXT PRIMARY KEY, descr TEXT)');
     } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_item_unmed ! => " + e.toString());
+      print("***ERRO AO CRIAR TABELA $table_name_item_unmed ! => " +
+          e.toString());
     }
 
     try {
@@ -114,13 +129,14 @@ class UserDb extends Disposable {
       print('Tabela criada com sucesso! TABLE ($table_name_item)');
     } catch (e) {
       print("***ERRO AO CRIAR TABELA $table_name_item ! => " + e.toString());
-    }    
+    }
 
     try {
       await db.execute(
           'CREATE TABLE $table_name_producao(id INTEGER PRIMARY KEY AUTOINCREMENT, fk_producao_tipo_id INTEGER, descr TEXT, dt_producao_ini TEXT, dt_producao_fim TEXT, cd_status TEXT )');
     } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_producao ! => " + e.toString());
+      print(
+          "***ERRO AO CRIAR TABELA $table_name_producao ! => " + e.toString());
     }
 
     // TODO
@@ -135,9 +151,10 @@ class UserDb extends Disposable {
               'cd_tipo TEXT, ' +
               'cd_status TEXT )');
     } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_producao_item ! => " + e.toString());
+      print("***ERRO AO CRIAR TABELA $table_name_producao_item ! => " +
+          e.toString());
     }
-   
+
     try {
       await db
           .execute('CREATE TABLE $table_name_item_estoque(fk_item_id INTEGER' +
@@ -147,34 +164,37 @@ class UserDb extends Disposable {
               ', qt_reservado REAL)');
       print('Tabela criada com sucesso! TABLE ($table_name_item_estoque)');
     } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_item_estoque ! => " + e.toString());
+      print("***ERRO AO CRIAR TABELA $table_name_item_estoque ! => " +
+          e.toString());
     }
 
     try {
       await db.execute(
           'CREATE TABLE $table_name_movto_estoque_tipo(id INTEGER PRIMARY KEY AUTOINCREMENT, descr TEXT, cd_tipo_movto TEXT)');
     } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_movto_estoque_tipo ! => " + e.toString());
+      print("***ERRO AO CRIAR TABELA $table_name_movto_estoque_tipo ! => " +
+          e.toString());
     }
 
     try {
       await db.execute(
-          'CREATE TABLE $table_name_movto_estoque(id INTEGER PRIMARY KEY AUTOINCREMENT, '+
-                                                 'fk_item_estoque_item_id INTEGER, '+
-                                                 'fk_item_estoque_lote INTEGER, '+
-                                                 'fk_movto_estoque_tipo_id INTEGER, '+
-                                                 'dt TEXT, '+
-                                                 'qtd REAL, '+
-                                                 'vL_unit REAL, '+
-                                                 'qt_saldo_ant REAL, '+
-                                                 'qt_saldo_pos REAL, '+
-                                                 'vL_unit_ant REAL, '+
-                                                 'vL_unit_pos REAL, '+
-                                                 'fk_proditem_producao_id INTEGER, '+
-                                                 'fk_proditem_seq INTEGER '+
-                                                 ')');
+          'CREATE TABLE $table_name_movto_estoque(id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+              'fk_item_estoque_item_id INTEGER, ' +
+              'fk_item_estoque_lote INTEGER, ' +
+              'fk_movto_estoque_tipo_id INTEGER, ' +
+              'dt TEXT, ' +
+              'qtd REAL, ' +
+              'vl_unit REAL, ' +
+              'qt_saldo_ant REAL, ' +
+              'qt_saldo_pos REAL, ' +
+              'vl_unit_ant REAL, ' +
+              'vl_unit_pos REAL, ' +
+              'fk_proditem_producao_id INTEGER, ' +
+              'fk_proditem_seq INTEGER ' +
+              ')');
     } catch (e) {
-      print("***ERRO AO CRIAR TABELA $table_name_movto_estoque ! => " + e.toString());
+      print("***ERRO AO CRIAR TABELA $table_name_movto_estoque ! => " +
+          e.toString());
     }
 
     // await updateVersion2(db);

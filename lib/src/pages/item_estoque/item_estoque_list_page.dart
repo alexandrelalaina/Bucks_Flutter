@@ -9,7 +9,6 @@ class ItemEstoqueListPage extends StatefulWidget {
 
   @override
   _ItemEstoqueListPageState createState() => _ItemEstoqueListPageState();
-  
 }
 
 class _ItemEstoqueListPageState extends State<ItemEstoqueListPage> {
@@ -29,8 +28,9 @@ class _ItemEstoqueListPageState extends State<ItemEstoqueListPage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
-        // scrollDirection: Axis.horizontal,
-        scrollDirection: Axis.vertical,
+        scrollDirection: Axis.horizontal,
+
+        // scrollDirection: Axis.vertical,
         child: Column(
           children: <Widget>[
             CardItemEstoqueList(store: store),

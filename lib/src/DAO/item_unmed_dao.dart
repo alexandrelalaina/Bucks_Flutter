@@ -15,4 +15,6 @@ class ItemUnmedDAO extends BaseDAO<ItemUnmed> {
   @override
   String get tableName => table_name_item_unmed;
 
+  @override
+  String get orderByCols => null;
 }

@@ -1,3 +1,4 @@
+import 'package:bucks/src/shared/utils/formatar_id_descr.dart';
 import 'package:bucks/src/shared/widgets/card_custom.dart';
 import 'package:bucks/src/shared/widgets/text_message.dart';
 import 'package:flutter/material.dart';
@@ -38,23 +39,28 @@ class _CardItemEstoqueListState extends State<CardItemEstoqueList> {
         }
         return DataTable(
           columns: [
-            DataColumn(label: Text("Item"),numeric: false,),
-            DataColumn(label: Text("Lote"),numeric: false,),
-            DataColumn(label: Text("Un."),numeric: false,),
-            DataColumn(label: Text("Saldo"),numeric: false,),
-            DataColumn(label: Text("Valor Unit."),numeric: false,),
-            DataColumn(label: Text("Qtd. Reservado"),numeric: false,),
+            DataColumn(label: Text("Item"), numeric: false),
+            DataColumn(label: Text("Lote"), numeric: false),
+            DataColumn(label: Text("Un."), numeric: false),
+            DataColumn(label: Text("Saldo"), numeric: false),
+            DataColumn(label: Text("Valor Unit."), numeric: false),
+            DataColumn(label: Text("Total"), numeric: false),
+            DataColumn(label: Text("Qtd. Reservado"), numeric: false),
           ],
           rows: store.itemsEstoque
               .map(
                 (item) => DataRow(
                   cells: [
-                    DataCell(Text(item.fkItemId.toString()+') ' + item.fkItemDescr.toString() ),),
-                    DataCell(Text(item.lote.toString()),),
-                    DataCell(Text(item.fkItemUnmedId.toString()+') ' + item.fkItemUnmedDescr.toString() ),),
-                    DataCell(Text(item.qtSaldo.toString()),),
-                    DataCell(Text(item.vlUnit.toString()),),
-                    DataCell(Text(item.qtReservado.toString()),),
+                    DataCell(Text(item.fkItemId.toString() +
+                        ') ' +
+                        item.fkItemDescr.toString())),
+                    DataCell(Text(item.lote.toString())),
+                    DataCell(Text(formatarIdDescr(
+                        item.fkItemUnmedId.toString(), item.fkItemUnmedDescr))),
+                    DataCell(Text(item.qtSaldo.toString())),
+                    DataCell(Text(item.vlUnit.toString())),
+                    DataCell(Text((item.qtSaldo * item.vlUnit).toString())),
+                    DataCell(Text(item.qtReservado.toString())),
                   ],
                 ),
               )

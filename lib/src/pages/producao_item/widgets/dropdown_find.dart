@@ -1,6 +1,7 @@
 import 'package:bucks/src/classes/item.dart';
 import 'package:bucks/src/classes/producao.dart';
 import 'package:bucks/src/pages/producao_item/producao_item_list/producao_item_list_controller.dart';
+import 'package:bucks/src/shared/utils/formatar_id_descr.dart';
 import 'package:bucks/src/shared/widgets/text_message.dart';
 import 'package:find_dropdown/find_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +70,7 @@ class _DropdownFindProducaoState extends State<DropdownFindProducao> {
                     )
                   : ListTile(
                       title: Text(
-                        '${item.id.toString()} - ${item.descr}',
+                        formatarIdDescr(item.id.toString(), item.descr),
                         style: TextStyle(fontSize: 24),
                       ),
                       // subtitle: Text(item.empresaDescr),
@@ -171,7 +172,7 @@ class _DropdownFindItemState extends State<DropdownFindItem> {
                     )
                   : ListTile(
                       title: Text(
-                        '${item.id.toString()} - ${item.descr}',
+                        formatarIdDescr(item.id.toString(), item.descr),
                         style: TextStyle(fontSize: 24),
                       ),
                       // subtitle: Text(item.empresaDescr),

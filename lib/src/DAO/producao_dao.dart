@@ -16,6 +16,9 @@ class ProducaoDAO extends BaseDAO<Producao> {
   @override
   String get tableName => 'producao';
 
+  @override
+  String get orderByCols => ' id desc ';
+
   Future<List<Producao>> listarProducaoByDescr({@required String descr}) async {
     final dbClient = await db;
     final result = await dbClient.rawQuery(
@@ -24,6 +27,4 @@ class ProducaoDAO extends BaseDAO<Producao> {
     return list;
     // where not exists (select 1 from $table_name_transacao tra where tra.receituarioInstNum = rec.receituarioInstNum and tra.receituarioNum = rec.receituarioNum and tra.tpmovtoNum = 802)
   }
-
-
 }

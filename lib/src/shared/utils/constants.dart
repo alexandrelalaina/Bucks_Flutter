@@ -8,3 +8,7 @@ const table_name_producao = 'producao';
 const table_name_producao_item = 'producao_item';
 const table_name_movto_estoque = 'movto_estoque';
 const table_name_movto_estoque_tipo = 'movto_estoque_tipo';
+
+// mascaras
+const maskValor = '000000,00';
+// const maskValor = '000.000,00';

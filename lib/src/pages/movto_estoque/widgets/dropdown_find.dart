@@ -1,109 +1,117 @@
-import 'package:bucks/src/classes/item_grupo.dart';
-import 'package:bucks/src/classes/item_tipo.dart';
-import 'package:bucks/src/classes/item_unmed.dart';
-import 'package:bucks/src/pages/item/item_list/item_list_controller.dart';
+import 'package:bucks/src/classes/item.dart';
+import 'package:bucks/src/classes/movto_estoque_tipo.dart';
 import 'package:bucks/src/shared/utils/formatar_id_descr.dart';
 import 'package:bucks/src/shared/widgets/text_message.dart';
 import 'package:find_dropdown/find_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-class DropdownFindItemTipo extends StatefulWidget {
+import '../movto_estoque_list_controller.dart';
+
+class DropdownFindMovtoEstoque extends StatefulWidget {
   final dynamic store;
 
-  const DropdownFindItemTipo({Key key, @required this.store}) : super(key: key);
+  const DropdownFindMovtoEstoque({Key key, @required this.store})
+      : super(key: key);
 
   @override
-  _DropdownFindItemTipoState createState() => _DropdownFindItemTipoState();
+  _DropdownFindMovtoEstoqueState createState() =>
+      _DropdownFindMovtoEstoqueState();
 }
 
-class _DropdownFindItemTipoState extends State<DropdownFindItemTipo> {
-  ItemListController get store => widget.store;
+class _DropdownFindMovtoEstoqueState extends State<DropdownFindMovtoEstoque> {
+  MovtoEstoqueListController get store => widget.store;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (BuildContext context) {
-        if (!store.hasResultsItemTipo) {
+        if (!store.hasResults) {
           //if (1 == 2) {
           return Container();
         }
 
-        if (store.itensTipo.isEmpty) {
+        if (store.movtosEstoque.isEmpty) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextMessage(
-                'Nenhum item tipo encontrado. \nClique aqui para tentar novamente.',
+                'Nenhuma produção encontrado. \nClique aqui para tentar novamente.',
                 fontSize: 18,
                 // onRefresh: store.fetchUnidade,
               ),
             ],
           );
         }
-        ItemTipo itemSelect;
-        if (store.itemTipo != null) {
-          itemSelect = store.itemTipo;
-        }
-        return FindDropdown<ItemTipo>(
-          selectedItem:
-              itemSelect, //store.items.isNotEmpty ? store.items.first : null,
-          onFind: (String filter) async {
-            return await store.filteredListItensTipos(filter);
-          },
-          onChanged: (ItemTipo data) async {
-            await store.setItemTipo(data);
-            print(data.descr);
-          },
-          dropdownBuilder: (BuildContext context, ItemTipo item) {
-            return Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Theme.of(context).dividerColor),
-                borderRadius: BorderRadius.circular(5),
-                color: Colors.white,
-              ),
-              child: (item == null)
-                  ? ListTile(
-                      title: Text(
-                        "Nenhum item tipo selecionado",
-                        style: TextStyle(fontSize: 24),
-                      ),
-                    )
-                  : ListTile(
-                      title: Text(
-                        formatarIdDescr(item.id.toString(), item.descr),
-                        style: TextStyle(fontSize: 24),
-                      ),
-                      // subtitle: Text(item.empresaDescr),
-                    ),
-            );
-          },
-          dropdownItemBuilder:
-              (BuildContext context, ItemTipo item, bool isSelected) {
-            return Container(
-              decoration: !isSelected
-                  ? null
-                  : BoxDecoration(
-                      border: Border.all(color: Theme.of(context).primaryColor),
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.white,
-                    ),
-              child: Column(
-                children: <Widget>[
-                  ListTile(
-                    selected: isSelected,
-                    title: Text(
-                      formatarIdDescr(item.id.toString(), item.descr),
-                      // '${item.id.toString()} - ${item.descr} pause2',
-                      style: TextStyle(fontSize: 24),
-                    ),
-                    // subtitle: Text(item.empresaDescr),
-                  ),
-                  Divider()
-                ],
-              ),
-            );
-          },
+
+        // MovtoEstoque itemSelect;
+        // if (store.movtosEstoque != null) {
+        //   itemSelect = store.movtosEstoque;
+        // }
+
+        // return FindDropdown<MovtoEstoque>(
+        //   selectedItem:
+        //       itemSelect, //store.items.isNotEmpty ? store.items.first : null,
+        //   onFind: (String filter) async {
+        //     return await store.filteredListMovtoEstoque(filter);
+        //   },
+        //   onChanged: (MovtoEstoque data) async {
+        //     await store.setMovtoEstoque(data);
+        //     print(data.descr);
+        //   },
+        //   dropdownBuilder: (BuildContext context, MovtoEstoque item) {
+        //     return Container(
+        //       decoration: BoxDecoration(
+        //         border: Border.all(color: Theme.of(context).dividerColor),
+        //         borderRadius: BorderRadius.circular(5),
+        //         color: Colors.white,
+        //       ),
+        //       child: (item == null)
+        //           ? ListTile(
+        //               title: Text(
+        //                 "Nenhuma produção selecionada",
+        //                 style: TextStyle(fontSize: 24),
+        //               ),
+        //             )
+        //           : ListTile(
+        //               title: Text(
+        //                 '${item.id.toString()} - ${item.qtd}',
+        //                 style: TextStyle(fontSize: 24),
+        //               ),
+        //               // subtitle: Text(item.empresaDescr),
+        //             ),
+        //     );
+        //   },
+        //   dropdownItemBuilder:
+        //       (BuildContext context, MovtoEstoque item, bool isSelected) {
+        //     return Container(
+        //       decoration: !isSelected
+        //           ? null
+        //           : BoxDecoration(
+        //               border: Border.all(color: Theme.of(context).primaryColor),
+        //               borderRadius: BorderRadius.circular(5),
+        //               color: Colors.white,
+        //             ),
+        //       child: Column(
+        //         children: <Widget>[
+        //           ListTile(
+        //             selected: isSelected,
+        //             title: Text(
+        //               '${item.id.toString()} - ${item.qtd}',
+        //               style: TextStyle(fontSize: 24),
+        //             ),
+        //             // subtitle: Text(item.empresaDescr),
+        //           ),
+        //           Divider()
+        //         ],
+        //       ),
+        //     );
+        //   },
+        // );
+
+        print('testando2');
+        return Container(
+          child: Text('testando2'),
         );
       },
     );
@@ -111,29 +119,28 @@ class _DropdownFindItemTipoState extends State<DropdownFindItemTipo> {
 }
 
 //-----------------------------------------------------------------------
-class DropdownFindItemGrupo extends StatefulWidget {
+class DropdownFindItem extends StatefulWidget {
   final dynamic store;
 
-  const DropdownFindItemGrupo({Key key, @required this.store})
-      : super(key: key);
+  const DropdownFindItem({Key key, @required this.store}) : super(key: key);
 
   @override
-  _DropdownFindItemGrupoState createState() => _DropdownFindItemGrupoState();
+  _DropdownFindItemState createState() => _DropdownFindItemState();
 }
 
-class _DropdownFindItemGrupoState extends State<DropdownFindItemGrupo> {
-  ItemListController get store => widget.store;
+class _DropdownFindItemState extends State<DropdownFindItem> {
+  MovtoEstoqueListController get store => widget.store;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (BuildContext context) {
-        if (!store.hasResultsItemGrupo) {
+        if (!store.hasResults) {
           //if (1 == 2) {
           return Container();
         }
 
-        if (store.itensGrupo.isEmpty) {
+        if (store.lovItens.isEmpty) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -145,21 +152,22 @@ class _DropdownFindItemGrupoState extends State<DropdownFindItemGrupo> {
             ],
           );
         }
-        ItemGrupo itemSelect;
-        if (store.itemGrupo != null) {
-          itemSelect = store.itemGrupo;
+
+        Item itemSelect;
+        if (store.lovItemSelected != null) {
+          itemSelect = store.lovItemSelected;
         }
-        return FindDropdown<ItemGrupo>(
-          selectedItem:
-              itemSelect, //store.items.isNotEmpty ? store.items.first : null,
+
+        return FindDropdown<Item>(
+          selectedItem: itemSelect,
           onFind: (String filter) async {
-            return await store.filteredListItensGrupos(filter);
+            return await store.filteredListItens(filter);
           },
-          onChanged: (ItemGrupo data) async {
-            await store.setItemGrupo(data);
+          onChanged: (Item data) async {
+            await store.setItem(data);
             print(data.descr);
           },
-          dropdownBuilder: (BuildContext context, ItemGrupo item) {
+          dropdownBuilder: (BuildContext context, Item item) {
             return Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Theme.of(context).dividerColor),
@@ -169,7 +177,7 @@ class _DropdownFindItemGrupoState extends State<DropdownFindItemGrupo> {
               child: (item == null)
                   ? ListTile(
                       title: Text(
-                        "Nenhum item tipo selecionado",
+                        "Nenhum item selecionado",
                         style: TextStyle(fontSize: 24),
                       ),
                     )
@@ -183,7 +191,7 @@ class _DropdownFindItemGrupoState extends State<DropdownFindItemGrupo> {
             );
           },
           dropdownItemBuilder:
-              (BuildContext context, ItemGrupo item, bool isSelected) {
+              (BuildContext context, Item item, bool isSelected) {
             return Container(
               decoration: !isSelected
                   ? null
@@ -208,61 +216,68 @@ class _DropdownFindItemGrupoState extends State<DropdownFindItemGrupo> {
             );
           },
         );
+
+        // return Container(
+        //   child: Text('testando1'),
+        // );
       },
     );
   }
 }
 
+///////////////// MovtoTipo
 //-----------------------------------------------------------------------
-class DropdownFindItemUnMed extends StatefulWidget {
+class DropdownFindMovtoTipo extends StatefulWidget {
   final dynamic store;
 
-  const DropdownFindItemUnMed({Key key, @required this.store})
+  const DropdownFindMovtoTipo({Key key, @required this.store})
       : super(key: key);
 
   @override
-  _DropdownFindItemUnMedState createState() => _DropdownFindItemUnMedState();
+  _DropdownFindMovtoTipoState createState() => _DropdownFindMovtoTipoState();
 }
 
-class _DropdownFindItemUnMedState extends State<DropdownFindItemUnMed> {
-  ItemListController get store => widget.store;
+class _DropdownFindMovtoTipoState extends State<DropdownFindMovtoTipo> {
+  MovtoEstoqueListController get store => widget.store;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (BuildContext context) {
-        if (!store.hasResultsItemUnMed) {
+        if (!store.hasResults) {
           //if (1 == 2) {
           return Container();
         }
 
-        if (store.itensUnMed.isEmpty) {
+        if (store.lovMovtoTipo.isEmpty) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextMessage(
-                'Nenhuma unid. medida encontrada. \nClique aqui para tentar novamente.',
+                'Nenhum Tipo de Movto encontrado. \nClique aqui para tentar novamente.',
                 fontSize: 18,
                 // onRefresh: store.fetchUnidade,
               ),
             ],
           );
         }
-        ItemUnmed itemSelect;
-        if (store.itemGrupo != null) {
-          itemSelect = store.itemUnmed;
+
+        MovtoEstoqueTipo itemSelect;
+        if (store.lovMovtoEstoqueTipoSelected != null) {
+          itemSelect = store.lovMovtoEstoqueTipoSelected;
         }
-        return FindDropdown<ItemUnmed>(
+
+        return FindDropdown<MovtoEstoqueTipo>(
           selectedItem:
               itemSelect, //store.items.isNotEmpty ? store.items.first : null,
           onFind: (String filter) async {
-            return await store.filteredListItensUnMed(filter);
+            return await store.filteredListMovtoEstoqueTipo(filter);
           },
-          onChanged: (ItemUnmed data) async {
-            await store.setItemUnMed(data);
+          onChanged: (MovtoEstoqueTipo data) async {
+            await store.setMovtoEstoqueTipo(data);
             print(data.descr);
           },
-          dropdownBuilder: (BuildContext context, ItemUnmed item) {
+          dropdownBuilder: (BuildContext context, MovtoEstoqueTipo item) {
             return Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Theme.of(context).dividerColor),
@@ -272,7 +287,7 @@ class _DropdownFindItemUnMedState extends State<DropdownFindItemUnMed> {
               child: (item == null)
                   ? ListTile(
                       title: Text(
-                        "Nenhuma unid. medida selecionada",
+                        "Nenhum item selecionado",
                         style: TextStyle(fontSize: 24),
                       ),
                     )
@@ -286,7 +301,7 @@ class _DropdownFindItemUnMedState extends State<DropdownFindItemUnMed> {
             );
           },
           dropdownItemBuilder:
-              (BuildContext context, ItemUnmed item, bool isSelected) {
+              (BuildContext context, MovtoEstoqueTipo item, bool isSelected) {
             return Container(
               decoration: !isSelected
                   ? null
@@ -311,6 +326,10 @@ class _DropdownFindItemUnMedState extends State<DropdownFindItemUnMed> {
             );
           },
         );
+
+        // return Container(
+        //   child: Text('testando1'),
+        // );
       },
     );
   }

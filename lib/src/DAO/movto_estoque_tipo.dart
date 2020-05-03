@@ -15,4 +15,6 @@ class MovtoEstoqueTipoDAO extends BaseDAO<MovtoEstoqueTipo> {
   @override
   String get tableName => table_name_movto_estoque_tipo;
 
+  @override
+  String get orderByCols => null;
 }

@@ -1,6 +1,9 @@
+import 'package:bucks/src/pages/movto_estoque/movto_estoque_page.dart';
 import 'package:bucks/src/pages/movto_estoque/widgets/card_movto_estoque.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../shared/utils/nav.dart';
 import 'movto_estoque_list_controller.dart';
 
 class MovtoEstoqueListPage extends StatefulWidget {
@@ -10,17 +13,16 @@ class MovtoEstoqueListPage extends StatefulWidget {
 
   @override
   _MovtoEstoqueListPageState createState() => _MovtoEstoqueListPageState();
-  
 }
 
 class _MovtoEstoqueListPageState extends State<MovtoEstoqueListPage> {
-  MovtoEstoqueListController store;
+  MovtoEstoqueListController storeList;
 
   @override
   void initState() {
     super.initState();
-    store = MovtoEstoqueListController();
-    store.init();
+    storeList = MovtoEstoqueListController();
+    storeList.init();
   }
 
   @override
@@ -30,13 +32,23 @@ class _MovtoEstoqueListPageState extends State<MovtoEstoqueListPage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
-        // scrollDirection: Axis.horizontal,
-        scrollDirection: Axis.vertical,
+        scrollDirection: Axis.horizontal,
+        // scrollDirection: Axis.vertical,
         child: Column(
           children: <Widget>[
-            CardMovtoEstoqueList(store: store),
+            CardMovtoEstoqueList(store: storeList),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          push(
+              context,
+              MovtoEstoquePage(
+                storeMovtoEstoqueList: storeList,
+              ));
+        },
+        child: Icon(FontAwesomeIcons.plus),
       ),
     );
   }

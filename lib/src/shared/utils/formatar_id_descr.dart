@@ -1,10 +1,11 @@
-String formatarIdDescr ( String pId, String pDescr ) {
-  String _retorno;
+String formatarIdDescr(String pId, String pDescr) {
+  String _retorno = '-1';
 
-  if (pId != null)
-    _retorno = pId + ') ';
-
-  _retorno = _retorno + pDescr;
+  try {
+    if (pId != null && pDescr != null) _retorno = pId + ')' + pDescr;
+  } catch (e) {
+    _retorno = 'error ' + e.toString();
+  }
 
   return _retorno;
 }

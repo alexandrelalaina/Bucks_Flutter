@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:bucks/src/classes/user.dart';
 import 'package:bucks/src/pages/cg_ref_codes/cg_ref_codes_list/cg_ref_codes_list_page.dart';
+import 'package:bucks/src/pages/dropdown_teste/hello_dropdown_page2.dart';
 import 'package:bucks/src/pages/gifs/ui/gifsHomePage.dart';
 import 'package:bucks/src/pages/item/item_list/item_list_page.dart';
 import 'package:bucks/src/pages/item_estoque/item_estoque_list_page.dart';
@@ -11,6 +13,8 @@ import 'package:bucks/src/pages/movto_estoque/movto_estoque_tipo/movto_estoque_t
 import 'package:bucks/src/pages/producao/producao_list/producao_list_page.dart';
 import 'package:bucks/src/pages/receita/receita_page.dart';
 import 'package:bucks/src/pages/tarefa/tarefaPage.dart';
+import 'package:bucks/src/shared/database/users_db.dart';
+import 'package:bucks/src/shared/utils/constants.dart';
 import 'package:bucks/src/shared/utils/nav.dart';
 import 'package:bucks/src/shared/widgets/dashboard_drawer_widget.dart';
 import 'package:flutter/material.dart';
@@ -46,11 +50,18 @@ class _DashboardMateriaisPageState extends State<DashboardMateriaisPage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(
+              Icons.explicit,
+              size: screen ? 24 : 32,
+            ),
+            onPressed: () => _exec_procedure(),
+          ),
+          IconButton(
+            icon: Icon(
               Icons.exit_to_app,
               size: screen ? 24 : 32,
             ),
             onPressed: () => exit(0),
-          )
+          ),
         ],
       ),
       body: Stack(
@@ -70,6 +81,21 @@ class _DashboardMateriaisPageState extends State<DashboardMateriaisPage> {
     );
   }
 
+  void _exec_procedure() {
+    print('<<< _exec_procedure executar >>>');
+    UserDb userDb = UserDb();
+    userDb.deletarTabelasManualmente();
+
+    // var _db = userDb.db;
+
+    // final db = UserDb.getInstance();
+    // db.db;
+
+    // await userDb.dropTable(db, 0, table_name_movto_estoque);
+
+    print('<<< _exec_procedure executada com sucesso >>>');
+  }
+
   _listView(context) {
     List<String> applications = [];
 
@@ -86,6 +112,7 @@ class _DashboardMateriaisPageState extends State<DashboardMateriaisPage> {
       "Mov. Estoque",
       "Item Estoque",
       "Receita",
+      "teste drodown",
     ]);
 
     List<IconData> icons = [];
@@ -105,6 +132,7 @@ class _DashboardMateriaisPageState extends State<DashboardMateriaisPage> {
       FontAwesomeIcons.cartArrowDown,
       FontAwesomeIcons.shopware,
       FontAwesomeIcons.receipt,
+      FontAwesomeIcons.tools,
       //  FontAwesomeIcons.cookieBite,
       // FontAwesomeIcons.prescriptionBottle,
     ]);
@@ -221,6 +249,9 @@ class _DashboardMateriaisPageState extends State<DashboardMateriaisPage> {
                   break;
                 case 11:
                   page = ReceitaPage();
+                  break;
+                case 12:
+                  page = HelloDropDown2();
                   break;
                 default:
               }
