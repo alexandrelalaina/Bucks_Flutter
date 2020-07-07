@@ -20,6 +20,12 @@ mixin _$MovtoEstoqueListController on _MovtoEstoqueListControllerBase, Store {
   bool get hasResultsItem =>
       (_$hasResultsItemComputed ??= Computed<bool>(() => super.hasResultsItem))
           .value;
+  Computed<bool> _$hasResultsItemEstoqueComputed;
+
+  @override
+  bool get hasResultsItemEstoque => (_$hasResultsItemEstoqueComputed ??=
+          Computed<bool>(() => super.hasResultsItemEstoque))
+      .value;
   Computed<bool> _$hasResultsMovtoTipoComputed;
 
   @override
@@ -63,6 +69,26 @@ mixin _$MovtoEstoqueListController on _MovtoEstoqueListControllerBase, Store {
     }, _$lovItemSelectedAtom, name: '${_$lovItemSelectedAtom.name}_set');
   }
 
+  final _$lovItemEstoqueSelectedAtom =
+      Atom(name: '_MovtoEstoqueListControllerBase.lovItemEstoqueSelected');
+
+  @override
+  ItemEstoque get lovItemEstoqueSelected {
+    _$lovItemEstoqueSelectedAtom.context
+        .enforceReadPolicy(_$lovItemEstoqueSelectedAtom);
+    _$lovItemEstoqueSelectedAtom.reportObserved();
+    return super.lovItemEstoqueSelected;
+  }
+
+  @override
+  set lovItemEstoqueSelected(ItemEstoque value) {
+    _$lovItemEstoqueSelectedAtom.context.conditionallyRunInAction(() {
+      super.lovItemEstoqueSelected = value;
+      _$lovItemEstoqueSelectedAtom.reportChanged();
+    }, _$lovItemEstoqueSelectedAtom,
+        name: '${_$lovItemEstoqueSelectedAtom.name}_set');
+  }
+
   final _$lovMovtoEstoqueTipoSelectedAtom =
       Atom(name: '_MovtoEstoqueListControllerBase.lovMovtoEstoqueTipoSelected');
 
@@ -101,21 +127,40 @@ mixin _$MovtoEstoqueListController on _MovtoEstoqueListControllerBase, Store {
     }, _$movtosEstoqueListAtom, name: '${_$movtosEstoqueListAtom.name}_set');
   }
 
-  final _$itemListAtom = Atom(name: '_MovtoEstoqueListControllerBase.itemList');
+  final _$itensListAtom =
+      Atom(name: '_MovtoEstoqueListControllerBase.itensList');
 
   @override
-  ObservableFuture<List<Item>> get itemList {
-    _$itemListAtom.context.enforceReadPolicy(_$itemListAtom);
-    _$itemListAtom.reportObserved();
-    return super.itemList;
+  ObservableFuture<List<Item>> get itensList {
+    _$itensListAtom.context.enforceReadPolicy(_$itensListAtom);
+    _$itensListAtom.reportObserved();
+    return super.itensList;
   }
 
   @override
-  set itemList(ObservableFuture<List<Item>> value) {
-    _$itemListAtom.context.conditionallyRunInAction(() {
-      super.itemList = value;
-      _$itemListAtom.reportChanged();
-    }, _$itemListAtom, name: '${_$itemListAtom.name}_set');
+  set itensList(ObservableFuture<List<Item>> value) {
+    _$itensListAtom.context.conditionallyRunInAction(() {
+      super.itensList = value;
+      _$itensListAtom.reportChanged();
+    }, _$itensListAtom, name: '${_$itensListAtom.name}_set');
+  }
+
+  final _$itensEstoqueListAtom =
+      Atom(name: '_MovtoEstoqueListControllerBase.itensEstoqueList');
+
+  @override
+  ObservableFuture<List<ItemEstoque>> get itensEstoqueList {
+    _$itensEstoqueListAtom.context.enforceReadPolicy(_$itensEstoqueListAtom);
+    _$itensEstoqueListAtom.reportObserved();
+    return super.itensEstoqueList;
+  }
+
+  @override
+  set itensEstoqueList(ObservableFuture<List<ItemEstoque>> value) {
+    _$itensEstoqueListAtom.context.conditionallyRunInAction(() {
+      super.itensEstoqueList = value;
+      _$itensEstoqueListAtom.reportChanged();
+    }, _$itensEstoqueListAtom, name: '${_$itensEstoqueListAtom.name}_set');
   }
 
   final _$movtoTipoListAtom =
@@ -157,6 +202,13 @@ mixin _$MovtoEstoqueListController on _MovtoEstoqueListControllerBase, Store {
     return _$fetchItemAsyncAction.run(() => super.fetchItem());
   }
 
+  final _$fetchItemEstoqueAsyncAction = AsyncAction('fetchItemEstoque');
+
+  @override
+  Future<List<ItemEstoque>> fetchItemEstoque() {
+    return _$fetchItemEstoqueAsyncAction.run(() => super.fetchItemEstoque());
+  }
+
   final _$fetchMovtoTipoAsyncAction = AsyncAction('fetchMovtoTipo');
 
   @override
@@ -169,6 +221,13 @@ mixin _$MovtoEstoqueListController on _MovtoEstoqueListControllerBase, Store {
   @override
   Future setItem(Item model) {
     return _$setItemAsyncAction.run(() => super.setItem(model));
+  }
+
+  final _$setItemEstoqueAsyncAction = AsyncAction('setItemEstoque');
+
+  @override
+  Future setItemEstoque(ItemEstoque model) {
+    return _$setItemEstoqueAsyncAction.run(() => super.setItemEstoque(model));
   }
 
   final _$setMovtoEstoqueTipoAsyncAction = AsyncAction('setMovtoEstoqueTipo');

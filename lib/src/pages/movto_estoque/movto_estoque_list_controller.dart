@@ -1,7 +1,9 @@
 import 'package:bucks/src/DAO/item_dao.dart';
+import 'package:bucks/src/DAO/item_estoque_dao.dart';
 import 'package:bucks/src/DAO/movto_estoque_dao.dart';
 import 'package:bucks/src/DAO/movto_estoque_tipo.dart';
 import 'package:bucks/src/classes/item.dart';
+import 'package:bucks/src/classes/item_estoque.dart';
 import 'package:bucks/src/classes/movto_estoque.dart';
 import 'package:bucks/src/classes/movto_estoque_tipo.dart';
 import 'package:mobx/mobx.dart';
@@ -16,6 +18,7 @@ abstract class _MovtoEstoqueListControllerBase with Store {
 
   //listas = LOV
   ItemDAO itemDAO;
+  ItemEstoqueDAO itemEstoqueDAO;
   MovtoEstoqueTipoDAO movtoEstoqueTipoDAO;
 
   @observable
@@ -25,15 +28,20 @@ abstract class _MovtoEstoqueListControllerBase with Store {
   Item lovItemSelected;
 
   @observable
+  ItemEstoque lovItemEstoqueSelected;
+
+  @observable
   MovtoEstoqueTipo lovMovtoEstoqueTipoSelected;
 
   // listas = LOV
   List<Item> lovItens = [];
+  List<ItemEstoque> lovItensEstoque = [];
   List<MovtoEstoqueTipo> lovMovtoTipo = [];
 
   _MovtoEstoqueListControllerBase() {
     movtoEstoqueDAO = movtoEstoqueDAO ?? MovtoEstoqueDAO();
     itemDAO = itemDAO ?? ItemDAO();
+    itemEstoqueDAO = itemEstoqueDAO ?? ItemEstoqueDAO();
     movtoEstoqueTipoDAO = movtoEstoqueTipoDAO ?? MovtoEstoqueTipoDAO();
   }
 
@@ -48,8 +56,9 @@ abstract class _MovtoEstoqueListControllerBase with Store {
 
   void init() async {
     await listar();
-    await fetchItem();
     await fetchMovtoTipo();
+    // await fetchItem();
+    // await fetchItemEstoque();
   }
 
   @action
@@ -113,6 +122,22 @@ abstract class _MovtoEstoqueListControllerBase with Store {
       return listAux;
   }
 
+  Future<List<ItemEstoque>> filteredListItensEstoque(String item) async {
+    List<ItemEstoque> listAux = [];
+
+    if (item != "") {
+      lovItensEstoque.forEach((v) {
+        // TODO ver se precisarei trabalhar com o LOTE
+        if (v.fkItemId.toString().toUpperCase().contains(item.toUpperCase()))
+          listAux.add(v);
+      });
+    }
+    if (listAux.isEmpty)
+      return lovItensEstoque;
+    else
+      return listAux;
+  }
+
   Future<List<MovtoEstoqueTipo>> filteredListMovtoEstoqueTipo(
       String item) async {
     List<MovtoEstoqueTipo> listAux = [];
@@ -142,13 +167,48 @@ abstract class _MovtoEstoqueListControllerBase with Store {
   ObservableFuture<List<MovtoEstoque>> movtosEstoqueList =
       emptyResponseMovtoEstoque;
 
+  ///////////////////// Item //////////////
+  @computed
+  bool get hasResultsItem =>
+      itensList != emptyResponseItens &&
+      itensList.status == FutureStatus.fulfilled;
+
+  static ObservableFuture<List<Item>> emptyResponseItens =
+      ObservableFuture.value([]);
+
+  @observable
+  ObservableFuture<List<Item>> itensList = emptyResponseItens;
+
+  ///////////////////// ItemEstoque //////////////
+  @computed
+  bool get hasResultsItemEstoque =>
+      itensEstoqueList != emptyResponseItensEstoque &&
+      itensEstoqueList.status == FutureStatus.fulfilled;
+
+  static ObservableFuture<List<ItemEstoque>> emptyResponseItensEstoque =
+      ObservableFuture.value([]);
+
+  @observable
+  ObservableFuture<List<ItemEstoque>> itensEstoqueList =
+      emptyResponseItensEstoque;
+
   // listas = LOV
   @action
   Future<List<Item>> fetchItem() async {
     lovItens = [];
     var future = itemDAO.listarTodos();
-    itemList = ObservableFuture<List<Item>>(future);
+    itensList = ObservableFuture<List<Item>>(future);
     return lovItens = await future;
+  }
+
+  // listas = LOV
+  @action
+  Future<List<ItemEstoque>> fetchItemEstoque() async {
+    lovItensEstoque = [];
+    var future = itemEstoqueDAO.lovItemEstoque();
+    // var future = itemEstoqueDAO.listarTodos();
+    itensEstoqueList = ObservableFuture<List<ItemEstoque>>(future);
+    return lovItensEstoque = await future;
   }
 
   // listas = LOV
@@ -161,21 +221,15 @@ abstract class _MovtoEstoqueListControllerBase with Store {
   }
 
   /////////////////////
-  @computed
-  bool get hasResultsItem =>
-      itemList != emptyResponseItem &&
-      itemList.status == FutureStatus.fulfilled;
-
-  static ObservableFuture<List<Item>> emptyResponseItem =
-      ObservableFuture.value([]);
-
-  @observable
-  ObservableFuture<List<Item>> itemList = emptyResponseItem;
-
-  /////////////////////
   @action
   Future setItem(Item model) async {
     lovItemSelected = model;
+  }
+
+  /////////////////////
+  @action
+  Future setItemEstoque(ItemEstoque model) async {
+    lovItemEstoqueSelected = model;
   }
 
   /////////////////////

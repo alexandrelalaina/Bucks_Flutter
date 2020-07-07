@@ -1,7 +1,9 @@
 import 'package:bucks/src/pages/movto_estoque/movto_estoque_controller.dart';
 import 'package:bucks/src/pages/movto_estoque/movto_estoque_list_controller.dart';
 import 'package:bucks/src/pages/movto_estoque/widgets/buttons.dart';
-import 'package:bucks/src/pages/movto_estoque/widgets/dropdown_find.dart';
+import 'package:bucks/src/pages/movto_estoque/widgets/dropdown_find_item.dart';
+import 'package:bucks/src/pages/movto_estoque/widgets/dropdown_find_item_estoque.dart';
+import 'package:bucks/src/pages/movto_estoque/widgets/dropdown_find_movto_estoque_tipo.dart';
 import 'package:bucks/src/shared/utils/colors.dart';
 import 'package:bucks/src/shared/utils/constants.dart';
 import 'package:bucks/src/shared/utils/formatar_id_descr.dart';
@@ -12,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:mobx/mobx.dart';
 
 class CardMovtoEstoque extends StatefulWidget {
   final MovtoEstoqueController store;
@@ -39,23 +42,50 @@ class _CardMovtoEstoqueState extends State<CardMovtoEstoque> {
     List<Widget> list = List();
 
     list.add(CorDeFundo.ContainerDecorationPadrao(
-      text: 'ITEM',
-      fontSize: 24,
-      fontWeight: FontWeight.bold,
-    ));
-    list.add(DropdownFindItem(store: storeMovtoEstoqueList));
-
-    list.add(TextFieldApp(
-      controller: store.lote,
-      text: "Digite o Lote",
-    ));
-
-    list.add(CorDeFundo.ContainerDecorationPadrao(
       text: 'TIPO MOVTO ESTOQUE',
       fontSize: 24,
       fontWeight: FontWeight.bold,
     ));
     list.add(DropdownFindMovtoTipo(store: storeMovtoEstoqueList));
+
+    list.add(Divider(color: Colors.red));
+    list.add(Text('***ajustar LOV a ser mostrada... ITEM ou ITEM_ESTOQUE'));
+    list.add(Divider(color: Colors.red));
+
+    // if (storeMovtoEstoqueList.lovMovtoEstoqueTipoSelected.cdTipoMovto == "E") {
+    // if (storeMovtoEstoqueList.lovMovtoEstoqueTipoSelected != null) {
+    // if (storeMovtoEstoqueList.lovMovtoEstoqueTipoSelected.cdTipoMovto ==
+    //     "E") {
+    list.add(CorDeFundo.ContainerDecorationPadrao(
+      text: 'ITEM',
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+    ));
+    list.add(DropdownFindItem(store: storeMovtoEstoqueList));
+    // list.add(Observer(
+    //   builder: (BuildContext context) {
+    //     return DropdownFindItem(store: storeMovtoEstoqueList);
+    //   },
+    // ));
+    // list.add(DropdownFindItem(store: storeMovtoEstoqueList));
+    // } else {
+    list.add(CorDeFundo.ContainerDecorationPadrao(
+      text: 'ITEM DO ESTOQUE',
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+    ));
+    list.add(DropdownFindItemEstoque(
+      storeList: storeMovtoEstoqueList,
+      storePage: store,
+    ));
+    // }
+    // }
+
+    list.add(TextFieldApp(
+      controller: store.lote,
+      text: "Digite o Lote",
+      pEnabled: false,
+    ));
 
     store.qtd = MaskedTextController(mask: maskValor);
     store.qtd.text = '1';

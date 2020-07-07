@@ -50,6 +50,10 @@ class ItemEstoqueDAO extends BaseDAO<ItemEstoque> {
     return null;
   }
 
+  Future<List<ItemEstoque>> lovItemEstoque() async {
+    return await super.consultar(null, ' ie.qt_saldo > 0 ', []);
+  }
+
   // Future<List<ItemEstoque>> listarItemEstoque() async {
   //   final dbClient = await db;
   //   final result = await dbClient.rawQuery(

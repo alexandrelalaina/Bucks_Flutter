@@ -1,5 +1,6 @@
 import 'package:bucks/src/classes/entity_base.dart';
 import 'package:bucks/src/repository/bucks_db_repository.dart';
+import 'package:bucks/src/shared/widgets/snackbar_custom.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class BaseDAO<T extends EntityBase> {
@@ -37,10 +38,23 @@ abstract class BaseDAO<T extends EntityBase> {
     return await dbClient.rawDelete("delete from $tableName ");
   }
 
-  Future<List<T>> consultar(String sql, [List<dynamic> arguments]) async {
+  Future<List<T>> consultar(
+      String pSql, // passar o sql com where
+      String
+          pSomenteWhere, // passar apenas where, utilizando ou nao o sqlComJoin
+      [List<dynamic> arguments]) async {
     final dbClient = await db;
-    // final dbClient = await db;
-    _sql = sql;
+
+    _sql = pSql;
+
+    if (_sql == null) {
+      _sql = sqlComJoin;
+    }
+
+    if (pSomenteWhere != null) {
+      _sql = _sql + ' and ' + pSomenteWhere;
+    }
+
     if (orderByCols != null) {
       _sql = _sql + ' order by $orderByCols ';
     }
@@ -50,15 +64,15 @@ abstract class BaseDAO<T extends EntityBase> {
 
   Future<List<T>> listarTodos() async {
     if (sqlComJoin != null)
-      return consultar('$sqlComJoin');
+      return consultar('$sqlComJoin', null);
     else
-      return consultar('select * from $tableName');
+      return consultar('select * from $tableName', null);
   }
 
   // passar a PK - se for composta tem que implementar as colunas
   Future<T> consultarPorPk(int id) async {
     List<T> list =
-        await consultar('select * from $tableName where id = ? ', [id]);
+        await consultar('select * from $tableName where id = ? ', null, [id]);
     return list.length > 0 ? list.first : null;
   }
 

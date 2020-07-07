@@ -1,0 +1,43 @@
+=================Alexandre==================
+
+==tela movto_estoque==
+  <SAIDA>
+sempre irei na ITEM_ESTOQUE e recuperar os itens que possuem estoque, pois o processo é exatamente a baixa o ITEM_ESTOQUE existente
+  - USARIO - 
+- lote - sera recuperado do objeto da lista que user selecionou (ITEM_ESTOQUE)
+- vl_unit - idem ao lote
+- qt - user deve informar (validar com o ITEM_ESTOQUE.QT)
+  - SISTEMA -
+-selecionado o item, chamar a MOVTO_ESTOQUE.SALVAR que irá baixar ENTRADA ou SAIDA (ja com tudo pronto)
+
+  <ENTRADA>
+-diferente da saida, sempre irei na ITEM, recuperar os itens do sistema (apenas os ativos e que controlam estoque in (S,L))
+  - USARIO - 
+- lote - usuario nao faz nada referente ao lote
+- vl_unit - user deve informar (fazer na tela a opcao de informar valor total tambem)
+- qt - user deve informar
+  - SISTEMA -
+-selecionado o item, chamar a MOVTO_ESTOQUE.SALVAR que irá baixar ENTRADA ou SAIDA
+-logo de inicio, se o ITEM.CD_CONTROLA_ESTOQUE == N, a baixa nao fará nada 
+- no caso da entrada, esse processo deve ser capaz de verificar se ITEM.CD_CONTROLA_ESTOQUE 
+  - se controla estoque = L(LOTE), entao deverá ser feito 1 novo registro na ITEM_ESTOQUE com o max + 1
+  - se controla estoque = S(SIM), entao deverá ser somado essa MOVTO na ITEM_ESTOQUE
+    * sempre existirá apenas 1 registro na ITEM_ESTOQUE para esse ITEM
+    calculo a ser feito:
+      recuperar ITEM_ESTOQUE
+
+      fazer media ponderada:
+        ITEM_ESTOQUE.QT = ITEM_ESTOQUE.QT + MOVTO_ESTOQUE.QT;
+
+        ITEM_ESTOQUE.VL_UNIT = 
+        ( (ITEM_ESTOQUE.QT * ITEM_ESTOQUE.VL_UNIT) +
+          (MOVTO_ESTOQUE.QT * MOVTO_ESTOQUE.VL_UNIT) 
+        ) /
+        (ITEM_ESTOQUE.QT + MOVTO_ESTOQUE.QT) ;
+
+
+DropdownFindItem utiliza MovtoEstoqueListController.lovItens - que faz => itemDAO.listarTodos();
+terei que mudar para ver se busco: 
+  ItemDAO.listarTodos();
+  ItemEstoqueDAO.listarTodos(); 
+

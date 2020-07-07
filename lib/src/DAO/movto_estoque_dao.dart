@@ -38,6 +38,7 @@ class MovtoEstoqueDAO extends BaseDAO<MovtoEstoque> {
 
   @override
   Future<int> salvar(MovtoEstoque movtoEstoque) async {
+    // chamar o metodo SALVAR do pai, normal
     print('<<< MovtoEstoqueDAO.salvar 010 => salvando o MovtoEstoque >>>');
     var _newMovtoId = super.salvar(movtoEstoque);
     movtoEstoque.id = await _newMovtoId;
@@ -45,8 +46,10 @@ class MovtoEstoqueDAO extends BaseDAO<MovtoEstoque> {
         '<<< MovtoEstoqueDAO.salvar 011 => salvou movtoEstoque - _newMovtoId:$_newMovtoId >>>');
     print(
         '<<< MovtoEstoqueDAO.salvar 012 => salvou movtoEstoque - objeto movtoEstoque.id:$movtoEstoque.id >>>');
+    //
 
     // efetuar a Baixa
+    // TODO criar um metodo de baixa, onde passo
     ItemEstoqueDAO itemEstoqueDAO = ItemEstoqueDAO();
     ItemEstoque itemEstoque = ItemEstoque();
     MovtoEstoqueTipoDAO movtoEstoqueTipoDAO = MovtoEstoqueTipoDAO();

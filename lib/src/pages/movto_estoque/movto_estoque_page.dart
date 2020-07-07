@@ -1,4 +1,5 @@
 import 'package:bucks/src/pages/movto_estoque/movto_estoque_controller.dart';
+// import 'package:bucks/src/shared/utils/datatime.dart';
 import 'package:flutter/material.dart';
 
 import 'movto_estoque_list_controller.dart';
@@ -18,7 +19,6 @@ class MovtoEstoquePage extends StatefulWidget {
 }
 
 class _MovtoEstoquePageState extends State<MovtoEstoquePage> {
-
   MovtoEstoqueController store;
   MovtoEstoqueListController get storeMovtoEstoqueList =>
       widget.storeMovtoEstoqueList;
@@ -27,6 +27,9 @@ class _MovtoEstoquePageState extends State<MovtoEstoquePage> {
   void initState() {
     super.initState();
     store = MovtoEstoqueController();
+    // var x = hoje;
+    // print('hoje:$x');
+    // store.dt.text = x;
   }
 
   @override

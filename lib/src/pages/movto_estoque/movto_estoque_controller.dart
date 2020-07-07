@@ -44,7 +44,9 @@ abstract class _MovtoEstoqueControllerBase with Store {
     movtoEstoqueDAO = movtoEstoqueDAO ?? MovtoEstoqueDAO();
   }
 
-  Future init() async {}
+  Future init() async {
+    print('init');
+  }
 
   @action
   salvar(
